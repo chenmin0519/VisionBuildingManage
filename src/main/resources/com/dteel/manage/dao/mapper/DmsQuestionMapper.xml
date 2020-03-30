@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dteel.manage.dao.mapper.DmsQuestionMapper" >
+    <resultMap id="BaseResultMap" type="com.dteel.manage.modle.entity.DmsQuestion" >
+        <id column="id" property="id"  />
+        <result column="department_id" property="departmentId"  />
+        <result column="question" property="question"  />
+        <result column="type" property="type"  />
+        <result column="answer" property="answer"  />
+        <result column="status" property="status"  />
+        <result column="score" property="score"  />
+        <result column="add_time" property="addTime"></result>
+        <result column="add_user" property="addUser"></result>
+        <result column="update_time" property="updateTime"></result>
+        <result column="update_user" property="updateUser"></result>
+    </resultMap>
+
+    <resultMap id="BaseVoResultMap" type="com.dteel.manage.modle.po.DmsQuestionVo" >
+        <id column="id" property="id"  />
+        <result column="department_id" property="departmentId"  />
+        <result column="department_name" property="departmentName"  />
+        <result column="question" property="question"  />
+        <result column="type" property="type"  />
+        <result column="answer" property="answer"  />
+        <result column="status" property="status"  />
+        <result column="score" property="score"  />
+        <result column="add_time" property="addTime"></result>
+        <result column="add_user" property="addUser"></result>
+        <result column="update_time" property="updateTime"></result>
+        <result column="update_user" property="updateUser"></result>
+    </resultMap>
+
+    <sql id="Base_Vo_Column_List" >
+        dms_question.id, dms_department.department_name,dms_question.department_id,
+        dms_question.type,dms_question.score,dms_question.answer,dms_question.question,
+        dms_question.status,
+        dms_question.add_time,dms_question.add_user,dms_question.update_time,dms_question.update_user
+    </sql>
+
+    <sql id="Base_Column_List" >
+        dms_question.id,dms_question.department_id,
+        dms_question.type,dms_question.score,dms_question.answer,dms_question.question,
+        dms_question.status,
+        dms_question.add_time,dms_question.add_user,dms_question.update_time,dms_question.update_user
+    </sql>
+    <sql id="where-all-condition">
+        <if test="f.question != null and f.question!= ''"  >
+            and dms_question.question like concat(concat('%', #{f.question}),'%')
+        </if>
+        <if test="f.type != null" >
+            and dms_question.`type` = #{f.type}
+        </if>
+        <if test="f.departmentId != null" >
+            and dms_question.department_id = #{f.departmentId}
+        </if>
+        <if test="f.id != null" >
+            and dms_question.id = #{f.id}
+        </if>
+        <if test="f.status != null  and f.status!= ''" >
+            and  dms_question.status = #{f.status}
+        </if>
+        <if test="f.addTime != null">
+            AND dms_question.add_time = #{f.addTime}
+        </if>
+        <if test="f.addUser != null">
+            AND dms_question.add_user = #{f.addUser}
+        </if>
+        <if test="f.updateTime != null">
+            AND dms_question.update_time = #{f.updateTime}
+        </if>
+        <if test="f.updateUser != null">
+            AND dms_question.update_user = #{f.updateUser}
+        </if>
+    </sql>
+
+
+
+    <select id="queryPage" resultMap="BaseVoResultMap">
+        select  <include refid="Base_Vo_Column_List"/>
+        from dms_question left join dms_department on dms_question.department_id = dms_department.id where 1=1
+        <include refid="where-all-condition"/>
+        order by add_time desc
+        limit #{startPage},${pageRows}
+    </select>
+
+    <select id="queryPageCount" resultType="java.lang.Integer">
+        select  count(1)
+        from dms_question where 1=1
+        <include refid = "where-all-condition" />
+    </select>
+
+    <select id="queryById" resultType="com.dteel.manage.modle.po.DmsQuestionVo">
+        select  <include refid="Base_Vo_Column_List"/>
+        from dms_question left join dms_department on dms_question.department_id = dms_department.id
+         where dms_question.id = #{id}
+    </select>
+
+    <insert id="insertQuestion" useGeneratedKeys="true" keyProperty="id" parameterType="com.dteel.manage.modle.entity.DmsQuestion" >
+    insert into dms_question (
+          id,
+          department_id,
+          answer,
+          question,
+          `type`,
+          score,
+          status,
+          add_time,
+          add_user,
+          update_time,
+          update_user
+        )
+        VALUES(
+          #{id},
+          #{departmentId},
+          #{answer},
+          #{question},
+          #{type},
+          #{score},
+          1,
+          #{addTime},
+          #{addUser},
+          #{updateTime},
+          #{updateUser}
+        )
+        <selectKey keyProperty="id" resultType="java.lang.Long">
+            select LAST_INSERT_ID() as id
+        </selectKey>
+  </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dteel.manage.modle.entity.DmsQuestion" >
+        update dms_question
+        <set >
+            id = #{id}
+            <if test="departmentId != null" >
+                ,department_id = #{departmentId}
+            </if>
+            <if test="answer != null" >
+                ,answer = #{answer}
+            </if>
+            <if test="question != null" >
+                ,question = #{question}
+            </if>
+            <if test="type != null" >
+                ,`type` = #{type}
+            </if>
+            <if test="score != null" >
+                ,`score` = #{score}
+            </if>
+            <if test="status != null" >
+                ,status = #{status}
+            </if>
+            <if test="addTime != null" >
+                ,add_time = #{addTime}
+            </if>
+            <if test="addUser != null">
+                , add_user = #{addUser}
+            </if>
+            <if test="updateTime != null">
+                , update_time = #{updateTime}
+            </if>
+            <if test="updateUser != null">
+                , update_user = #{updateUser}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from dms_question where id = #{id}
+    </delete>
+</mapper>

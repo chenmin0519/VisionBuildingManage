@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dteel.manage.dao.mapper.DmsMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.dteel.manage.modle.entity.DmsMenu" >
+    <id column="id" property="id"  />
+    <result column="menu_name" property="menuName"  />
+    <result column="menu_pid" property="menuPid"  />
+    <result column="lv" property="lv"  />
+    <result column="status" property="status"  />
+    <result column="menu_url" property="menuUrl"  />
+    <result column="num" property="num"  />
+    <result column="icon" property="icon"  />
+    <result column="add_time" property="addTime"></result>
+    <result column="add_user" property="addUser"></result>
+    <result column="update_time" property="updateTime"></result>
+    <result column="update_user" property="updateUser"></result>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dms_menu.id, dms_menu.menu_name, dms_menu.menu_pid,dms_menu.num, dms_menu.lv, dms_menu.menu_url, dms_menu.status, dms_menu.icon,
+    dms_menu.add_time,dms_menu.add_user,dms_menu.update_time,dms_menu.update_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dms_menu
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dms_menu
+    where id = #{id}
+  </delete>
+  <delete id="deleteByPrentId" parameterType="java.lang.Long" >
+    delete from dms_menu
+    where id = #{id}
+  </delete>
+
+
+  <insert id="insertSelective" parameterType="com.dteel.manage.modle.entity.DmsMenu" >
+    insert into dms_menu (
+          id,
+          menu_name,
+          num,
+          menu_pid,
+          lv,
+          menu_url,
+          status,
+          icon,
+          add_time,
+          add_user,
+          update_time,
+          update_user
+        )
+        VALUES(
+          #{id},
+          #{menuName},
+          #{num},
+          #{menuPid},
+          #{lv},
+          #{menuUrl},
+          #{status},
+          #{icon},
+          #{addTime},
+          #{addUser},
+          #{updateTime},
+          #{updateUser}
+        )
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dteel.manage.modle.entity.DmsMenu" >
+    update dms_menu
+    <set >
+      id = #{id}
+      <if test="menuName != null" >
+        ,menu_name = #{menuName}
+      </if>
+      <if test="num != null" >
+        ,num = #{num}
+      </if>
+      <if test="menuPid != null" >
+        ,menu_pid = #{menuPid}
+      </if>
+      <if test="lv != null" >
+        ,lv = #{lv}
+      </if>
+      <if test="menuUrl != null" >
+        ,menu_url = #{menuUrl}
+      </if>
+      <if test="status != null" >
+        ,status = #{status}
+      </if>
+      <if test="icon != null" >
+        ,icon = #{icon}
+      </if>
+      <if test="addTime != null" >
+        ,add_time = #{addTime}
+      </if>
+      <if test="f.addUser != null">
+        , add_user = #{f.addUser}
+      </if>
+      <if test="f.updateTime != null">
+        , update_time = #{f.updateTime}
+      </if>
+      <if test="f.updateUser != null">
+        , update_user = #{f.updateUser}
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <update id="updateByParentId" parameterType="com.dteel.manage.modle.entity.DmsMenu" >
+    update dms_menu
+    <set >
+      menu_pid = #{menuPid}
+      <if test="menuName != null" >
+        ,menu_name = #{menuName}
+      </if>
+      <if test="num != null" >
+        ,num = #{num}
+      </if>
+      <if test="menuPid != null" >
+        ,menu_pid = #{menuPid}
+      </if>
+      <if test="lv != null" >
+        ,lv = #{lv}
+      </if>
+      <if test="menuUrl != null" >
+        ,menu_url = #{menuUrl}
+      </if>
+      <if test="status != null" >
+        ,status = #{status}
+      </if>
+      <if test="icon != null" >
+        ,icon = #{icon}
+      </if>
+      <if test="addTime != null" >
+        ,add_time = #{addTime}
+      </if>
+      <if test="f.addUser != null">
+        , add_user = #{f.addUser}
+      </if>
+      <if test="f.updateTime != null">
+        , update_time = #{f.updateTime}
+      </if>
+      <if test="f.updateUser != null">
+        , update_user = #{f.updateUser}
+      </if>
+    </set>
+    where menu_pid = #{menuPid}
+  </update>
+
+  <sql id="where-all-condition">
+    <if test="f.menuName != null and f.menuName!= ''"  >
+      and menu_name like concat(concat('%', #{f.menuName}),'%')
+    </if>
+    <if test="f.id != null" >
+      and id = #{f.id}
+    </if>
+    <if test="f.menuPid != null  and f.menuPid!= ''" >
+      and menu_pid = #{f.menuPid}
+    </if>
+    <if test="f.lv != null  and f.lv!= ''" >
+      and lv = #{f.lv}
+    </if>
+    <if test="f.menuUrl != null  and f.menuUrl!= ''" >
+      and  menu_url like concat(concat('%', #{f.menuUrl}),'%')
+    </if>
+    <if test="f.status != null  and f.status!= ''" >
+      and  status = #{f.status}
+    </if>
+    <if test="f.icon != null  and f.icon!= ''" >
+      and icon = #{f.icon}
+    </if>
+    <if test="f.addTime != null">
+      AND add_time = #{f.addTime}
+    </if>
+    <if test="f.addUser != null">
+      AND add_user = #{f.addUser}
+    </if>
+    <if test="f.updateTime != null">
+      AND update_time = #{f.updateTime}
+    </if>
+    <if test="f.updateUser != null">
+      AND update_user = #{f.updateUser}
+    </if>
+  </sql>
+
+
+
+  <select id="queryMenuInfoByPage" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List"/>
+    from dms_menu where 1=1
+    <include refid="where-all-condition"/>
+    order by add_time desc
+    limit #{startPage},${pageRows}
+  </select>
+
+  <select id="queryMenuInfoByPageCount" resultType="java.lang.Integer">
+    select  count(1)
+    from dms_menu where 1=1
+    <include refid = "where-all-condition" />
+  </select>
+
+    <select id="querMenuByParent" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List" />
+      from dms_menu
+      where menu_pid = #{parentId}
+      order by num asc
+    </select>
+
+  <select id="queryUserMenu" resultMap="BaseResultMap">
+    select distinct
+     dms_menu.id, dms_menu.menu_name, dms_menu.menu_pid,dms_menu.num, dms_menu.lv,
+     dms_menu.menu_url, dms_menu.status, dms_menu.icon,dms_menu.add_time,dms_menu.add_user,
+     dms_menu.update_time,dms_menu.update_user
+      from dms_role
+    left join dms_user_role on  dms_role.id = dms_user_role.role_id
+    left join dms_role_menu on dms_role_menu.role_id = dms_role.id
+    left join dms_menu on dms_menu.id = dms_role_menu.menu_id
+    where dms_user_role.user_id = #{userId}
+    and dms_menu.id is not null
+    and dms_role.status = 1
+    and dms_menu.status= 1
+    order by num asc
+  </select>
+
+    <select id="queryMenusByRole" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List"/> from dms_menu
+      LEFT JOIN dms_role_menu
+      on dms_menu.id = dms_role_menu.menu_id
+      left join dms_role on dms_role.id = dms_role_menu.role_id
+      where dms_role_menu.role_id = #{roleId} and dms_role.status = 1
+      order by num asc
+    </select>
+
+  <select id="queryEditZtreeMenusByRole" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from dms_menu
+    left join dms_role_menu
+    on dms_menu.id = dms_role_menu.menu_id
+    left join dms_role on dms_role.id = dms_role_menu.role_id
+    where dms_role_menu.role_id = #{roleId}
+    order by num asc
+  </select>
+
+  <select id="queryAllMenu" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from dms_menu
+    order by num asc
+  </select>
+</mapper>

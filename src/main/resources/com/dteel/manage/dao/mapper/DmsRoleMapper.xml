@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dteel.manage.dao.mapper.DmsRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.dteel.manage.modle.entity.DmsRole" >
+    <id column="id" property="id" />
+    <result column="role_name" property="roleName"/>
+    <result column="role_comment" property="roleComment"/>
+    <result column="status" property="status"/>
+    <result column="add_time" property="addTime"></result>
+    <result column="add_user" property="addUser"></result>
+    <result column="update_time" property="updateTime"></result>
+    <result column="update_user" property="updateUser"></result>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, role_name, role_comment, status,add_time,update_time,add_user,update_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dms_role
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dms_role
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.dteel.manage.modle.entity.DmsRole" >
+    insert into dms_role (id, role_name, role_comment, status,add_time,update_time,add_user,update_user)
+    values (#{id}, #{roleName}, #{roleComment},
+      #{status}, #{addTime}, #{updateTime}, #{addUser},
+      #{updateUser})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dteel.manage.modle.entity.DmsRole" >
+    insert into dms_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="roleComment != null" >
+        role_comment,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="addUser != null" >
+        add_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="roleName != null" >
+        #{roleName},
+      </if>
+      <if test="roleComment != null" >
+        #{roleComment},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="addTime != null" >
+        #{addTime},
+      </if>
+      <if test="addUser != null" >
+        #{addUser},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dteel.manage.modle.entity.DmsRole" >
+    update dms_role
+    <set >
+      <if test="roleName != null" >
+        role_name = #{roleName},
+      </if>
+      <if test="roleComment != null" >
+        role_comment = #{roleComment},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime},
+      </if>
+      <if test="addUser != null" >
+        add_user = #{addUser},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser},
+      </if>
+
+    </set>
+    where ID = #{id}
+  </update>
+
+  <sql id="where-all-sql">
+    <if test="f.roleName != null and f.roleName != ''" >
+      and role_name like concat(concat('%',#{f.roleName}),'%')
+    </if>
+    <if test="f.roleComment != null" >
+      and  role_comment like concat(concat('%',#{f.roleComment}),'%')
+    </if>
+    <if test="f.status != null" >
+      and  status = #{f.status}
+    </if>
+    <if test="f.addTime != null" >
+      and add_time = #{f.addTime}
+    </if>
+    <if test="f.addUser != null" >
+      and add_user = #{f.addUser}
+    </if>
+    <if test="f.updateTime != null" >
+      and  update_time = #{f.updateTime}
+    </if>
+    <if test="f.updateUser != null" >
+      and update_user = #{f.updateUser}
+    </if>
+  </sql>
+
+  <select id="queryRoleInfoByPage" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List"/>
+    from  dms_role
+    where 1=1
+    <include refid="where-all-sql"/>
+    order by add_time desc
+    limit #{startPage},${pageRows}
+  </select>
+
+  <select id="queryRoleInfoByPageCount" resultType="java.lang.Integer">
+    select  count(1)
+    from dms_role where 1=1
+    <include refid = "where-all-sql" />
+  </select>
+
+  <sql id="role_Column_List" >
+    dms_role.id, dms_role.role_name, dms_role.role_comment, dms_role.status,
+     dms_role.add_time,dms_role.update_time,dms_role.add_user,dms_role.update_user
+  </sql>
+
+  <select id="queryRoleByuser" resultMap="BaseResultMap">
+    select <include refid="role_Column_List" />id
+    from dms_role left join dms_user_role on dms_role.id = dms_user_role.role_id
+    where dms_user_role.user_id = #{userId}
+  </select>
+  <select id="queryAllRole" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+          from dms_role
+    where dms_role.status = 1
+  </select>
+</mapper>
