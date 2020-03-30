@@ -6,7 +6,7 @@
 
     <groupId>com.steel.manage</groupId>
     <packaging>war</packaging>
-    <artifactId>SteelManage</artifactId>
+    <artifactId>VisionBuildingManage</artifactId>
     <version>1.0-SNAPSHOT</version>
     <url>http://maven.apache.org</url>
 

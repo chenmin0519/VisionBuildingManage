@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.visionbuilding.manage.dao.mapper.DmsRoleMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.visionbuilding.manage.modle.entity.DmsRoleMenu" >
+    <id column="ID" property="id"  />
+    <result column="role_id" property="roleId"  />
+    <result column="menu_id" property="menuId"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, role_id, menu_id
+  </sql>
+  
+  <delete id="deleteByRoleIds" parameterType="java.lang.Long">
+    delete from dms_role_menu
+    where role_id = #{roleId}
+  </delete>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dms_role_menu
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dms_role_menu
+    where id = #{id}
+  </delete>
+  
+  <insert id="saveBatch" parameterType="java.util.List">
+    <foreach collection="list" item="roleMenu" index="index"
+             separator="">
+      insert into dms_role_menu
+      (id,role_id,menu_id) values
+      (#{roleMenu.id},#{roleMenu.roleId},#{roleMenu.menuId});
+    </foreach>
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsRoleMenu" >
+    insert into dms_role_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roleid != null" >
+        ROLE_id,
+      </if>
+      <if test="menuid != null" >
+        MENU_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="roleId != null" >
+        #{roleId},
+      </if>
+      <if test="menuId != null" >
+        #{menuId},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.visionbuilding.manage.modle.entity.DmsRoleMenu" >
+    update dms_role_menu
+    <set >
+      <if test="roleId != null" >
+        role_id = #{roleId},
+      </if>
+      <if test="menuId != null" >
+        menu_id = #{menuId},
+      </if>
+
+    </set>
+    where id = #{id}
+  </update>
+
+</mapper>

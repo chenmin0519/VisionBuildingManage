@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.visionbuilding.manage.dao.mapper.DmsUserMapper">
+    <resultMap type="com.visionbuilding.manage.modle.entity.DmsUser"
+               id="userEntity">
+        <result column="id" property="id" /> <!-- 序列 -->
+        <result column="user_name" property="userName"></result>
+        <result column="password" property="password"></result>
+        <result column="real_name" property="realName"></result>
+        <result column="status" property="status"></result>
+        <result column="login_time" property="loginTime"></result>
+        <result column="login_count" property="loginCount"></result>
+        <result column="role_Type" property="roleType"></result>
+        <result column="add_time" property="addTime"></result>
+        <result column="add_user" property="addUser"></result>
+        <result column="update_time" property="updateTime"></result>
+        <result column="update_user" property="updateUser"></result>
+    </resultMap>
+
+    <sql id="select-all-column">
+		id,
+		user_name,
+		password,
+		real_name,
+		status,
+		login_time,
+		login_count,
+		role_type,
+		add_time,
+		add_user,
+		update_time,
+		update_user
+	</sql>
+
+    <sql id="insert-all-column">
+		id,
+		user_name,
+		password,
+		real_name,
+		status,
+		login_time,
+		login_count,
+		role_type,
+		add_time,
+		add_user,
+		update_time,
+		update_user
+	</sql>
+    <sql id="where-all-condition">
+        <if test="f.id != null and f.id != ''">
+            AND wid = #{f.id}
+        </if>
+        <if test="f.userName != null and f.userName != ''">
+            AND user_name = #{f.userName}
+        </if>
+        <if test="f.password != null and f.password != ''">
+            AND password = #{f.password}
+        </if>
+        <if test="f.realName != null and f.realName != ''">
+            AND real_name like  concat(concat('%',#{f.realName}),'%')
+        </if>
+        <if test="f.roleType != null and f.roleType != ''">
+            AND role_type = #{f.roleType}
+        </if>
+        <if test="f.status != null">
+            AND status = #{f.status}
+        </if>
+        <if test="f.loginTime != null">
+            AND login_time = #{f.loginTime}
+        </if>
+        <if test="f.loginCount != null">
+            AND login_count = #{f.loginCount}
+        </if>
+        <if test="f.addTime != null">
+            AND add_time = #{f.addTime}
+        </if>
+        <if test="f.addUser != null">
+            AND add_user = #{f.addUser}
+        </if>
+        <if test="f.updateTime != null">
+            AND update_time = #{f.updateTime}
+        </if>
+        <if test="f.updateUser != null">
+            AND update_user = #{f.updateUser}
+        </if>
+
+    </sql>
+
+    <sql id="where-update-condition">
+        <if test="userName != null and userName != ''">
+            , user_name = #{userName}
+        </if>
+        <if test="password != null and password != ''">
+            , password = #{password}
+        </if>
+        <if test="realName != null and realName != ''">
+            , real_name = #{realName}
+        </if>
+        <if test="roleType != null and roleType != ''">
+            , role_type = #{roleType}
+        </if>
+        <if test="status != null">
+            , status = #{status}
+        </if>
+        <if test="loginTime != null">
+            , login_time = #{loginTime}
+        </if>
+        <if test="loginCount != null">
+            , login_count = #{loginCount}
+        </if>
+        <if test="addTime != null">
+            , add_time = #{addTime}
+        </if>
+        <if test="addUser != null">
+            , add_user = #{addUser}
+        </if>
+        <if test="updateTime != null">
+            , update_time = #{updateTime}
+        </if>
+        <if test="updateUser != null">
+            , update_user = #{updateUser}
+        </if>
+    </sql>
+
+    <update id="updateUserById" parameterType="com.visionbuilding.manage.modle.entity.DmsUser">
+      update dms_user
+        <set>
+            id = #{id}
+            <include refid="where-update-condition" />
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="resetPwd">
+        update dms_user
+        <set>
+            password = #{newPassword}
+        </set>
+        where
+        user_name = #{userName}
+    </update>
+
+    <update id="resetZt">
+        update dms_user
+        <set>
+            status = #{status}
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <delete id="delUser">
+      delete from dms_user where id = #{id}
+    </delete>
+
+    <select id="login" resultType="com.visionbuilding.manage.modle.entity.DmsUser">
+        select
+          <include refid="select-all-column" />
+          from dms_user where user_name = #{userName} and password = #{password} and status = '1'
+    </select>
+
+    <select id="queryUserInfoByPage" resultMap="userEntity">
+        select
+         <include refid="select-all-column" />
+         from dms_user where 1=1
+         <include refid="where-all-condition" />
+         order by add_time desc
+         limit #{startPage},${pageRows}
+    </select>
+
+    <select id="queryUserInfoByPageCount" resultType="java.lang.Integer">
+        select count(1)
+        from dms_user where 1=1
+        <include refid="where-all-condition" />
+    </select>
+
+    <select id="queryUserInfoByWid" resultType="com.visionbuilding.manage.modle.entity.DmsUser">
+      select
+      <include  refid="select-all-column" />
+        from dms_user
+        where id = #{id}
+    </select>
+
+    <insert id="insertUser"  useGeneratedKeys="true" keyProperty="id"  parameterType="com.visionbuilding.manage.modle.entity.DmsUser">
+        insert into dms_user (
+        <include refid="insert-all-column" />
+        )
+        VALUES(
+        #{id},
+        #{userName},
+        #{password},
+        #{realName},
+        #{status},
+        #{loginTime},
+        #{loginCount},
+        #{roleType},
+        #{addTime},
+        #{addUser},
+        #{updateTime},
+        #{updateUser}
+        )
+    </insert>
+
+    <select id="queryUserInfoByuserName" resultType="java.lang.Integer">
+        select count(1) from dms_user where user_name = #{userName}
+    </select>
+
+</mapper>

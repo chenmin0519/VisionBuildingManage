@@ -59,7 +59,7 @@
 
 	<filter>
 		<filter-name>urlfilter</filter-name>
-		<filter-class>com.dteel.manage.filter.DefaultUrlFilter</filter-class>
+		<filter-class>com.visionbuilding.manage.filter.DefaultUrlFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>urlfilter</filter-name>
@@ -75,7 +75,7 @@
 	</filter-mapping>
 	<filter>
 		<filter-name>myfilter</filter-name>
-		<filter-class>com.dteel.manage.filter.StaticUrlFilter</filter-class>
+		<filter-class>com.visionbuilding.manage.filter.StaticUrlFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>myfilter</filter-name>
