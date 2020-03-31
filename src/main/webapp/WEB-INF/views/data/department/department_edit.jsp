@@ -6,7 +6,7 @@
 
     <%@ include file="../../common/common_css.jsp" %>
 
-    <title>在线考试运营系统</title>
+    <title>愿景建筑OA系统</title>
 
     <%@ include file="../../common/common_tag.jsp" %>
 
@@ -45,8 +45,8 @@
                         <div class="col-sm-12">
                             <h4 class="pull-left page-title">部门管理</h4>
                             <ol class="breadcrumb pull-right">
-                                <li><a href="#">考试管理</a></li>
-                                <li class="active">部门管理</li>
+                                <li><a href="#">部门管理</a></li>
+                                <li class="active">基础数据管理</li>
                             </ol>
                         </div>
                     </div>
@@ -64,23 +64,17 @@
                                         <div class="panel panel-default">
                                             <form id="form">
                                                 <input id="id" name="id" type="hidden" value="${po.id}"/>
-                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
-                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">部门名：</label>
-                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" name="departmentName" id="departmentName" placeholder="请输入部门名" value="${po.departmentName}" class="form-control" >
-                                                    </div>
-                                                </div>
+                                                <input id="menuPid" name="menuPid" type="hidden" value="${menuPid}"/>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">编码：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" name="code" id="code" placeholder="请输入编码" value="${po.code}" class="form-control">
+                                                        <input type="text" name="code" id="code" placeholder="请输入编码" value="${po.code}" class="form-control" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
-                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">观看视频：</label>
+                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">部门名称：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-<%--                                                        <input type="file" name="redio" id="redio"  class="form-control" >--%>
-                                                        <input type="text" name="redio" id="redio"  class="form-control" >
+                                                        <input type="text" name="department" id="department" placeholder="请输入部门名称" value="${po.department}" class="form-control" >
                                                     </div>
                                                 </div>
                                                 <div class="panel-body">
@@ -136,10 +130,9 @@
 <%@ include file="../../common/formajax_js.jsp"%>
 <!-- jQuery  -->
 <script type="text/javascript">
+
     $("#save").click(function(){
-        var departmentName = $("#departmentName").val();
-        var code = $("#code").val();
-        baseCallBackAJAX("post","${base}/test/department/save",$("#form").serialize(),"json","saveCallback(data)");
+        baseCallBackAJAX("post","${base}/data/department/save",$("#form").serialize(),"json","saveCallback(data)");
     });
     function saveCallback(data){
         if(data.status=="0"){
@@ -155,7 +148,7 @@
                 closeOnCancel : true
             },function(isConfirm) {
                 if(isConfirm==true){
-                    window.location.href="${base}/test/department/department.html?chirld=${chirld}&parent=${parent}";
+                    window.location.href="${base}/data/department/department.html?chirld=${chirld}&parent=${parent}";
                 }
             });
         }else{

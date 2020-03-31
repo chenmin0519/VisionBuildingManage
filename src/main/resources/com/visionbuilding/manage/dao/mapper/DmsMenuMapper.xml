@@ -94,14 +94,14 @@
       <if test="addTime != null" >
         ,add_time = #{addTime}
       </if>
-      <if test="f.addUser != null">
-        , add_user = #{f.addUser}
+      <if test="addUser != null">
+        , add_user = #{addUser}
       </if>
-      <if test="f.updateTime != null">
-        , update_time = #{f.updateTime}
+      <if test="updateTime != null">
+        , update_time = #{updateTime}
       </if>
-      <if test="f.updateUser != null">
-        , update_user = #{f.updateUser}
+      <if test="updateUser != null">
+        , update_user = #{updateUser}
       </if>
     </set>
     where id = #{id}
@@ -135,14 +135,14 @@
       <if test="addTime != null" >
         ,add_time = #{addTime}
       </if>
-      <if test="f.addUser != null">
-        , add_user = #{f.addUser}
+      <if test="addUser != null">
+        , add_user = #{addUser}
       </if>
-      <if test="f.updateTime != null">
-        , update_time = #{f.updateTime}
+      <if test="updateTime != null">
+        , update_time = #{updateTime}
       </if>
-      <if test="f.updateUser != null">
-        , update_user = #{f.updateUser}
+      <if test="updateUser != null">
+        , update_user = #{updateUser}
       </if>
     </set>
     where menu_pid = #{menuPid}

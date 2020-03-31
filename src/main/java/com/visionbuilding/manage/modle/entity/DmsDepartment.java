@@ -7,7 +7,5 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DmsDepartment extends BaseEntity {
     private String code;
-    private String departmentName;
-    private Integer type;
-    private String redio;
+    private String department;
 }

@@ -24,8 +24,8 @@ public class DefaultUrlFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) arg0;
         HttpServletResponse response = (HttpServletResponse) arg1;
         String url = request.getRequestURI();
-        if ("/SteelManage".equals(url) || "/SteelManage/".equals(url)) {
-            response.sendRedirect("/SteelManage/index.html");
+        if ("/VisionBuildingManage".equals(url) || "/VisionBuildingManage/".equals(url)) {
+            response.sendRedirect("/VisionBuildingManage/index.html");
         } else {
             arg2.doFilter(request, response);
         }

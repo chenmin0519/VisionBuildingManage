@@ -1,27 +1,15 @@
 package com.visionbuilding.manage.service;
 
-import com.visionbuilding.manage.modle.ResultBean;
 import com.visionbuilding.manage.modle.ResultPOListBean;
 import com.visionbuilding.manage.modle.entity.DmsDepartment;
-
-import java.util.List;
+import com.visionbuilding.manage.modle.query.QueryBean;
+import org.apache.ibatis.annotations.Param;
 
 public interface DmsDepartmentService {
-    /**
-     * 分页
-     * @param department
-     * @return
-     */
+
+    DmsDepartment selectByPrimaryKey(@Param("id") Long id);
+    void deleteByPrimaryKey(@Param("id") Long id);
+    void insertSelective(DmsDepartment param);
+    void updateByPrimaryKeySelective(DmsDepartment params);
     ResultPOListBean<DmsDepartment> queryPage(DmsDepartment department);
-
-    DmsDepartment queryById(Long id);
-
-    ResultBean insert(DmsDepartment department);
-
-    ResultBean update(DmsDepartment department);
-
-    ResultBean delete(Long id);
-
-    ResultPOListBean<DmsDepartment> queryAll();
-    List<DmsDepartment> queryDepartmentList();
 }

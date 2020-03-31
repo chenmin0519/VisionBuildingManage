@@ -85,37 +85,4 @@ public class ExcelImportUtils<T> {
         }
         return cellSring;
     }
-
-    public T initKskmData(Row row, List<String> heardList, Class<T> clas) throws Exception{
-        T instance = clas.newInstance();
-        // 遍历所有的列
-        Cell cell = null;
-        List<Object> li = new ArrayList<Object>();
-        for (int y = row.getFirstCellNum(); y < row.getLastCellNum(); y++) {
-            cell = row.getCell(y);
-            String fieldName = heardList.get(y);
-            if(fieldName.equals("科目代码")){
-                fieldName = "kmdm";
-            }else if(fieldName.equals("科目名称")){
-                fieldName = "kmmc";
-            }else if(fieldName.equals("命题性质代码")){
-                fieldName = "mtxz";
-            }else if(fieldName.equals("单元代码")){
-                fieldName = "dy";
-            }
-            Field field = null;
-            try {
-                field  = clas.getDeclaredField(fieldName);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            if(!ValidateUtils.isEmptyObjectOrString(field)){
-                if(!ValidateUtils.isEmptyObjectOrString(cell)){
-                    field.setAccessible(true);
-                    field.set(instance,cell.getRichStringCellValue().getString());
-                }
-            }
-        }
-        return instance;
-    }
 }

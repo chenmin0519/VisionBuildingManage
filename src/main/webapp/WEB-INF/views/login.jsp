@@ -16,7 +16,7 @@
 		<div class="panel panel-color panel-primary panel-pages">
 			<div class="panel-heading bg-img"> 
                     <div class="bg-overlay"></div>
-                    <h3 class="text-center m-t-10 text-white"> <strong>在线考试运营系统</strong> </h3>
+                    <h3 class="text-center m-t-10 text-white"> <strong>愿景建筑OA系统</strong> </h3>
                 </div>
 			<div class="panel-body" >
 				<form class="form-horizontal m-t-20" method="" id="form" action="">

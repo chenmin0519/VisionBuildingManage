@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- 配置别名 -->
 	<typeAliases>
 		<!-- 批量扫描别名 -->
-		<package name="com.dteel.manage.dao.mapper"/>
+		<package name="com.visionbuilding.manage.dao.mapper"/>
 	</typeAliases>
 
 	<!-- 配置mapper

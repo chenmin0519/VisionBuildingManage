@@ -1,143 +1,77 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.visionbuilding.manage.dao.mapper.DmsDepartmentMapper" >
-    <resultMap id="BaseResultMap" type="com.visionbuilding.manage.modle.entity.DmsDepartment" >
-        <id column="id" property="id"  />
-        <result column="department_name" property="departmentName"  />
-        <result column="redio" property="redio"  />
-        <result column="type" property="type"  />
-        <result column="code" property="code"  />
-        <result column="status" property="status"  />
-        <result column="add_time" property="addTime"></result>
-        <result column="add_user" property="addUser"></result>
-        <result column="update_time" property="updateTime"></result>
-        <result column="update_user" property="updateUser"></result>
-    </resultMap>
+  <resultMap id="BaseResultMap" type="com.visionbuilding.manage.modle.entity.DmsDepartment" >
+    <id column="id" property="id"  />
+    <result column="code" property="code"  />
+    <result column="department" property="department"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dms_department.id, dms_department.code,dms_department.department
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dms_department
+    where id = #{id}
+  </select>
 
-    <sql id="Base_Column_List" >
-        dms_department.id, dms_department.department_name,dms_department.redio,dms_department.type,dms_department.code,dms_department.status,
-        dms_department.add_time,dms_department.add_user,dms_department.update_time,dms_department.update_user
-    </sql>
-
-    <sql id="where-all-condition">
-        <if test="f.departmentName != null and f.departmentName!= ''"  >
-            and department_name like concat(concat('%', #{f.departmentName}),'%')
-        </if>
-        <if test="f.type != null and f.type!= ''"  >
-            and `type` = #{f.type}
-        </if>
-        <if test="f.code != null and f.code!= ''"  >
-            and code = #{f.code};
-        </if>
-        <if test="f.id != null" >
-            and id = #{f.id}
-        </if>
-        <if test="f.status != null  and f.status!= ''" >
-            and  status = #{f.status}
-        </if>
-        <if test="f.addTime != null">
-            AND add_time = #{f.addTime}
-        </if>
-        <if test="f.addUser != null">
-            AND add_user = #{f.addUser}
-        </if>
-        <if test="f.updateTime != null">
-            AND update_time = #{f.updateTime}
-        </if>
-        <if test="f.updateUser != null">
-            AND update_user = #{f.updateUser}
-        </if>
-    </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dms_department
+    where id = #{id}
+  </delete>
 
 
 
-    <select id="queryPage" resultMap="BaseResultMap">
-        select  <include refid="Base_Column_List"/>
-        from dms_department where 1=1
-        <include refid="where-all-condition"/>
-        order by add_time desc
-        limit #{startPage},${pageRows}
-    </select>
-    <select id="queryAll" resultMap="BaseResultMap">
-        select  <include refid="Base_Column_List"/>
-        from dms_department where 1=1
-        and status = 1
-        order by add_time desc
-    </select>
-
-    <select id="queryPageCount" resultType="java.lang.Integer">
-        select  count(1)
-        from dms_department where 1=1
-        <include refid = "where-all-condition" />
-    </select>
-
-    <select id="queryById" resultType="com.visionbuilding.manage.modle.entity.DmsDepartment">
-        select  <include refid="Base_Column_List"/>
-        from dms_department where id = #{id}
-    </select>
-
-    <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsDepartment" >
+  <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsDepartment" >
     insert into dms_department (
           id,
-          redio,
-          department_name,
           code,
-          `type`,
-          status,
-          add_time,
-          add_user,
-          update_time,
-          update_user
+          department
         )
         VALUES(
           #{id},
-          #{redio},
-          #{departmentName},
           #{code},
-          #{type},
-          #{status},
-          #{addTime},
-          #{addUser},
-          #{updateTime},
-          #{updateUser}
+          #{department}
         )
   </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.visionbuilding.manage.modle.entity.DmsDepartment" >
-        update dms_department
-        <set >
-            id = #{id}
-            <if test="departmentName != null" >
-                ,department_name = #{departmentName}
-            </if>
-            <if test="code != null" >
-                ,code = #{code}
-            </if>
-            <if test="redio != null" >
-                ,redio = #{redio}
-            </if>
-            <if test="type != null" >
-                ,`type` = #{type}
-            </if>
-            <if test="status != null" >
-                ,status = #{status}
-            </if>
-            <if test="addTime != null" >
-                ,add_time = #{addTime}
-            </if>
-            <if test="addUser != null">
-                , add_user = #{addUser}
-            </if>
-            <if test="f.updateTime != null">
-                , update_time = #{updateTime}
-            </if>
-            <if test="updateUser != null">
-                , update_user = #{updateUser}
-            </if>
-        </set>
-        where id = #{id}
-    </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.visionbuilding.manage.modle.entity.DmsDepartment" >
+    update dms_department
+    <set >
+      id = #{id}
+      <if test="code != null" >
+        ,code = #{code}
+      </if>
+      <if test="department != null" >
+        ,department = #{department}
+      </if>
+    </set>
+    where id = #{id}
+  </update>
 
-    <delete id="delete">
-        delete from dms_department where id = #{id}
-    </delete>
+  <sql id="where-all-condition">
+    <if test="f.code != null and f.code!= ''"  >
+      and code = #{code}
+    </if>
+    <if test="f.department != null  and f.department!= ''" >
+      and  department like concat(concat('%', #{f.department}),'%')
+    </if>
+  </sql>
+
+
+
+  <select id="queryPage" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List"/>
+    from dms_department where 1=1
+    <include refid="where-all-condition"/>
+    order by id desc
+    limit #{startPage},${pageRows}
+  </select>
+
+  <select id="queryPageCount" resultType="java.lang.Integer">
+    select  count(1)
+    from dms_department where 1=1
+    <include refid = "where-all-condition" />
+  </select>
+
 </mapper>

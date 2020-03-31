@@ -43,15 +43,15 @@ public class StaticUrlFilter  implements Filter {
         request.getSession().setAttribute(SessionAttributes.CSSJS, path);
         request.getSession().setAttribute(SessionAttributes.BASE, path);
         request.getSession().setAttribute(SessionAttributes.GETTIME, new Date().getTime());
-        // 验证是否登֤
-        DmsUser user= (DmsUser) request.getSession().getAttribute(SessionAttributes.USER_SESSION_NAME);
 
+        // 验证是否登֤录
+        DmsUser user= (DmsUser) request.getSession().getAttribute(SessionAttributes.USER_SESSION_NAME);
         HttpSession session =  request.getSession();
 //        session.setMaxInactiveInterval(SESSION_MAX_TIME);
         session.setAttribute(SessionAttributes.USER_SESSION_NAME,user);
         String url = request.getRequestURI();
         // 对登录页 和登录放行
-        if ("/SteelManage/index.html".equals(url) || "/SteelManage/login.html".equals(url) || "/SteelManage/adduser.html".equals(url)|| "/SteelManage/saveuserinfo.html".equals(url)|| "/SteelManage/404Exc.html".equals(url)) {
+        if ("/VisionBuildingManage/index.html".equals(url) || "/VisionBuildingManage/login.html".equals(url) || "/VisionBuildingManage/adduser.html".equals(url)|| "/SteelManage/saveuserinfo.html".equals(url)|| "/VisionBuildingManage/404Exc.html".equals(url)) {
             arg2.doFilter(request, response);
         } else {
             // 非登录进行登录校验
@@ -62,22 +62,14 @@ public class StaticUrlFilter  implements Filter {
                     arg2.doFilter(request, response);
                 }else {
                     //对主页放行
-                    if("/SteelManage/main.html".equals(url)){
+                    if("/VisionBuildingManage/main.html".equals(url)){
                         arg2.doFilter(request, response);
                     }else {
-                        Map<String, DmsMenu> menu = (Map<String, DmsMenu>) session.getAttribute(SessionAttributes.MENU);
-                        url = initUrl(url);
-                        String key = url;
-                        Object obj = menu.get(key);
-//                        if (ValidateUtils.isNotEmptyObjectOrString(obj)) {
-                            arg2.doFilter(request, response);
-//                        } else {
-//                            response.sendRedirect("/cscjglxt/404Exc.html");
-//                        }
+                        arg2.doFilter(request, response);
                     }
                 }
             } else {
-                response.sendRedirect("/SteelManage/index.html");
+                response.sendRedirect("/VisionBuildingManage/index.html");
             }
         }
     }

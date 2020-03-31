@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>在线考试运营系统</title>
+    <title>愿景建筑OA系统</title>
 
     <script src="${domain}/blue/assets/js/modernizr.min.js"></script>
 

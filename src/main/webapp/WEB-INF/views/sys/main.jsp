@@ -6,7 +6,7 @@
 
         <%@ include file="../common/common_css.jsp" %>
 
-        <title>在线考试运营系统</title>
+        <title>愿景建筑OA系统</title>
 
     	<%@ include file="../common/common_tag.jsp" %>
 
@@ -37,7 +37,7 @@
             <!-- Start content -->
             <div class="content">
                 <div class="container">
-                    <div style="text-align: center; vertical-align:middle; margin-top: 120px;height: 380px;font-size: 38px; font-family: 'Arial Negreta', 'Arial Normal', 'Arial'; font-weight: 700; font-style: normal;">欢迎使用在线考试运营系统</div>
+                    <div style="text-align: center; vertical-align:middle; margin-top: 120px;height: 380px;font-size: 38px; font-family: 'Arial Negreta', 'Arial Normal', 'Arial'; font-weight: 700; font-style: normal;">欢迎使用愿景建筑OA系统</div>
                 </div>
             </div>
         </div>

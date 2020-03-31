@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>在线考试运营系统</title>
+    <title>愿景建筑OA系统</title>
 
     <script src="${domain}/blue/assets/js/modernizr.min.js"></script>
 
@@ -46,7 +46,7 @@
                             <h4 class="pull-left page-title">部门管理</h4>
                             <ol class="breadcrumb pull-right">
                                 <li><a href="#">部门管理</a></li>
-                                <li class="active">考试管理</li>
+                                <li class="active">基础数据管理</li>
                             </ol>
                         </div>
                     </div>
@@ -66,11 +66,9 @@
                                             <div class="panel panel-default">
                                                 <form id="form">
                                                     <div class="form-group col-sm-3 col-md-3 col-xs-3 pull-left">
-                                                        <input type="text" placeholder="请输入部门名称" class="form-control" name="departmentName">
+                                                        <input type="text" placeholder="请输入部门名" class="form-control" name="department">
                                                     </div>
-                                                    <div class="form-group col-sm-3 col-md-3 col-xs-3 pull-left">
-                                                        <input type="text" placeholder="请输入部门编码" class="form-control" name="code">
-                                                    </div>
+
                                                     <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">
                                                         <button id="query" type="button" style="position: absolute;right: -10px;"
                                                                 class="btn btn-primary waves-effect waves-light m-b-5">
@@ -92,9 +90,8 @@
                                                 <thead>
                                                 <tr>
                                                     <th nowrap="nowrap">序号</th>
-                                                    <th nowrap="nowrap">部门名称</th>
                                                     <th nowrap="nowrap">编码</th>
-                                                    <th nowrap="nowrap">状态</th>
+                                                    <th nowrap="nowrap">部门名称</th>
                                                     <th nowrap="nowrap">操作</th>
                                                 </tr>
                                                 </thead>
@@ -141,27 +138,17 @@
 <!-- jQuery  -->
 
 <script type="text/javascript">
-    var functionlist=[{targets:[4],
+    var functionlist=[{targets:[3],
         mRender:function(data) {
             var result = "";
             if(data.status == 1){
                 result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
+                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"
                     +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>";
             }else{
                 result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
+                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"
                     +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>";
-            }
-            return result;
-        }
-    },{targets:[3],
-        mRender:function(data) {
-            var result = "";
-            if(data.status == '1'){
-               result = "正常";
-            }else{
-                result = "<p style='color:red'>冻结</p>";
             }
             return result;
         }
@@ -169,7 +156,7 @@
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
-        initBaseTable($("form").serialize(),"datatable","${base}/test/department/getDates",",departmentName,code,,",functionlist);
+        initBaseTable($("form").serialize(),"datatable","${base}/data/department/getDates",",code,department,",functionlist);
     }
     $(document).ready(function(){
         initTbale();
@@ -179,9 +166,8 @@
     });
 
     function del(id){
-        baseCallBackAJAX("get","${base}/test/department/del",{'id':id},"json","callback(data)");
+        baseCallBackAJAX("get","${base}/data/department/del",{'id':id},"json","callback(data)");
     }
-
     function callback(data){
         if(data.status=="0"){
             swal({
@@ -213,11 +199,11 @@
             });
         }
     }
-    function detail(id){
-        window.location.href="${base}/test/department/edit.html?id="+id+"&chirld=${chirld}&parent=${parent}";
+    function detil(id){
+        window.location.href="${base}/data/department/edit.html?id="+id+"&chirld=${chirld}&parent=${parent}";
     }
     $("#add").click(function(){
-        window.location.href="${base}/test/department/add.html?chirld=${chirld}&parent=${parent}";
+        window.location.href="${base}/data/department/add.html?chirld=${chirld}&parent=${parent}";
     });
 </script>
 
