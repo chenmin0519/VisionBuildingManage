@@ -6,25 +6,32 @@ import com.visionbuilding.manage.modle.ResultBean;
 import com.visionbuilding.manage.modle.TestModel;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ExcelGenerateUtils<T> {
 
+    /**
+     * 导出excel
+     * @param response 响应
+     * @param excelName 导出文件名
+     * @param claz 泛型对象
+     * @param list 数据
+     * @throws Exception
+     */
     public void exportExcel(HttpServletResponse response,String excelName, Class<T> claz, List<T> list) throws Exception {
-        response = HttpServletUtils.getResponse(response,"xlsx",excelName);
+        response = HttpServletUtils.getResponse(response,"xls",excelName);
         OutputStream out=response.getOutputStream();
         ResultBean resultBean = new ResultBean();
         HSSFWorkbook workbook = null;
         try {
-            this.generateWorkbook(claz, list);
+            workbook = this.generateWorkbook(claz, list);
             try {
                 workbook.write(out);
             } catch (Exception e) {
@@ -49,8 +56,9 @@ public class ExcelGenerateUtils<T> {
      * @return
      */
     private HSSFWorkbook generateWorkbook(Class<T> claz,List<T> ts) throws IllegalAccessException {
-        List<String> titles = getTitles(claz);
-        List<String> names = getNames(claz);
+        Map<String,List<String>> map = getTitles(claz);
+        List<String> names = map.get("names");
+        List<String> titles = map.get("titles");
         // 第一步，创建一个workbook，对应一个Excel文件
         HSSFWorkbook workbook = new HSSFWorkbook();
         // 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet
@@ -67,8 +75,6 @@ public class ExcelGenerateUtils<T> {
             hssfCell.setCellValue(titles.get(i));//列名1
             hssfCell.setCellStyle(hssfCellStyle);//列居中显示
         }
-
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         if(ts != null && !ts.isEmpty()){
             for (int i = 0; i < ts.size(); i++) {
                 hssfRow = hssfSheet.createRow(i+1);
@@ -78,8 +84,22 @@ public class ExcelGenerateUtils<T> {
                            field = claz.getDeclaredField(names.get(j));
                            field.setAccessible(true);
                            T t = ts.get(i);
-                           String value = Optional.ofNullable(field.get(t)).orElse("").toString();
-                           hssfRow.createCell(j).setCellValue(value);
+                           if(field.getType() == Date.class){
+                               Date date = (Date) Optional.ofNullable(field.get(t)).orElse(null);
+                               DateTimeFormat dateTimeFormat = field.getAnnotation(DateTimeFormat.class);
+                               SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                               if(dateTimeFormat != null && dateTimeFormat.pattern() != null){
+                                   sdf = new SimpleDateFormat(dateTimeFormat.pattern());
+                               }
+                               if(date != null){
+                                   hssfRow.createCell(j).setCellValue(sdf.format(date));
+                               }else{
+                                   hssfRow.createCell(j).setCellValue("");
+                               }
+                           }else {
+                               String value = Optional.ofNullable(field.get(t)).orElse("").toString();
+                               hssfRow.createCell(j).setCellValue(value);
+                           }
                        } catch (NoSuchFieldException e) {
                            e.printStackTrace();
                        }
@@ -89,34 +109,29 @@ public class ExcelGenerateUtils<T> {
         return workbook;
     }
 
+
     /**
-     * 获取实体类字段名
+     * 获取导出对应的excel中文名 和实体字段
      * @param claz
      * @return
      */
-    private List<String> getNames(Class<T> claz) {
+    private Map<String,List<String>> getTitles(Class<T> claz) {
+        Map<String,List<String>> map = new HashMap<>();
+        List<String> titles = new ArrayList<>();
         List<String> names = new ArrayList<>();
         Field[] fields = claz.getDeclaredFields();
         for(Field field : fields){
+            names.add(field.getName());
             ExcelName excelName = field.getAnnotation(ExcelName.class);
             if(excelName != null && StringUtils.isNotEmpty(excelName.value())){
-                names.add(excelName.value());
+                titles.add(excelName.value());
             }else {
-                names.add(field.getName());
+                titles.add(field.getName());
             }
         }
-        return names;
-    }
-
-    /**
-     * 获取导出对应的excel中文名
-     * @param claz
-     * @return
-     */
-    private List<String> getTitles(Class<T> claz) {
-        List<String> titles = new ArrayList<>();
-
-        return titles;
+        map.put("names",names);
+        map.put("titles",titles);
+        return map;
     }
 
 }
