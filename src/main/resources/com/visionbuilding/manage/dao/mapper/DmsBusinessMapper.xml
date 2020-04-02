@@ -2,29 +2,56 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.visionbuilding.manage.dao.mapper.DmsBusinessMapper">
   <resultMap id="BaseResultMap" type="com.visionbuilding.manage.modle.entity.DmsBusiness">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="business" jdbcType="VARCHAR" property="business" />
-    <result column="pinyin" jdbcType="VARCHAR" property="pinyin" />
-    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <id column="id" property="id" />
+    <result column="business" property="business" />
+    <result column="pinyin" property="pinyin" />
+    <result column="mobile" property="mobile" />
   </resultMap>
   <sql id="Base_Column_List">
     id, business, pinyin, mobile
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="queryPage" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List"/>
+    from dms_business where 1=1
+    <include refid="where-all-condition"/>
+    order by id desc
+    limit #{startPage},${pageRows}
+  </select>
+
+  <select id="queryPageCount" resultType="java.lang.Integer">
+    select  count(1)
+    from dms_business where 1=1
+    <include refid = "where-all-condition" />
+  </select>
+
+  <sql id="where-all-condition">
+    <if test="f.business != null  and f.business!= ''" >
+      and  business like concat(concat('%', #{f.business}),'%')
+    </if>
+    <if test="f.pinyin != null and f.pinyin!= ''"  >
+      and pinyin = #{f.pinyin}
+    </if>
+    <if test="f.mobile != null and f.mobile!= ''"  >
+      and mobile = #{f.mobile}
+    </if>
+
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.visionbuilding.manage.modle.entity.DmsBusiness">
     select 
     <include refid="Base_Column_List" />
     from dms_business
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from dms_business
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </delete>
   <insert id="insert" parameterType="com.visionbuilding.manage.modle.entity.DmsBusiness">
     insert into dms_business (id, business, pinyin, 
       mobile)
-    values (#{id,jdbcType=BIGINT}, #{business,jdbcType=VARCHAR}, #{pinyin,jdbcType=VARCHAR}, 
-      #{mobile,jdbcType=VARCHAR})
+    values (#{id}, #{business}, #{pinyin}, 
+      #{mobile})
   </insert>
   <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsBusiness">
     insert into dms_business
@@ -44,16 +71,16 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=BIGINT},
+        #{id},
       </if>
       <if test="business != null">
-        #{business,jdbcType=VARCHAR},
+        #{business},
       </if>
       <if test="pinyin != null">
-        #{pinyin,jdbcType=VARCHAR},
+        #{pinyin},
       </if>
       <if test="mobile != null">
-        #{mobile,jdbcType=VARCHAR},
+        #{mobile},
       </if>
     </trim>
   </insert>
@@ -61,100 +88,23 @@
     update dms_business
     <set>
       <if test="business != null">
-        business = #{business,jdbcType=VARCHAR},
+        business = #{business},
       </if>
       <if test="pinyin != null">
-        pinyin = #{pinyin,jdbcType=VARCHAR},
+        pinyin = #{pinyin},
       </if>
       <if test="mobile != null">
-        mobile = #{mobile,jdbcType=VARCHAR},
+        mobile = #{mobile},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.visionbuilding.manage.modle.entity.DmsBusiness">
     update dms_business
-    set business = #{business,jdbcType=VARCHAR},
-      pinyin = #{pinyin,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
+    set business = #{business},
+      pinyin = #{pinyin},
+      mobile = #{mobile}
+    where id = #{id}
   </update>
-  <resultMap id="BaseResultMap" type="com.visionbuilding.manage.modle.entity.DmsBusiness">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="business" jdbcType="VARCHAR" property="business" />
-    <result column="pinyin" jdbcType="VARCHAR" property="pinyin" />
-    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, business, pinyin, mobile
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from dms_business
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from dms_business
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.visionbuilding.manage.modle.entity.DmsBusiness">
-    insert into dms_business (id, business, pinyin, 
-      mobile)
-    values (#{id,jdbcType=BIGINT}, #{business,jdbcType=VARCHAR}, #{pinyin,jdbcType=VARCHAR}, 
-      #{mobile,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsBusiness">
-    insert into dms_business
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="business != null">
-        business,
-      </if>
-      <if test="pinyin != null">
-        pinyin,
-      </if>
-      <if test="mobile != null">
-        mobile,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="business != null">
-        #{business,jdbcType=VARCHAR},
-      </if>
-      <if test="pinyin != null">
-        #{pinyin,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        #{mobile,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.visionbuilding.manage.modle.entity.DmsBusiness">
-    update dms_business
-    <set>
-      <if test="business != null">
-        business = #{business,jdbcType=VARCHAR},
-      </if>
-      <if test="pinyin != null">
-        pinyin = #{pinyin,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        mobile = #{mobile,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.visionbuilding.manage.modle.entity.DmsBusiness">
-    update dms_business
-    set business = #{business,jdbcType=VARCHAR},
-      pinyin = #{pinyin,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
 </mapper>

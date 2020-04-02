@@ -5,13 +5,11 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class DmsBusiness extends BaseEntity{
+public class DmsProjectType extends BaseEntity{
     private Long id;
 
-    private String business;
+    private String typeName;
 
-    private String pinyin;
-
-    private String mobile;
+    private String typeCode;
 
 }

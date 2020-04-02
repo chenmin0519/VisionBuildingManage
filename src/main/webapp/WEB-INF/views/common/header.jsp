@@ -22,7 +22,7 @@
 <div class="topbar heard_hiden">
 <div class="topbar-left">
                     <div class="text-center">
-                        <a href="${base}/main.html" class="logo"><img class="system-logo-title" src="${cssjs}/blue/assets/images/logo-mini.png" /></a>
+                        <a href="${base}/main.html" class="logo"><img class="system-logo-title"  style="margin: auto;" src="${cssjs}/blue/assets/images/logo.png" /></a>
                     </div>
                 </div>
                 <div class="navbar navbar-default" role="navigation">
@@ -34,7 +34,7 @@
                                 </button>
                                 <span class="clearfix"></span>
                             </div>
-                                <div class="pull-left system-title"><span>在线考试运营系统</span></div>
+                                <div class="pull-left system-title"><span>愿景建筑OA系统</span></div>
                                 <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
                             </div>
 
