@@ -86,8 +86,8 @@
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">部门：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="hidden" name="department" id="department" value="${po.department}">
-                                                        <select class="form-control kmSelect"> <option value="">--请选择--</option> </select>
+                                                        <input type="hidden" name="department" id="department" value="${userpo.department}">
+                                                        <select class="form-control departmentSelect"> <option value="">--请选择--</option> </select>
                                                     </div>
                                                 </div>
 
@@ -178,8 +178,25 @@
         initDepartmentOption();
     });
     function initDepartmentOption(){
-
+        baseCallBackAJAX("post","${base}/data/department/getAll",null,"json","initDepartmentOptionCallback(data)");
     }
+    function initDepartmentOptionCallback(data){
+        var optionStr = "";
+        var datas = data;
+        var department = $("#department").val();
+        for(var i = 0;i < datas.length ; i++){
+            if(department == datas[i].id){
+                optionStr += "<option value = "+datas[i].id+" selected = 'selected'>"+datas[i].department+"</option>";
+            } else {
+                optionStr += "<option value = "+datas[i].id+">"+datas[i].department+"</option>";
+            }
+        }
+        $(".departmentSelect").append(optionStr);
+    }
+    $(".departmentSelect").change(function(){
+        var department = $(".departmentSelect").val();
+        $("#department").val(department);
+    });
     $("#save").click(function(){
         var roleIds = "";
         $("input:checkbox[name='role']:checked").each(function() {
@@ -189,8 +206,9 @@
         var password = $("#password").val();
         var tel = $("#tel").val();
         var realName = $("#realName").val();
+        var department = $("#department").val();
         var id = $("#id").val();
-        baseCallBackAJAX("post","${base}/sys/user/saveuser",{'userName':userName,'password':password,'tel':tel,'realName':realName,'id':id,'roles':roleIds},"json","saveCallback(data)");
+        baseCallBackAJAX("post","${base}/sys/user/saveuser",{'department':department,'userName':userName,'password':password,'tel':tel,'realName':realName,'id':id,'roles':roleIds},"json","saveCallback(data)");
     });
     function saveCallback(data){
         if(data.status=="0"){
