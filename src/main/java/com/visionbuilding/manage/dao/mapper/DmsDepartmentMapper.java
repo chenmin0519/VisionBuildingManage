@@ -13,4 +13,6 @@ public interface DmsDepartmentMapper {
     void updateByPrimaryKeySelective(DmsDepartment params);
     List<DmsDepartment> queryPage(QueryBean queryBean);
     int queryPageCount(QueryBean queryBean);
+
+    List<DmsDepartment> getAll();
 }

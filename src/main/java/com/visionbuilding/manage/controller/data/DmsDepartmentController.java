@@ -85,4 +85,16 @@ public class DmsDepartmentController  extends BaseController {
         return JSON.toJSONString(resultBean);
     }
 
+    @ResponseBody
+    @RequestMapping("/getAll")
+    public String getAll()throws Exception{
+        List<DmsDepartment> resultBean = new ArrayList<>();
+        try {
+            resultBean = dmsDepartmentService.getAll();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return JSON.toJSONString(resultBean);
+    }
+
 }

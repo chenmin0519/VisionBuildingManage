@@ -8,6 +8,7 @@
         <result column="id" property="id" /> <!-- 序列 -->
         <result column="user_name" property="userName"></result>
         <result column="password" property="password"></result>
+        <result column="department" property="department"></result>
         <result column="real_name" property="realName"></result>
         <result column="status" property="status"></result>
         <result column="login_time" property="loginTime"></result>
@@ -22,6 +23,7 @@
     <sql id="select-all-column">
 		id,
 		user_name,
+		department,
 		password,
 		real_name,
 		status,
@@ -37,6 +39,7 @@
     <sql id="insert-all-column">
 		id,
 		user_name,
+		department,
 		password,
 		real_name,
 		status,
@@ -54,6 +57,9 @@
         </if>
         <if test="f.userName != null and f.userName != ''">
             AND user_name = #{f.userName}
+        </if>
+        <if test="f.department != null and f.department != ''">
+            AND department = #{f.department}
         </if>
         <if test="f.password != null and f.password != ''">
             AND password = #{f.password}
@@ -91,6 +97,9 @@
     <sql id="where-update-condition">
         <if test="userName != null and userName != ''">
             , user_name = #{userName}
+        </if>
+        <if test="department != null and department != ''">
+            , department = #{department}
         </if>
         <if test="password != null and password != ''">
             , password = #{password}
@@ -190,6 +199,7 @@
         VALUES(
         #{id},
         #{userName},
+        #{department},
         #{password},
         #{realName},
         #{status},

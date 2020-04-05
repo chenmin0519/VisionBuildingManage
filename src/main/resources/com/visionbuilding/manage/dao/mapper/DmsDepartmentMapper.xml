@@ -59,6 +59,11 @@
   </sql>
 
 
+  <select id="getAll" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List"/>
+    from dms_department where 1=1
+    order by id desc
+  </select>
 
   <select id="queryPage" resultMap="BaseResultMap">
     select  <include refid="Base_Column_List"/>

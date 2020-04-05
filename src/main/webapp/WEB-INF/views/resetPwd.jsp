@@ -66,19 +66,19 @@
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">原密码：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="password" name="ymm" id="ymm" placeholder="请输入原密码" value="" class="form-control" >
+                                                        <input type="password" name="oldPwd" id="oldPwd" placeholder="请输入原密码" value="" class="form-control" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">新密码：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="password" name="xmm" id="xmm" placeholder="请输入新密码" value="" class="form-control">
+                                                        <input type="password" name="newPwd" id="newPwd" placeholder="请输入新密码" value="" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">确认新密码：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="password" name="qrxmm" id="qrxmm" placeholder="请确认新密码" value="" class="form-control" >
+                                                        <input type="password" name="newPwdAgin" id="newPwdAgin" placeholder="请确认新密码" value="" class="form-control" >
                                                     </div>
                                                 </div>
 

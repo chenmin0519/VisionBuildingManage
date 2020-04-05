@@ -59,4 +59,9 @@ public class DmsDepartmentServiceImpl implements DmsDepartmentService {
         BeanUtils.copyProperties(queryBean, result);
         return result;
     }
+
+    @Override
+    public List<DmsDepartment> getAll() {
+        return dmsDepartmentMapper.getAll();
+    }
 }

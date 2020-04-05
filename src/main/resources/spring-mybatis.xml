@@ -36,9 +36,6 @@
     <property name="maxActive">
       <value>255</value>
     </property>
-    <property name="maxIdle">
-      <value>2</value>
-    </property>
     <property name="maxWait">
       <value>120000</value>
     </property>

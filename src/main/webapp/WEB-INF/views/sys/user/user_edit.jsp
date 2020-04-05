@@ -83,6 +83,14 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
+                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">部门：</label>
+                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
+                                                        <input type="hidden" name="department" id="department" value="${po.department}">
+                                                        <select class="form-control kmSelect"> <option value="">--请选择--</option> </select>
+                                                    </div>
+                                                </div>
+
                                                 <div id="role_ids" class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">角色：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
@@ -165,6 +173,13 @@
 <%@ include file="../../common/formajax_js.jsp"%>
 <!-- jQuery  -->
 <script type="text/javascript">
+
+    $(document).ready(function() {
+        initDepartmentOption();
+    });
+    function initDepartmentOption(){
+
+    }
     $("#save").click(function(){
         var roleIds = "";
         $("input:checkbox[name='role']:checked").each(function() {

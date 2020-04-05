@@ -18,7 +18,7 @@ public interface DmsUserMapper {
 
     int updateUserById(DmsUser user);
 
-    int resetPwd(@Param("newPassword") String newPassword ,@Param("userName") String userName);
+    int resetPwd(@Param("userName") String userName,@Param("newPassword") String newPassword );
 
     int resetZt(@Param("status") Integer status ,@Param("id") Long id);
 

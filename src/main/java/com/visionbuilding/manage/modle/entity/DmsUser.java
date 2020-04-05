@@ -15,4 +15,5 @@ public class DmsUser extends BaseEntity{
     private Date loginTime;
     private Integer loginCount;
     private String roleType;
+    private Long department;
 }

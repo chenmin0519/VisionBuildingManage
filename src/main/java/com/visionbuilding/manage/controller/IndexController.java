@@ -81,9 +81,10 @@ public class IndexController extends BaseController {
         try {
             DmsUser user = (DmsUser) request.getSession().getAttribute(SessionAttributes.USER_SESSION_NAME);
             String userName = user.getUserName();
-            String oldPassword = user.getPassword();
+//            String oldPassword = user.getPassword();
             oldPwd = EncryptionUtils.getCiphertext(oldPwd);
-            if (!oldPassword.equals(oldPwd)) {
+            user = loginService.login(userName,oldPwd);
+            if (user == null) {
                 throw new LogicException("密码错误！");
             }
             if (newPwd == null || "".equals(newPwd) || newPwdAgin == null) {
