@@ -373,17 +373,17 @@
 			table.on('draw.dt', function() {
 				table.column(0, {
 					search : 'applied',
-					order : 'applied'
+							order : 'applied'
 				}).nodes().each(function(cell, i) {
 					var historypageno='${pageno}';
-					
+
 					//i 从0开始，所以这里先加1
 					i = i + 1;
 					//服务器模式下获取分页信息
 					var page = table.page.info();
 					//当前第几页，从0开始
 					var pageno = page.page;
-					 $("#"+datatableid+"_paginate .pagination  #changePage").val(pageno+1);
+					$("#"+datatableid+"_paginate .pagination  #changePage").val(pageno+1);
 					//每页数据
 					var length = page.length;
 					//行号等于 页数*每页数据长度+行号
