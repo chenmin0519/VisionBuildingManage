@@ -21,4 +21,6 @@ public interface DmsProjectTypeMapper {
     int queryPageCount(QueryBean queryBean);
 
     List<DmsProjectType> queryPage(QueryBean queryBean);
+
+    List<DmsProjectType> getAll();
 }

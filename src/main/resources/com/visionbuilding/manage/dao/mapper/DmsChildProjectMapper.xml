@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.visionbuilding.manage.dao.mapper.DmsChildProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.visionbuilding.manage.modle.entity.DmsChildProject" >
+<!--    <id column="id" property="id" jdbcType="BIGINT" />-->
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="project_type_code" property="projectTypeCode" jdbcType="VARCHAR" />
+    <result column="project_type_name" property="projectTypeName" jdbcType="VARCHAR" />
+    <result column="acquisition_date" property="acquisitionDate" jdbcType="TIMESTAMP" />
+    <result column="construction_area" property="constructionArea" jdbcType="BIGINT" />
+    <result column="initial_delivery_date" property="initialDeliveryDate" jdbcType="TIMESTAMP" />
+    <result column="cost_price" property="costPrice" jdbcType="BIGINT" />
+    <result column="total_cost" property="totalCost" jdbcType="BIGINT" />
+    <result column="drafting_unit" property="draftingUnit" jdbcType="VARCHAR" />
+    <result column="designer_commission" property="designerCommission" jdbcType="BIGINT" />
+    <result column="designer_commission_price" property="designerCommissionPrice" jdbcType="BIGINT" />
+    <result column="confirm_status" property="confirmStatus" jdbcType="TINYINT" />
+    <result column="confirm_time" property="confirmTime" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+<!--    <result column="status" property="status" jdbcType="TINYINT" />-->
+    <result column="add_user" property="addUser" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="department" property="department" jdbcType="BIGINT" />
+    <result column="rendering_num" property="renderingNum" jdbcType="BIGINT" />
+    <result column="total_sales_price" property="totalSalesPrice" jdbcType="BIGINT" />
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, parent_id, project_type_code, project_type_name, acquisition_date, construction_area, 
+    initial_delivery_date, cost_price, total_cost, total_sales_price, drafting_unit, designer_commission,
+    designer_commission_price, confirm_status, confirm_time, remarks, status, add_user, 
+    add_time, update_user, update_time, department, rendering_num
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dms_child_project
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dms_child_project
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject" >
+    insert into dms_child_project (id, parent_id, project_type_code, 
+      project_type_name, acquisition_date, construction_area, 
+      initial_delivery_date, cost_price, total_cost, total_sales_price,
+      drafting_unit, designer_commission, designer_commission_price, 
+      confirm_status, confirm_time, remarks, 
+      status, add_user, add_time, 
+      update_user, update_time, department, 
+      rendering_num)
+    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{projectTypeCode,jdbcType=VARCHAR}, 
+      #{projectTypeName,jdbcType=VARCHAR}, #{acquisitionDate,jdbcType=TIMESTAMP}, #{constructionArea,jdbcType=BIGINT}, 
+      #{initialDeliveryDate,jdbcType=TIMESTAMP}, #{costPrice,jdbcType=BIGINT}, #{totalCost,jdbcType=BIGINT}, #{totalSalesPrice,jdbcType=BIGINT},
+      #{draftingUnit,jdbcType=VARCHAR}, #{designerCommission,jdbcType=BIGINT}, #{designerCommissionPrice,jdbcType=BIGINT}, 
+      #{confirmStatus,jdbcType=TINYINT}, #{confirmTime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{addUser,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{department,jdbcType=BIGINT}, 
+      #{renderingNum,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject" >
+    insert into dms_child_project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="projectTypeCode != null" >
+        project_type_code,
+      </if>
+      <if test="projectTypeName != null" >
+        project_type_name,
+      </if>
+      <if test="acquisitionDate != null" >
+        acquisition_date,
+      </if>
+      <if test="constructionArea != null" >
+        construction_area,
+      </if>
+      <if test="initialDeliveryDate != null" >
+        initial_delivery_date,
+      </if>
+      <if test="costPrice != null" >
+        cost_price,
+      </if>
+      <if test="totalCost != null" >
+        total_cost,
+      </if>
+      <if test="totalSalesPrice != null" >
+        total_sales_price,
+      </if>
+      <if test="draftingUnit != null" >
+        drafting_unit,
+      </if>
+      <if test="designerCommission != null" >
+        designer_commission,
+      </if>
+      <if test="designerCommissionPrice != null" >
+        designer_commission_price,
+      </if>
+      <if test="confirmStatus != null" >
+        confirm_status,
+      </if>
+      <if test="confirmTime != null" >
+        confirm_time,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="addUser != null" >
+        add_user,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="renderingNum != null" >
+        rendering_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="projectTypeCode != null" >
+        #{projectTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectTypeName != null" >
+        #{projectTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="acquisitionDate != null" >
+        #{acquisitionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="constructionArea != null" >
+        #{constructionArea,jdbcType=BIGINT},
+      </if>
+      <if test="initialDeliveryDate != null" >
+        #{initialDeliveryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=BIGINT},
+      </if>
+      <if test="totalCost != null" >
+        #{totalCost,jdbcType=BIGINT},
+      </if>
+      <if test="totalSalesPrice != null" >
+        #{totalSalesPrice,jdbcType=BIGINT},
+      </if>
+      <if test="draftingUnit != null" >
+        #{draftingUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="designerCommission != null" >
+        #{designerCommission,jdbcType=BIGINT},
+      </if>
+      <if test="designerCommissionPrice != null" >
+        #{designerCommissionPrice,jdbcType=BIGINT},
+      </if>
+      <if test="confirmStatus != null" >
+        #{confirmStatus,jdbcType=TINYINT},
+      </if>
+      <if test="confirmTime != null" >
+        #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="addUser != null" >
+        #{addUser,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=BIGINT},
+      </if>
+      <if test="renderingNum != null" >
+        #{renderingNum,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject" >
+    update dms_child_project
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="projectTypeCode != null" >
+        project_type_code = #{projectTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectTypeName != null" >
+        project_type_name = #{projectTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="acquisitionDate != null" >
+        acquisition_date = #{acquisitionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="constructionArea != null" >
+        construction_area = #{constructionArea,jdbcType=BIGINT},
+      </if>
+      <if test="initialDeliveryDate != null" >
+        initial_delivery_date = #{initialDeliveryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="costPrice != null" >
+        cost_price = #{costPrice,jdbcType=BIGINT},
+      </if>
+      <if test="totalCost != null" >
+        total_cost = #{totalCost,jdbcType=BIGINT},
+      </if>
+      <if test="totalSalesPrice != null" >
+        total_sales_price = #{totalSalesPrice,jdbcType=BIGINT},
+      </if>
+      <if test="draftingUnit != null" >
+        drafting_unit = #{draftingUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="designerCommission != null" >
+        designer_commission = #{designerCommission,jdbcType=BIGINT},
+      </if>
+      <if test="designerCommissionPrice != null" >
+        designer_commission_price = #{designerCommissionPrice,jdbcType=BIGINT},
+      </if>
+      <if test="confirmStatus != null" >
+        confirm_status = #{confirmStatus,jdbcType=TINYINT},
+      </if>
+      <if test="confirmTime != null" >
+        confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="addUser != null" >
+        add_user = #{addUser,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=BIGINT},
+      </if>
+      <if test="renderingNum != null" >
+        rendering_num = #{renderingNum,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject" >
+    update dms_child_project
+    set parent_id = #{parentId,jdbcType=BIGINT},
+      project_type_code = #{projectTypeCode,jdbcType=VARCHAR},
+      project_type_name = #{projectTypeName,jdbcType=VARCHAR},
+      acquisition_date = #{acquisitionDate,jdbcType=TIMESTAMP},
+      construction_area = #{constructionArea,jdbcType=BIGINT},
+      initial_delivery_date = #{initialDeliveryDate,jdbcType=TIMESTAMP},
+      cost_price = #{costPrice,jdbcType=BIGINT},
+      total_cost = #{totalCost,jdbcType=BIGINT},
+      total_sales_price = #{totalSalesPrice,jdbcType=BIGINT},
+      drafting_unit = #{draftingUnit,jdbcType=VARCHAR},
+      designer_commission = #{designerCommission,jdbcType=BIGINT},
+      designer_commission_price = #{designerCommissionPrice,jdbcType=BIGINT},
+      confirm_status = #{confirmStatus,jdbcType=TINYINT},
+      confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      add_user = #{addUser,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      department = #{department,jdbcType=BIGINT},
+      rendering_num = #{renderingNum,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

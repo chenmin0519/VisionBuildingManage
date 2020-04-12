@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.visionbuilding.manage.controller.BaseController;
 import com.visionbuilding.manage.modle.ResultBean;
 import com.visionbuilding.manage.modle.ResultPOListBean;
+import com.visionbuilding.manage.modle.entity.DmsDepartment;
 import com.visionbuilding.manage.modle.entity.DmsProjectType;
 import com.visionbuilding.manage.service.DmsProjectTypeService;
 import com.visionbuilding.manage.utill.FormDataUtils;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -75,6 +78,18 @@ public class DmsProjectTypeController extends BaseController {
         }catch (Exception e){
             e.printStackTrace();
             resultBean.failure("系统异常");
+        }
+        return JSON.toJSONString(resultBean);
+    }
+
+    @ResponseBody
+    @RequestMapping("/getAll")
+    public String getAll()throws Exception{
+        List<DmsProjectType> resultBean = new ArrayList<>();
+        try {
+            resultBean = dmsProjectTypeService.getAll();
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return JSON.toJSONString(resultBean);
     }

@@ -43,10 +43,10 @@
                     <!-- Page-Title -->
                     <div class="row">
                         <div class="col-sm-12">
-                            <h4 class="pull-left page-title">设计类型管理</h4>
+                            <h4 class="pull-left page-title">项目管理</h4>
                             <ol class="breadcrumb pull-right">
-                                <li><a href="#">设计类型管理</a></li>
-                                <li class="active">基础数据管理</li>
+                                <li><a href="#">项目管理</a></li>
+                                <li class="active">项目结算管理</li>
                             </ol>
                         </div>
                     </div>
@@ -66,11 +66,9 @@
                                             <div class="panel panel-default">
                                                 <form id="form">
                                                     <div class="form-group col-sm-3 col-md-3 col-xs-3 pull-left">
-                                                        <input type="text" placeholder="请输入名称" class="form-control" name="typeName">
+                                                        <input type="text" placeholder="请输入项目名" class="form-control" name="mainProject">
                                                     </div>
-                                                    <div class="form-group col-sm-3 col-md-3 col-xs-3 pull-left">
-                                                        <input type="text" placeholder="请输入编码" class="form-control" name="typeCode">
-                                                    </div>
+
                                                     <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">
                                                         <button id="query" type="button" style="position: absolute;right: -10px;"
                                                                 class="btn btn-primary waves-effect waves-light m-b-5">
@@ -91,9 +89,15 @@
                                                    class="table table-hover mails dataTable no-footer">
                                                 <thead>
                                                 <tr>
-                                                    <th nowrap="nowrap">序号</th>
-                                                    <th nowrap="nowrap">编码</th>
-                                                    <th nowrap="nowrap">名称</th>
+                                                    <th nowrap="">项目序号</th>
+                                                    <th nowrap="nowrap">项目建档时间</th>
+                                                    <th nowrap="nowrap">客户来源</th>
+                                                    <th nowrap="nowrap">客户编码</th>
+                                                    <th nowrap="nowrap">项目地点</th>
+                                                    <th nowrap="nowrap">客户电话</th>
+                                                    <th nowrap="nowrap">销售面积</th>
+                                                    <th nowrap="nowrap">销售单价(元/㎡)</th>
+                                                    <th nowrap="nowrap">成本单价(元/㎡)</th>
                                                     <th nowrap="nowrap">操作</th>
                                                 </tr>
                                                 </thead>
@@ -140,25 +144,21 @@
 <!-- jQuery  -->
 
 <script type="text/javascript">
-    var functionlist=[{targets:[3],
+    var functionlist=[{targets:[9],
         mRender:function(data) {
             var result = "";
-            if(data.status == 1){
-                result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>";
-            }else{
-                result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>";
-            }
+            result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
+                +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"
+                +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>";
             return result;
         }
     }];
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
-        initBaseTable($("form").serialize(),"datatable","${base}/project/projectType/getDates",",typeCode,typeName,",functionlist);
+        initBaseTable($("form").serialize(),"datatable","${base}/project/main-project/getDates",
+            ",projectCreationTime,customerSource,customerCode,place,customerPhone,salesArea,unitPrice,costPrice,",
+            functionlist);
     }
     $(document).ready(function(){
         initTbale();
@@ -168,7 +168,7 @@
     });
 
     function del(id){
-        baseCallBackAJAX("get","${base}/data/projectType/del",{'id':id},"json","callback(data)");
+        baseCallBackAJAX("get","${base}/project/main-project/del",{'id':id},"json","callback(data)");
     }
     function callback(data){
         if(data.status=="0"){
@@ -202,10 +202,10 @@
         }
     }
     function detil(id){
-        window.location.href="${base}/data/projectType/edit.html?id="+id+"&chirld=${chirld}&parent=${parent}";
+        window.location.href="${base}/project/main-project/edit.html?id="+id+"&chirld=${chirld}&parent=${parent}";
     }
     $("#add").click(function(){
-        window.location.href="${base}/data/projectType/add.html?chirld=${chirld}&parent=${parent}";
+        window.location.href="${base}/project/main-project/add.html?chirld=${chirld}&parent=${parent}";
     });
 </script>
 

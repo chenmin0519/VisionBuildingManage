@@ -56,7 +56,7 @@ public class DmsDepartmentController  extends BaseController {
     }
     @ResponseBody
     @RequestMapping("/del")
-    public String getDates(Long id)throws Exception{
+    public String del(Long id)throws Exception{
         ResultBean resultBean = new ResultBean();
         try {
             dmsDepartmentService.deleteByPrimaryKey(id);

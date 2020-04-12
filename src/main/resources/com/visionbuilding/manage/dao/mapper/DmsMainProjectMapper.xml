@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.visionbuilding.manage.dao.mapper.DmsMainProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.visionbuilding.manage.modle.entity.DmsMainProject" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_creation_time" property="projectCreationTime" jdbcType="TIMESTAMP" />
+    <result column="customer_source" property="customerSource" jdbcType="VARCHAR" />
+    <result column="customer_code" property="customerCode" jdbcType="VARCHAR" />
+    <result column="place" property="place" jdbcType="VARCHAR" />
+    <result column="customer_phone" property="customerPhone" jdbcType="VARCHAR" />
+    <result column="sales_area" property="salesArea" jdbcType="BIGINT" />
+    <result column="unit_price" property="unitPrice" jdbcType="BIGINT" />
+    <result column="cost_price" property="costPrice" jdbcType="BIGINT" />
+    <result column="design_sales_cost" property="designSalesCost" jdbcType="BIGINT" />
+    <result column="design_cost" property="designCost" jdbcType="BIGINT" />
+    <result column="profit" property="profit" jdbcType="BIGINT" />
+    <result column="amount_returned" property="amountReturned" jdbcType="BIGINT" />
+    <result column="amount_receivable" property="amountReceivable" jdbcType="BIGINT" />
+    <result column="amount_spent" property="amountSpent" jdbcType="BIGINT" />
+    <result column="amounts_payable" property="amountsPayable" jdbcType="BIGINT" />
+    <result column="contract_no" property="contractNo" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="add_user" property="addUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="production" property="production" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, project_creation_time, customer_source, customer_code, place, customer_phone, sales_area,
+    unit_price, cost_price, design_sales_cost, design_cost, profit, amount_returned, 
+    amount_receivable, amount_spent, amounts_payable, contract_no, remarks, status, add_time, 
+    add_user, update_user, update_time, production
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dms_main_project
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dms_main_project
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.visionbuilding.manage.modle.entity.DmsMainProject" >
+    insert into dms_main_project (id, project_creation_time, customer_source, 
+      customer_code, place, customer_phone, sales_area,
+      unit_price, cost_price, design_sales_cost, 
+      design_cost, profit, amount_returned, 
+      amount_receivable, amount_spent, amounts_payable, 
+      contract_no, remarks, status, 
+      add_time, add_user, update_user, 
+      update_time, production)
+    values (#{id,jdbcType=BIGINT}, #{projectCreationTime,jdbcType=TIMESTAMP}, #{customerSource,jdbcType=VARCHAR}, 
+      #{customerCode,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{customerPhone,jdbcType=VARCHAR}, #{salesArea,jdbcType=BIGINT},
+      #{unitPrice,jdbcType=BIGINT}, #{costPrice,jdbcType=BIGINT}, #{designSalesCost,jdbcType=BIGINT}, 
+      #{designCost,jdbcType=BIGINT}, #{profit,jdbcType=BIGINT}, #{amountReturned,jdbcType=BIGINT}, 
+      #{amountReceivable,jdbcType=BIGINT}, #{amountSpent,jdbcType=BIGINT}, #{amountsPayable,jdbcType=BIGINT}, 
+      #{contractNo,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{addUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{production,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsMainProject" >
+    insert into dms_main_project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="projectCreationTime != null" >
+        project_creation_time,
+      </if>
+      <if test="customerSource != null" >
+        customer_source,
+      </if>
+      <if test="customerCode != null" >
+        customer_code,
+      </if>
+      <if test="place != null" >
+        place,
+      </if>
+      <if test="customerPhone != null" >
+        customer_phone,
+      </if>
+      <if test="salesArea != null" >
+        sales_area,
+      </if>
+      <if test="unitPrice != null" >
+        unit_price,
+      </if>
+      <if test="costPrice != null" >
+        cost_price,
+      </if>
+      <if test="designSalesCost != null" >
+        design_sales_cost,
+      </if>
+      <if test="designCost != null" >
+        design_cost,
+      </if>
+      <if test="profit != null" >
+        profit,
+      </if>
+      <if test="amountReturned != null" >
+        amount_returned,
+      </if>
+      <if test="amountReceivable != null" >
+        amount_receivable,
+      </if>
+      <if test="amountSpent != null" >
+        amount_spent,
+      </if>
+      <if test="amountsPayable != null" >
+        amounts_payable,
+      </if>
+      <if test="contractNo != null" >
+        contract_no,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="addUser != null" >
+        add_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="production != null" >
+        production,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="projectCreationTime != null" >
+        #{projectCreationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerSource != null" >
+        #{customerSource,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCode != null" >
+        #{customerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null" >
+        #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="salesArea != null" >
+        #{salesArea,jdbcType=BIGINT},
+      </if>
+      <if test="unitPrice != null" >
+        #{unitPrice,jdbcType=BIGINT},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=BIGINT},
+      </if>
+      <if test="designSalesCost != null" >
+        #{designSalesCost,jdbcType=BIGINT},
+      </if>
+      <if test="designCost != null" >
+        #{designCost,jdbcType=BIGINT},
+      </if>
+      <if test="profit != null" >
+        #{profit,jdbcType=BIGINT},
+      </if>
+      <if test="amountReturned != null" >
+        #{amountReturned,jdbcType=BIGINT},
+      </if>
+      <if test="amountReceivable != null" >
+        #{amountReceivable,jdbcType=BIGINT},
+      </if>
+      <if test="amountSpent != null" >
+        #{amountSpent,jdbcType=BIGINT},
+      </if>
+      <if test="amountsPayable != null" >
+        #{amountsPayable,jdbcType=BIGINT},
+      </if>
+      <if test="contractNo != null" >
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addUser != null" >
+        #{addUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="production != null" >
+        #{production,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.visionbuilding.manage.modle.entity.DmsMainProject" >
+    update dms_main_project
+    <set >
+      <if test="projectCreationTime != null" >
+        project_creation_time = #{projectCreationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerSource != null" >
+        customer_source = #{customerSource,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCode != null" >
+        customer_code = #{customerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null" >
+        customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="salesArea != null" >
+        sales_area = #{salesArea,jdbcType=BIGINT},
+      </if>
+      <if test="unitPrice != null" >
+        unit_price = #{unitPrice,jdbcType=BIGINT},
+      </if>
+      <if test="costPrice != null" >
+        cost_price = #{costPrice,jdbcType=BIGINT},
+      </if>
+      <if test="designSalesCost != null" >
+        design_sales_cost = #{designSalesCost,jdbcType=BIGINT},
+      </if>
+      <if test="designCost != null" >
+        design_cost = #{designCost,jdbcType=BIGINT},
+      </if>
+      <if test="profit != null" >
+        profit = #{profit,jdbcType=BIGINT},
+      </if>
+      <if test="amountReturned != null" >
+        amount_returned = #{amountReturned,jdbcType=BIGINT},
+      </if>
+      <if test="amountReceivable != null" >
+        amount_receivable = #{amountReceivable,jdbcType=BIGINT},
+      </if>
+      <if test="amountSpent != null" >
+        amount_spent = #{amountSpent,jdbcType=BIGINT},
+      </if>
+      <if test="amountsPayable != null" >
+        amounts_payable = #{amountsPayable,jdbcType=BIGINT},
+      </if>
+      <if test="contractNo != null" >
+        contract_no = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addUser != null" >
+        add_user = #{addUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="production != null" >
+        production = #{production,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.visionbuilding.manage.modle.entity.DmsMainProject" >
+    update dms_main_project
+    set project_creation_time = #{projectCreationTime,jdbcType=TIMESTAMP},
+      customer_source = #{customerSource,jdbcType=VARCHAR},
+      customer_code = #{customerCode,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR}
+      customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      sales_area = #{salesArea,jdbcType=BIGINT},
+      unit_price = #{unitPrice,jdbcType=BIGINT},
+      cost_price = #{costPrice,jdbcType=BIGINT},
+      design_sales_cost = #{designSalesCost,jdbcType=BIGINT},
+      design_cost = #{designCost,jdbcType=BIGINT},
+      profit = #{profit,jdbcType=BIGINT},
+      amount_returned = #{amountReturned,jdbcType=BIGINT},
+      amount_receivable = #{amountReceivable,jdbcType=BIGINT},
+      amount_spent = #{amountSpent,jdbcType=BIGINT},
+      amounts_payable = #{amountsPayable,jdbcType=BIGINT},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      add_user = #{addUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      production = #{production,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <sql id="where-all-condition">
+    <if test="f.customer_source != null and f.customer_source!= ''"  >
+      and customer_source = #{customerSource}
+    </if>
+    <!--<if test="f.department != null  and f.department!= ''" >
+      and  department like concat(concat('%', #{f.department}),'%')
+    </if>-->
+  </sql>
+
+  <select id="queryPage" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List"/>
+    from dms_main_project where 1=1
+    <include refid="where-all-condition"/>
+    order by id desc
+    limit #{startPage},${pageRows}
+  </select>
+
+  <select id="queryPageCount" resultType="java.lang.Integer">
+    select  count(1)
+    from dms_main_project where 1=1
+    <include refid = "where-all-condition" />
+  </select>
+</mapper>

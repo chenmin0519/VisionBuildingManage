@@ -93,4 +93,9 @@
       type_code = #{typeCode,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="getAll" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List"/>
+    from dms_project_type where 1=1
+    order by id desc
+  </select>
 </mapper>

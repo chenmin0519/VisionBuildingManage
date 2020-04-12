@@ -19,8 +19,8 @@ public class AouthInterceptor implements HandlerInterceptor {
             //请求页面放行
             return true;
         }else{
-            HandlerMethod handlerMethod = (HandlerMethod) handler;
-            Method method = handlerMethod.getMethod();
+//            HandlerMethod handlerMethod = (HandlerMethod) handler;
+//            Method method = handlerMethod.getMethod();
             //判断权限
             return true;
         }

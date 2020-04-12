@@ -2,6 +2,7 @@ package com.visionbuilding.manage.service.impl;
 
 import com.visionbuilding.manage.dao.mapper.DmsProjectTypeMapper;
 import com.visionbuilding.manage.modle.ResultPOListBean;
+import com.visionbuilding.manage.modle.entity.DmsDepartment;
 import com.visionbuilding.manage.modle.entity.DmsProjectType;
 import com.visionbuilding.manage.modle.query.QueryBean;
 import com.visionbuilding.manage.service.DmsProjectTypeService;
@@ -58,5 +59,10 @@ public class DmsProjectTypeServiceImpl implements DmsProjectTypeService {
         //分页信息
         BeanUtils.copyProperties(queryBean, result);
         return result;
+    }
+
+    @Override
+    public List<DmsProjectType> getAll() {
+        return dmsProjectTypeMapper.getAll();
     }
 }
