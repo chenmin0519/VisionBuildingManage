@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.visionbuilding.manage.dao.mapper.DmsSettlementMapper" >
+  <resultMap id="BaseResultMap" type="com.visionbuilding.manage.modle.entity.DmsSettlement" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parent_project" property="parentProject" jdbcType="BIGINT" />
+    <result column="child_project" property="childProject" jdbcType="BIGINT" />
+    <result column="sale_amount" property="saleAmount" jdbcType="BIGINT" />
+    <result column="cost_amount" property="costAmount" jdbcType="BIGINT" />
+    <result column="commission_amount" property="commissionAmount" jdbcType="BIGINT" />
+    <result column="event_date" property="eventDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, parent_project, child_project, sale_amount, cost_amount, commission_amount, event_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dms_settlement
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="selectOnYearData" resultType="com.visionbuilding.manage.modle.po.StaticsMouthsPo">
+      SELECT
+      SUM(sale_amount) as saleAmount,
+      SUM(cost_amount) as costAmount,
+      SUM(commission_amount) as commissionAmount,
+      DATE_FORMAT(event_date,'%Y-%m') as eventDate
+      FROM
+      dms_settlement
+      WHERE
+      event_date &gt; #{startTime}
+      AND event_date &lt;= #{endTime}
+      GROUP BY DATE_FORMAT(event_date,'%Y-%M')
+      ORDER BY event_date ASC
+    </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dms_settlement
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.visionbuilding.manage.modle.entity.DmsSettlement" >
+    insert into dms_settlement (id, parent_project, child_project, 
+      sale_amount, cost_amount, commission_amount, 
+      event_date)
+    values (#{id,jdbcType=BIGINT}, #{parentProject,jdbcType=BIGINT}, #{childProject,jdbcType=BIGINT}, 
+      #{saleAmount,jdbcType=BIGINT}, #{costAmount,jdbcType=BIGINT}, #{commissionAmount,jdbcType=BIGINT}, 
+      #{eventDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsSettlement" >
+    insert into dms_settlement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="parentProject != null" >
+        parent_project,
+      </if>
+      <if test="childProject != null" >
+        child_project,
+      </if>
+      <if test="saleAmount != null" >
+        sale_amount,
+      </if>
+      <if test="costAmount != null" >
+        cost_amount,
+      </if>
+      <if test="commissionAmount != null" >
+        commission_amount,
+      </if>
+      <if test="eventDate != null" >
+        event_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="parentProject != null" >
+        #{parentProject,jdbcType=BIGINT},
+      </if>
+      <if test="childProject != null" >
+        #{childProject,jdbcType=BIGINT},
+      </if>
+      <if test="saleAmount != null" >
+        #{saleAmount,jdbcType=BIGINT},
+      </if>
+      <if test="costAmount != null" >
+        #{costAmount,jdbcType=BIGINT},
+      </if>
+      <if test="commissionAmount != null" >
+        #{commissionAmount,jdbcType=BIGINT},
+      </if>
+      <if test="eventDate != null" >
+        #{eventDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.visionbuilding.manage.modle.entity.DmsSettlement" >
+    update dms_settlement
+    <set >
+      <if test="parentProject != null" >
+        parent_project = #{parentProject,jdbcType=BIGINT},
+      </if>
+      <if test="childProject != null" >
+        child_project = #{childProject,jdbcType=BIGINT},
+      </if>
+      <if test="saleAmount != null" >
+        sale_amount = #{saleAmount,jdbcType=BIGINT},
+      </if>
+      <if test="costAmount != null" >
+        cost_amount = #{costAmount,jdbcType=BIGINT},
+      </if>
+      <if test="commissionAmount != null" >
+        commission_amount = #{commissionAmount,jdbcType=BIGINT},
+      </if>
+      <if test="eventDate != null" >
+        event_date = #{eventDate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.visionbuilding.manage.modle.entity.DmsSettlement" >
+    update dms_settlement
+    set parent_project = #{parentProject,jdbcType=BIGINT},
+      child_project = #{childProject,jdbcType=BIGINT},
+      sale_amount = #{saleAmount,jdbcType=BIGINT},
+      cost_amount = #{costAmount,jdbcType=BIGINT},
+      commission_amount = #{commissionAmount,jdbcType=BIGINT},
+      event_date = #{eventDate,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
