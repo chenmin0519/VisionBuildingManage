@@ -40,6 +40,9 @@ public class DmsSettlementServiceImpl implements DmsSettlementService {
         Long leftMax = 0L;
         Long rigthMax = 0L;
         for(StaticsMouthsPo staticsMouthsPo : dmsSettlements){
+            staticsMouthsPo.setSaleAmount(staticsMouthsPo.getSaleAmount()/100);
+            staticsMouthsPo.setCommissionAmount(staticsMouthsPo.getCommissionAmount()/100);
+            staticsMouthsPo.setCostAmount(staticsMouthsPo.getCostAmount()/100);
             dataStr.add(staticsMouthsPo.getEventDate());
             saleData.add(staticsMouthsPo.getSaleAmount());
             costData.add(staticsMouthsPo.getCostAmount());
