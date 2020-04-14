@@ -1,6 +1,10 @@
 package com.visionbuilding.manage.dao.mapper;
 
 import com.visionbuilding.manage.modle.entity.DmsChildProject;
+import com.visionbuilding.manage.modle.entity.DmsMainProject;
+import com.visionbuilding.manage.modle.query.QueryBean;
+
+import java.util.List;
 
 public interface DmsChildProjectMapper {
     int deleteByPrimaryKey(Long id);
@@ -14,4 +18,8 @@ public interface DmsChildProjectMapper {
     int updateByPrimaryKeySelective(DmsChildProject record);
 
     int updateByPrimaryKey(DmsChildProject record);
+
+    List<DmsChildProject> querySubPage(QueryBean queryBean);
+
+    int queryPageCount(QueryBean queryBean);
 }

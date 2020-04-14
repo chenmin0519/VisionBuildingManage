@@ -317,7 +317,7 @@
 
   <sql id="where-all-condition">
     <if test="f.customer_source != null and f.customer_source!= ''"  >
-      and customer_source = #{customerSource}
+      and customer_source = #{f.customerSource}
     </if>
     <!--<if test="f.department != null  and f.department!= ''" >
       and  department like concat(concat('%', #{f.department}),'%')

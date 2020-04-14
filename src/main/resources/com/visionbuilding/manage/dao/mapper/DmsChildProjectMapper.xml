@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.visionbuilding.manage.dao.mapper.DmsChildProjectMapper" >
   <resultMap id="BaseResultMap" type="com.visionbuilding.manage.modle.entity.DmsChildProject" >
-<!--    <id column="id" property="id" jdbcType="BIGINT" />-->
+    <id column="id" property="id" jdbcType="BIGINT" />
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
     <result column="project_type_code" property="projectTypeCode" jdbcType="VARCHAR" />
     <result column="project_type_name" property="projectTypeName" jdbcType="VARCHAR" />
@@ -17,7 +17,7 @@
     <result column="confirm_status" property="confirmStatus" jdbcType="TINYINT" />
     <result column="confirm_time" property="confirmTime" jdbcType="TIMESTAMP" />
     <result column="remarks" property="remarks" jdbcType="VARCHAR" />
-<!--    <result column="status" property="status" jdbcType="TINYINT" />-->
+    <result column="status" property="status" jdbcType="TINYINT" />
     <result column="add_user" property="addUser" jdbcType="VARCHAR" />
     <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
     <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
@@ -32,6 +32,14 @@
     initial_delivery_date, cost_price, total_cost, total_sales_price, drafting_unit, designer_commission,
     designer_commission_price, confirm_status, confirm_time, remarks, status, add_user, 
     add_time, update_user, update_time, department, rendering_num
+  </sql>
+  <sql id="where-all-condition">
+    <if test="customer_source != null and customer_source!= ''"  >
+      and customer_source = #{customerSource}
+    </if>
+    <!--<if test="f.department != null  and f.department!= ''" >
+      and  department like concat(concat('%', #{f.department}),'%')
+    </if>-->
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -304,4 +312,26 @@
       rendering_num = #{renderingNum,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="querySubPage" resultType="com.visionbuilding.manage.modle.entity.DmsChildProject">
+-- 1.根据前端传的父级code去大项目表查销售面积,销售单价. 同时根据父级code在自子项目表查到父级code是该父级code的
+    select dcp.id, dcp.parent_id as parentId, dcp.project_type_code as projectTypeCode, dcp.project_type_name as projectTypeName,
+     dcp.total_sales_price as totalSalesPrice,dcp.acquisition_date as acquisitionDate, dcp.remarks,
+    dmp.sales_area as salesArea, dmp.unit_price as unitPrice
+    from dms_child_project dcp, dms_main_project dmp
+    where dcp.parent_id = dmp.id
+    <if test="f.id != null and f.id!= ''"  >
+      and dmp.id = #{f.id}
+    </if>
+    order by dcp.id desc
+    limit #{startPage},${pageRows}
+  </select>
+  <select id="queryPageCount" resultType="java.lang.Integer">
+    select  count(1)
+    from dms_child_project where 1=1
+    <if test="f.id != null and f.id!= ''"  >
+      and parentId = #{f.id}
+    </if>
+<!--    <include refid = "where-all-condition" />-->
+  </select>
 </mapper>

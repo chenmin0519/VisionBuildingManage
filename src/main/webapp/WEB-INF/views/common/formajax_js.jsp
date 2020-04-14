@@ -32,6 +32,7 @@
 				dataType : 'json',
 				async : true,
 				success : function(data) {
+					alert("ccc");
 					eval(""+callbackname+""); 
 				}
 			});

@@ -91,4 +91,27 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
     public void updateByPrimaryKeySelectiveChild(DmsChildProject dmsChildProject) {
         dmsChildProjectMapper.updateByPrimaryKeySelective(dmsChildProject);
     }
+
+    @Override
+    public ResultPOListBean<DmsChildProject> querySubPage(DmsMainProject dmsMainProject) {
+        ResultPOListBean<DmsChildProject> result = new ResultPOListBean<>();
+        //分页参数
+        QueryBean queryBean = new QueryBean();
+        queryBean.setPageNo(dmsMainProject.getPageNo());
+        queryBean.setPageRows(dmsMainProject.getPageRows());
+        queryBean.setF(dmsMainProject.getPagingMap());
+
+        int count = 0;
+        count = dmsChildProjectMapper.queryPageCount(queryBean);
+        queryBean.resetTotalCount(count);
+        List<DmsChildProject> dmsChildProjects = new ArrayList<>();
+        if(count > 0){
+            dmsChildProjects = dmsChildProjectMapper.querySubPage(queryBean);
+        }
+        result.success(dmsChildProjects,count);
+        //分页信息
+        BeanUtils.copyProperties(queryBean, result);
+        return result;
+    }
+
 }
