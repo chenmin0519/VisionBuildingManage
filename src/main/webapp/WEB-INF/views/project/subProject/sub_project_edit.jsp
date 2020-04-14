@@ -6,6 +6,7 @@
 
     <%@ include file="../../common/common_css.jsp" %>
 
+    <link href="${cssjs}/blue/assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <title>愿景建筑OA系统</title>
 
     <%@ include file="../../common/common_tag.jsp" %>
@@ -110,8 +111,13 @@
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">平面收单日期：</label>
-                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" name="initialDeliveryDate" id="initialDeliveryDate"  value="${po.initialDeliveryDate}" class="form-control" >
+                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left" >
+                                                        <div class="col-sm-6 col-lg-6 col-md-6 pull-left">
+                                                            <div class='input-group date' id='datetimepicker4' >
+                                                                <input placeholder="注册结束日期" type='text' id="endTime2" value="${po.initialDeliveryDate}"  name="initialDeliveryDate" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
+                                                            </div>
+                                                        </div>
+<%--                                                        <input type="text" name="initialDeliveryDate" id="initialDeliveryDate"  value="${po.initialDeliveryDate}" class="form-control" >--%>
 <%--                                                        <input type="text" onfocus="WdatePicker({onpicked:true,minDate:'',maxDate:''})" id="initialDeliveryDate" name="initialDeliveryDate" value="${po.initialDeliveryDate}" class="form-control" readonly="readonly">--%>
 
                                                     </div>
@@ -177,6 +183,15 @@
 <!-- jQuery  -->
 <script type="text/javascript">
 
+    $(document).ready(function(){
+        // initBaseDateTimePicker("datetimepicker3", "datetimepicker4");
+        $('#datetimepicker4').datetimepicker({
+            format:"YYYY-MM-DD HH:mm:ss"
+        });
+        $("#datetimepicker4").on("dp.change", function (e) {
+            $('#datetimepicker4').data("DateTimePicker").minDate(e.date);
+        });
+    });
     $("#save").click(function(){
         baseCallBackAJAX("post","${base}/project/main-project/save-sub-project",$("#form").serialize(),"json","saveCallback(data)");
     });

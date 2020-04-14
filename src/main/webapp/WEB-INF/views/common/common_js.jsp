@@ -53,5 +53,5 @@
 <!-- 时间插件 -->
 <%--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>--%>
 <script src="${cssjs}/blue/assets/js/moment-with-locales.min.js"></script>
-<link href="${cssjs}/blue/assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
 <script src="${cssjs}/blue/assets/js/bootstrap-datetimepicker.min.js"></script>

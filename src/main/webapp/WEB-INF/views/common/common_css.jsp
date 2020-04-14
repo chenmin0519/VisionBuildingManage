@@ -27,3 +27,5 @@
 
 <link href="${cssjs}/blue/assets/plugins/sweetalert/dist/sweetalert.css"
     rel="stylesheet" type="text/css">
+
+<link href="${cssjs}/blue/assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
