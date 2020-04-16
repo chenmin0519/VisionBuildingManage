@@ -93,13 +93,13 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
     }
 
     @Override
-    public ResultPOListBean<DmsChildProject> querySubPage(DmsMainProject dmsMainProject) {
+    public ResultPOListBean<DmsChildProject> querySubPage(DmsChildProject dmsChildProject) {
         ResultPOListBean<DmsChildProject> result = new ResultPOListBean<>();
         //分页参数
         QueryBean queryBean = new QueryBean();
-        queryBean.setPageNo(dmsMainProject.getPageNo());
-        queryBean.setPageRows(dmsMainProject.getPageRows());
-        queryBean.setF(dmsMainProject.getPagingMap());
+        queryBean.setPageNo(dmsChildProject.getPageNo());
+        queryBean.setPageRows(dmsChildProject.getPageRows());
+        queryBean.setF(dmsChildProject.getPagingMap());
 
         int count = 0;
         count = dmsChildProjectMapper.queryPageCount(queryBean);

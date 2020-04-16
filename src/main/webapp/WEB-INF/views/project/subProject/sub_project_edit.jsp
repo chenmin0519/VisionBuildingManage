@@ -68,7 +68,7 @@
                                     <div class="row">
                                         <div class="panel panel-default">
                                             <form id="form">
-                                                <input id="id" name="id" type="hidden" value="${po.id}"/>
+                                                <input id="parentId" name="parentId" type="hidden" value="${po.parentId}"/>
 
 <%--                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">--%>
 <%--                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">客户来源<span--%>
@@ -82,7 +82,7 @@
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
 
-                                                        <select id="projectType" name="projectType"
+                                                        <select id="projectTypeCode" name="projectTypeCode"
                                                                 class="form-control">
                                                             <option value="">--请选择--</option>
                                                         </select>
@@ -114,7 +114,7 @@
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left" >
                                                         <div class="col-sm-6 col-lg-6 col-md-6 pull-left">
                                                             <div class='input-group date' id='datetimepicker4' >
-                                                                <input placeholder="注册结束日期" type='text' id="endTime2" value="${po.initialDeliveryDate}"  name="initialDeliveryDate" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
+                                                                <input placeholder="平面收单日期" type='text' id="endTime2" value="${po.acquisitionDate}"  name="acquisitionDate" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
                                                             </div>
                                                         </div>
 <%--                                                        <input type="text" name="initialDeliveryDate" id="initialDeliveryDate"  value="${po.initialDeliveryDate}" class="form-control" >--%>
@@ -193,7 +193,13 @@
         });
     });
     $("#save").click(function(){
-        baseCallBackAJAX("post","${base}/project/main-project/save-sub-project",$("#form").serialize(),"json","saveCallback(data)");
+        var par = $("form").serialize();
+        var projectTypeName = $('#projectTypeCode option:selected').text();
+        console.log("projectTypeName:"+projectTypeName);
+        if(projectTypeName != undefined && projectTypeName != null){
+            par += "&projectTypeName="+projectTypeName;
+        }
+        baseCallBackAJAX("post","${base}/project/main-project/save-sub-project",par,"json","saveCallback(data)");
     });
     function saveCallback(data){
         if(data.status=="0"){
@@ -209,7 +215,8 @@
                 closeOnCancel : true
             },function(isConfirm) {
                 if(isConfirm==true){
-                    window.location.href="${base}/project/main-project/project.html?chirld=${chirld}&parent=${parent}";
+                    history.back();
+                    <%--window.location.href="${base}/project/main-project/project.html?chirld=${chirld}&parent=${parent}";--%>
                 }
             });
         }else{
@@ -249,7 +256,7 @@
                 var typeName = "";
                 if (projectType.typeCode) {typeCode = projectType.typeCode}
                 if (projectType.typeName) {typeName = projectType.typeName;}
-                $("#projectType").append("<option value='"+typeCode+"' >"+typeName+"</option>");
+                $("#projectTypeCode").append("<option value='"+typeCode+"' >"+typeName+"</option>");
             }
         }
     }

@@ -15,5 +15,5 @@ public interface DmsMainProjectService {
     void insertSelectiveChild(DmsChildProject dmsChildProject);
     void updateByPrimaryKeySelectiveChild(DmsChildProject dmsChildProject);
 
-    ResultPOListBean<DmsChildProject> querySubPage(DmsMainProject dmsMainProject);
+    ResultPOListBean<DmsChildProject> querySubPage(DmsChildProject dmsChildProject);
 }

@@ -215,7 +215,6 @@
 <script type="text/javascript">
 
     $("#save").click(function(){
-        alert("aaaa");
         baseCallBackAJAX("post","${base}/project/main-project/save",$("#form").serialize(),"json","saveCallback(data)");
     });
     function saveCallback(data){

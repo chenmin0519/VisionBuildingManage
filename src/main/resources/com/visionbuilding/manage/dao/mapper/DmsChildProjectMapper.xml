@@ -320,8 +320,11 @@
     dmp.sales_area as salesArea, dmp.unit_price as unitPrice
     from dms_child_project dcp, dms_main_project dmp
     where dcp.parent_id = dmp.id
-    <if test="f.id != null and f.id!= ''"  >
-      and dmp.id = #{f.id}
+    <if test="f.parentId != null and f.parentId!= ''"  >
+      and dmp.id = #{f.parentId}
+    </if>
+    <if test="f.projectTypeName != null and f.projectTypeName!= ''"  >
+      and dcp.project_type_name = #{f.projectTypeName}
     </if>
     order by dcp.id desc
     limit #{startPage},${pageRows}
@@ -329,8 +332,11 @@
   <select id="queryPageCount" resultType="java.lang.Integer">
     select  count(1)
     from dms_child_project where 1=1
-    <if test="f.id != null and f.id!= ''"  >
-      and parentId = #{f.id}
+    <if test="f.parentId != null and f.parentId!= ''"  >
+      and parent_id = #{f.parentId}
+    </if>
+    <if test="f.projectTypeName != null and f.projectTypeName!= ''"  >
+      and project_type_name = #{f.projectTypeName}
     </if>
 <!--    <include refid = "where-all-condition" />-->
   </select>

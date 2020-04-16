@@ -91,8 +91,9 @@ public class DmsProjectController extends BaseController {
         DmsChildProject dmsChildProject = new DmsChildProject();
         dmsChildProject.setSalesArea(dmsMainProject.getSalesArea());
         dmsChildProject.setUnitPrice(dmsMainProject.getUnitPrice());
+        dmsChildProject.setParentId(id);
         request.setAttribute("po",dmsChildProject);
-        return "project/subProject/sub_project_edit";
+        return "project/subProject/sub_project_add";
     }
 
     @ResponseBody
@@ -122,20 +123,27 @@ public class DmsProjectController extends BaseController {
 
     /**
      * 获取子项目列表
-     * @param dmsMainProject
+     * @param dmsChildProject
      * @param request
      * @return
      * @throws Exception
      */
     @ResponseBody
     @RequestMapping("/getSubDatas")
-    public String getSubDates(DmsMainProject dmsMainProject, HttpServletRequest request)throws Exception{
+    public String getSubDates(DmsChildProject dmsChildProject, HttpServletRequest request)throws Exception{
         ResultPOListBean<DmsChildProject> resultPOListBean = new ResultPOListBean<>();
         //获取分页参数
-        FormDataUtils.setQueryParamter(dmsMainProject, request);
-        resultPOListBean = dmsMainProjectService.querySubPage(dmsMainProject);
+        FormDataUtils.setQueryParamter(dmsChildProject, request);
+        resultPOListBean = dmsMainProjectService.querySubPage(dmsChildProject);
         //格式话参数
         Map<String, Object> map = FormDataUtils.getFormDataMap(resultPOListBean.getValue(), resultPOListBean.getTotalCount());
         return JSON.toJSONString(map);
     }
+
+
+    @RequestMapping("/subProject.html")
+    public String goSubProject(){
+        return "project/subProject/sub_project_list";
+    }
+
 }

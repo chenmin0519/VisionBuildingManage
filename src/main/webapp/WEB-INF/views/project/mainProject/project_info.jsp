@@ -129,7 +129,7 @@
                                             <div class="panel panel-default">
                                                 <form id="form_sub">
                                                     <div class="form-group col-sm-3 col-md-3 col-xs-3 pull-left">
-                                                        <input type="text" placeholder="请输入子项目名" class="form-control" name="subProjectName">
+                                                        <input type="text" placeholder="请输入子项目类型" class="form-control" name="projectTypeName">
                                                     </div>
                                                     <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">
                                                         <button id="query" type="button" style="position: absolute;right: -10px;"
@@ -155,13 +155,14 @@
                                                    class="table table-hover mails dataTable no-footer">
                                                 <thead>
                                                 <tr>
-                                                    <th nowrap="nowrap">子项目id</th>
+                                                    <th nowrap="nowrap">序号</th>
                                                     <th nowrap="nowrap">项目类型</th>
                                                     <th nowrap="nowrap">销售面积</th>
                                                     <th nowrap="nowrap">销售单价</th>
                                                     <th nowrap="nowrap">销售总价</th>
                                                     <th nowrap="nowrap">平面收单日期</th>
                                                     <th nowrap="nowrap">备注</th>
+                                                    <th nowrap="nowrap">操作</th>
                                                 </tr>
                                                 </thead>
 
@@ -206,15 +207,24 @@
 </script>
 <%@ include file="../../common/common_js.jsp"%>
 <%@ include file="../../common/formajax_js.jsp"%>
+<%@ include file="../../common/utils.jsp"%>
 <!-- jQuery  -->
 <script type="text/javascript">
-    var functionlist=[{targets:[8],
+    var functionlist=[{targets:[7],
         mRender:function(data) {
             var result = "";
             result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
                 +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=edit('"
                 +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
                 +data.id+"')><i class='ion-ios7-paper-outline'></i> 详情</button>";
+            return result;
+        }
+    },{targets:[5],
+        mRender:function(data) {
+            var result = "";
+            if(data != null){
+                result = getDateStr(data);
+            }
             return result;
         }
     }];
@@ -240,10 +250,10 @@
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
-        var par = $("form_sub").serialize();
+        var par = $("#form_sub").serialize();
         var id = $("#id").val();
-        par += "&id="+id;
-        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",id,projectTypeName,constructionArea,unitPrice,totalSalesPrice,acquisitionDate,remark,",functionlist);
+        par += "&parentId="+id;
+        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,salesArea,unitPrice,totalSalesPrice,acquisitionDate,remark,",functionlist);
     }
 </script>
 
