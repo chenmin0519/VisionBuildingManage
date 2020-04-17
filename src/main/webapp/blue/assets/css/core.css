@@ -459,6 +459,10 @@ a:focus {
 }
 .navtab-bg {
   background-color: #eeeeee;
+  /*border-bottom: 2px solid #EED8AE;*/
+  /*margin-left: 10px;*/
+  /*margin-bottom:20px*/
+  /*border-bottom: 2px solid #EE7600;*/
 }
 .nav-tabs.nav-justified > .active > a,
 .nav-tabs.nav-justified > .active > a:hover,
@@ -473,6 +477,11 @@ a:focus {
 .tabs-vertical > li.active > a:focus,
 .tabs-vertical > li.active > a:hover {
   color: #317eeb !important;
+  /*border-right: 2px solid #EE7600;*/
+  /*line-height: 50px;*/
+  /*border-left: 2px solid #EE7600;*/
+  /*!*border-top: 2px solid #EE7600;*!*/
+  /*box-sizing: border-box*/
 }
 /* Dropcap */
 .dropcap {

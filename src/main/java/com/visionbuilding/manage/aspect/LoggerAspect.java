@@ -1,7 +1,11 @@
 package com.visionbuilding.manage.aspect;
 
 import com.alibaba.fastjson.JSONObject;
+import com.visionbuilding.manage.dao.mapper.DmsChildProjectMapper;
+import com.visionbuilding.manage.dao.mapper.DmsMainProjectMapper;
 import com.visionbuilding.manage.dao.mapper.DmsProjectLogMapper;
+import com.visionbuilding.manage.modle.entity.DmsChildProject;
+import com.visionbuilding.manage.modle.entity.DmsMainProject;
 import com.visionbuilding.manage.modle.entity.DmsProjectLog;
 import com.visionbuilding.manage.modle.entity.DmsUser;
 import com.visionbuilding.manage.myenum.EnumLoggerType;
@@ -15,6 +19,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 @Component
 @Aspect
@@ -22,6 +27,12 @@ public class LoggerAspect {
 
     @Autowired
     private DmsProjectLogMapper dmsProjectLogMapper;
+
+    @Autowired
+    private DmsMainProjectMapper dmsMainProjectMapper;
+
+    @Autowired
+    private DmsChildProjectMapper dmsChildProjectMapper;
 
     @Before("execution(* com.visionbuilding.manage.dao.mapper.DmsMainProjectMapper.insertSelective(..))")
     public void before(JoinPoint joinPoint){
@@ -31,9 +42,11 @@ public class LoggerAspect {
             DmsProjectLog dmsProjectLog = new DmsProjectLog();
             dmsProjectLog.setNewValue(JSONObject.toJSONString(joinPoint.getArgs()[0]));
             dmsProjectLog.setUser(user.getId());
+            dmsProjectLog.setEditeTime(new Date());
             dmsProjectLog.setType(EnumLoggerType.BIGPROJECT_ADD.getKey());
             dmsProjectLogMapper.insertSelective(dmsProjectLog);
         }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -46,8 +59,13 @@ public class LoggerAspect {
             dmsProjectLog.setNewValue(JSONObject.toJSONString(joinPoint.getArgs()[0]));
             dmsProjectLog.setUser(user.getId());
             dmsProjectLog.setType(EnumLoggerType.BIGPROJECT_UPDATE.getKey());
+            dmsProjectLog.setEditeTime(new Date());
+            DmsMainProject dmsMainProject = (DmsMainProject) joinPoint.getArgs()[0];
+            dmsMainProject = dmsMainProjectMapper.selectByPrimaryKey(dmsMainProject.getId());
+            dmsProjectLog.setOldValue(JSONObject.toJSONString(dmsMainProject));
             dmsProjectLogMapper.insertSelective(dmsProjectLog);
         }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -59,9 +77,11 @@ public class LoggerAspect {
             DmsProjectLog dmsProjectLog = new DmsProjectLog();
             dmsProjectLog.setNewValue(JSONObject.toJSONString(joinPoint.getArgs()[0]));
             dmsProjectLog.setUser(user.getId());
+            dmsProjectLog.setEditeTime(new Date());
             dmsProjectLog.setType(EnumLoggerType.CHILDPROJECT_ADD.getKey());
             dmsProjectLogMapper.insertSelective(dmsProjectLog);
         }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -73,9 +93,14 @@ public class LoggerAspect {
             DmsProjectLog dmsProjectLog = new DmsProjectLog();
             dmsProjectLog.setNewValue(JSONObject.toJSONString(joinPoint.getArgs()[0]));
             dmsProjectLog.setUser(user.getId());
+            dmsProjectLog.setEditeTime(new Date());
             dmsProjectLog.setType(EnumLoggerType.CHILDPROJECT_UPDATE.getKey());
+            DmsChildProject childProject = (DmsChildProject) joinPoint.getArgs()[0];
+            childProject = dmsChildProjectMapper.selectByPrimaryKey(childProject.getId());
+            dmsProjectLog.setOldValue(JSONObject.toJSONString(childProject));
             dmsProjectLogMapper.insertSelective(dmsProjectLog);
         }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

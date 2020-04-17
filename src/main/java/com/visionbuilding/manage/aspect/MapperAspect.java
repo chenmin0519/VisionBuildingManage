@@ -25,7 +25,6 @@ public class MapperAspect {
         DmsUser user = (DmsUser) request.getSession().getAttribute(SessionAttributes.USER_SESSION_NAME);
         if(user != null) {
             if (methodName.startsWith("insert")) {
-
                 if (args != null && args.length > 0) {
                     if (args[0] instanceof BaseEntity) {
                         BaseEntity entity = (BaseEntity) args[0];

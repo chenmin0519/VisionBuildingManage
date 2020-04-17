@@ -7,9 +7,10 @@
     <result column="old_value" property="oldValue" jdbcType="VARCHAR" />
     <result column="new_value" property="newValue" jdbcType="VARCHAR" />
     <result column="user" property="user" jdbcType="BIGINT" />
+    <result column="edite_time" property="editeTime" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, type, old_value, new_value, user
+    id, type, old_value, new_value, user,edite_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -23,9 +24,9 @@
   </delete>
   <insert id="insert" parameterType="com.visionbuilding.manage.modle.entity.DmsProjectLog" >
     insert into dms_project_log (id, type, old_value, 
-      new_value, user)
+      new_value, user,edite_time)
     values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{oldValue,jdbcType=VARCHAR}, 
-      #{newValue,jdbcType=VARCHAR}, #{user,jdbcType=BIGINT})
+      #{newValue,jdbcType=VARCHAR}, #{user,jdbcType=BIGINT},now())
   </insert>
   <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsProjectLog" >
     insert into dms_project_log
@@ -45,6 +46,9 @@
       <if test="user != null" >
         user,
       </if>
+      <if test="editeTime != null">
+        edite_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -61,6 +65,9 @@
       </if>
       <if test="user != null" >
         #{user,jdbcType=BIGINT},
+      </if>
+      <if test="editeTime != null">
+        #{editeTime},
       </if>
     </trim>
   </insert>
@@ -79,6 +86,9 @@
       <if test="user != null" >
         user = #{user,jdbcType=BIGINT},
       </if>
+      <if test="editeTime != null">
+        #edite_time = {editeTime},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -90,4 +100,29 @@
       user = #{user,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="queryByPage" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List"/>
+    from dms_project_log where 1=1
+    <include refid="where-all-condition"/>
+    order by id desc
+    limit #{startPage},${pageRows}
+  </select>
+
+  <select id="queryByPageCount" resultType="java.lang.Integer">
+    select  count(1)
+    from dms_project_log where 1=1
+    <include refid = "where-all-condition" />
+  </select>
+  <sql id="where-all-condition">
+    <if test="f.type != null" >
+      and `type` = #{f.type}
+    </if>
+    <if test="f.startTime != null">
+        and edite_time &gt;= #{f.startTime}
+    </if>
+    <if test="f.endTime != null">
+        and edite_time &lt;= #{f.endTime}
+    </if>
+  </sql>
 </mapper>

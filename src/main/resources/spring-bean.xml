@@ -13,8 +13,8 @@
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
 <!-- service-->
-
-	<context:component-scan base-package="com.visionbuilding.manage.aspect" use-default-filters="false">
+	<aop:aspectj-autoproxy/>
+	<context:component-scan base-package="com.visionbuilding.manage" use-default-filters="false">
 		<context:include-filter type="regex" expression="com.visionbuilding.manage.aspect.*"/>
 	</context:component-scan>
 
