@@ -316,7 +316,7 @@
   <select id="querySubPage" resultType="com.visionbuilding.manage.modle.entity.DmsChildProject">
 -- 1.根据前端传的父级code去大项目表查销售面积,销售单价. 同时根据父级code在自子项目表查到父级code是该父级code的
     select dcp.id, dcp.parent_id as parentId, dcp.project_type_code as projectTypeCode, dcp.project_type_name as projectTypeName,
-     dcp.total_sales_price as totalSalesPrice,dcp.acquisition_date as acquisitionDate, dcp.remarks,
+     dcp.total_sales_price as totalSalesPrice, dcp.acquisition_date as acquisitionDate, dcp.remarks, dcp.confirm_status as confirmStatus,
     dmp.sales_area as salesArea, dmp.unit_price as unitPrice
     from dms_child_project dcp, dms_main_project dmp
     where dcp.parent_id = dmp.id
@@ -325,6 +325,14 @@
     </if>
     <if test="f.projectTypeName != null and f.projectTypeName!= ''"  >
       and dcp.project_type_name = #{f.projectTypeName}
+    </if>
+    <if test="f.confirmStatus != null">
+        <if test='f.confirmStatus == "0"'>
+            and dcp.confirm_status = #{f.confirmStatus}
+        </if>
+        <if test='f.confirmStatus == "123"'>
+            and dcp.confirm_status in ('1','2','3')
+        </if>
     </if>
     order by dcp.id desc
     limit #{startPage},${pageRows}

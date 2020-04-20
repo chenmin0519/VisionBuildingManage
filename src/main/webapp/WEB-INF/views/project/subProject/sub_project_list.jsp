@@ -43,9 +43,9 @@
                     <!-- Page-Title -->
                     <div class="row">
                         <div class="col-sm-12">
-                            <h4 class="pull-left page-title">子项目信息填写</h4>
+                            <h4 class="pull-left page-title">子项目信息管理</h4>
                             <ol class="breadcrumb pull-right">
-                                <li><a href="#">子项目信息填写</a></li>
+                                <li><a href="#">子项目信息管理</a></li>
                                 <li class="active">项目结算管理</li>
                             </ol>
                         </div>
@@ -61,12 +61,20 @@
                                 <div class="panel-body">
 
                                     <div class="row">
-
+                                        <ul id="checkul" class="nav nav-tabs navtab-bg" style="border-bottom: 2px solid #EED8AE;margin-left: 10px;margin-bottom:20px">
+                                            <li onclick="changestatus('1')" id="type1" class="active "><a href="#jxz" data-toggle="tab" aria-expanded="true"> <span class="visible-xs"><i class="fa fa-home"></i></span> <span
+                                                    class="hidden-xs">待填写子项目</span>
+                                            </a></li>
+                                            <li onclick="changestatus('2')" id="type2" class=""><a href="#wks" data-toggle="tab" aria-expanded="true"> <span class="visible-xs"><i class="fa fa-user"></i></span> <span
+                                                    class="hidden-xs">已填写子项目</span>
+                                            </a></li>
+                                        </ul>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="panel panel-default">
                                                 <form id="form">
                                                     <div class="form-group col-sm-3 col-md-3 col-xs-3 pull-left">
                                                         <input type="text" placeholder="请输入子项目类型" class="form-control" name="projectTypeName">
+                                                        <input type="hidden" class="form-control" id="confirmStatus" name="confirmStatus" value="0">
                                                     </div>
 
                                                     <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">
@@ -148,11 +156,13 @@
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
-        var par = $("#form_sub").serialize();
+        var par = $("#form").serialize();
         initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,salesArea,unitPrice,totalSalesPrice,acquisitionDate,remark,",functionlist);
 
     }
     $(document).ready(function(){
+        // 设定默认加载的tab,然后再加载页面表单
+        changestatus('1');
         initTbale();
     });
     $("#query").click(function(){
@@ -197,12 +207,46 @@
         window.location.href="${base}/project/main-project/editSub.html?id="+id+"&chirld=${chirld}&parent=${parent}";
     }
     function detail(id){
-        window.location.href="${base}/project/main-project/info.html?id="+id+"&chirld=${chirld}&parent=${parent}";
+        window.location.href="${base}/project/main-project/subInfo.html?id="+id+"&chirld=${chirld}&parent=${parent}";
     }
-    $("#add").click(function(){
-        window.location.href="${base}/project/main-project/add.html?chirld=${chirld}&parent=${parent}";
-    });
+    <%--$("#add").click(function(){--%>
+    <%--    window.location.href="${base}/project/main-project/add.html?chirld=${chirld}&parent=${parent}";--%>
+    <%--});--%>
 
+    function changestatus(type) {
+        //暂存现在选项卡
+        // $("#type-int").val(type);
+        if(type == '1') {
+            // 查看待填写状态的子项目,即运营中心发布还未被设计院填写的(可以被查看和编辑)
+            $("#confirmStatus").val("0");
+
+            functionlist=[{targets:[7],
+                mRender:function(data) {
+                    var result = "";
+                    result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=edit('"
+                        +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
+                        +data.id+"')><i class='ion-ios7-paper-outline'></i> 详情</button>";
+                    return result;
+                }
+            }];
+
+        } else if(type == '2') {
+            // 查看已填写状态的子项目(只能被查看)
+            $("#confirmStatus").val("123");
+
+            functionlist=[{targets:[7],
+                mRender:function(data) {
+                    var result = "";
+                    result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
+                        +data.id+"')><i class='ion-ios7-paper-outline'></i> 详情</button>";
+                    return result;
+                }
+            }];
+        }
+        // 每次重新选择tab,加载页面的表单
+        initTbale();
+
+    }
 </script>
 
 </body>

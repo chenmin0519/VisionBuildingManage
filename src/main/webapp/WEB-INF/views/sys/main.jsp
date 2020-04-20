@@ -142,7 +142,6 @@
                         }
                     ]
                 };
-                debugger
                 if(res.status=="0"){
                     option.series = res.value.series;
                     option.yAxis[0].min = res.value.leftYMin;

@@ -10,8 +10,11 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class DmsMainProject  extends BaseEntity{
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date projectCreationTime;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    /**
+     * 项目编号(前端用作 业务初始建档时间显示)
+     */
+    private String projectCreationTime;
 
     private String customerSource;
 

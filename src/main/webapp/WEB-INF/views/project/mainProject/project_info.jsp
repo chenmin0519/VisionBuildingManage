@@ -255,6 +255,13 @@
         par += "&parentId="+id;
         initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,salesArea,unitPrice,totalSalesPrice,acquisitionDate,remark,",functionlist);
     }
+
+    function edit(id){
+        window.location.href="${base}/project/main-project/subedit.html?id="+id+"&chirld=${chirld}&parent=${parent}";
+    }
+    function detail(id){
+        window.location.href="${base}/project/main-project/info.html?id="+id+"&chirld=${chirld}&parent=${parent}";
+    }
 </script>
 
 

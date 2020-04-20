@@ -231,7 +231,7 @@
                 closeOnCancel : true
             },function(isConfirm) {
                 if(isConfirm==true){
-                    window.location.href="${base}/data/department/department.html?chirld=${chirld}&parent=${parent}";
+                    window.location.href="${base}/project/main-project//project.html?chirld=${chirld}&parent=${parent}";
                 }
             });
         }else{
@@ -248,14 +248,6 @@
             });
         }
     }
-
-    /**
-     * 添加子产品
-     * @param parentId
-     */
-    $("#addSub").click(function(){
-        window.location.href="${base}/project/main-project/addSub.html?chirld=${chirld}&parent=${parent}";
-    });
 </script>
 
 

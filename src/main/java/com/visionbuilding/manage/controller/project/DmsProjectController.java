@@ -85,6 +85,10 @@ public class DmsProjectController extends BaseController {
     }
 
 
+    /**
+     * 运营中心跳转到子项目新增或编辑页面
+     * @return
+     */
     @RequestMapping("/addSub.html")
     public String addSubProject(HttpServletRequest request, Long id){
         DmsMainProject dmsMainProject = dmsMainProjectService.selectByPrimaryKey(id);
@@ -93,9 +97,13 @@ public class DmsProjectController extends BaseController {
         dmsChildProject.setUnitPrice(dmsMainProject.getUnitPrice());
         dmsChildProject.setParentId(id);
         request.setAttribute("po",dmsChildProject);
-        return "project/subProject/sub_project_add";
+        return "project/subProject/sub_project_edit";
     }
 
+    /**
+     * 运营中心新增或编辑子项目
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/save-sub-project")
     public String saveSubProject(DmsChildProject dmsChildProject)throws Exception{
@@ -146,4 +154,44 @@ public class DmsProjectController extends BaseController {
         return "project/subProject/sub_project_list";
     }
 
+    /**
+     * 设计院编辑子项目
+     * @return
+     */
+    @RequestMapping("/editSub.html")
+    public String editSubProject(HttpServletRequest request, Long id) {
+        // 1.传进来子项目id,根据id查询到子项目的数据
+        DmsChildProject dmsChildProject =  dmsMainProjectService.selectSubByPrimaryKey(id);
+
+        // 2.拿到子项目里的parentId,根据这个parentId去大项目表查到大项目的数据
+        Long parentId = dmsChildProject.getParentId();
+        DmsMainProject dmsMainProject = dmsMainProjectService.selectByPrimaryKey(parentId);
+
+        // 3.把大小项目的数据都set进request中,在页面中调用
+        request.setAttribute("po",dmsChildProject);
+        request.setAttribute("parentPo",dmsMainProject);
+
+        return "project/subProject/sub_project_edit_write";
+    }
+
+    /**
+     * 查看子项目详情
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping("/subInfo.html")
+    public String subDetail(HttpServletRequest request,Long id){
+        // 1.传进来子项目id,根据id查询到子项目的数据
+        DmsChildProject dmsChildProject =  dmsMainProjectService.selectSubByPrimaryKey(id);
+
+        // 2.拿到子项目里的parentId,根据这个parentId去大项目表查到大项目的数据
+        Long parentId = dmsChildProject.getParentId();
+        DmsMainProject dmsMainProject = dmsMainProjectService.selectByPrimaryKey(parentId);
+
+        // 3.把大小项目的数据都set进request中,在页面中调用
+        request.setAttribute("po",dmsChildProject);
+        request.setAttribute("parentPo",dmsMainProject);
+        return "project/subProject/sub_project_info";
+    }
 }

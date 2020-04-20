@@ -141,7 +141,6 @@
     var functionlist=[{targets:[3],
         mRender:function(data) {
             var result = "";
-            debugger
             if(data.status == 1){
                 result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
                     +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"

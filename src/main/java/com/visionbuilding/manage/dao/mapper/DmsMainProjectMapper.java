@@ -21,4 +21,6 @@ public interface DmsMainProjectMapper {
     List<DmsMainProject> queryPage(QueryBean queryBean);
 
     int queryPageCount(QueryBean queryBean);
+
+    DmsMainProject getMaxCode(DmsMainProject dmsMainProject);
 }

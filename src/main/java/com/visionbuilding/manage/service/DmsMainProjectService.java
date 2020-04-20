@@ -5,7 +5,7 @@ import com.visionbuilding.manage.modle.entity.DmsChildProject;
 import com.visionbuilding.manage.modle.entity.DmsMainProject;
 
 public interface DmsMainProjectService {
-
+    // 操作大项目
     DmsMainProject selectByPrimaryKey(Long id);
     void deleteByPrimaryKey(Long id);
     void insertSelective(DmsMainProject dmsMainProject);
@@ -15,5 +15,13 @@ public interface DmsMainProjectService {
     void insertSelectiveChild(DmsChildProject dmsChildProject);
     void updateByPrimaryKeySelectiveChild(DmsChildProject dmsChildProject);
 
+    // 操作子项目
     ResultPOListBean<DmsChildProject> querySubPage(DmsChildProject dmsChildProject);
+
+    /**
+     * 根据id查询子项目
+     * @param id
+     * @return
+     */
+    DmsChildProject selectSubByPrimaryKey(Long id);
 }

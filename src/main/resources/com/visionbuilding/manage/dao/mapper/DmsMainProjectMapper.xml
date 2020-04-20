@@ -3,7 +3,7 @@
 <mapper namespace="com.visionbuilding.manage.dao.mapper.DmsMainProjectMapper" >
   <resultMap id="BaseResultMap" type="com.visionbuilding.manage.modle.entity.DmsMainProject" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="project_creation_time" property="projectCreationTime" jdbcType="TIMESTAMP" />
+    <result column="project_creation_time" property="projectCreationTime" jdbcType="VARCHAR" />
     <result column="customer_source" property="customerSource" jdbcType="VARCHAR" />
     <result column="customer_code" property="customerCode" jdbcType="VARCHAR" />
     <result column="place" property="place" jdbcType="VARCHAR" />
@@ -52,7 +52,7 @@
       contract_no, remarks, status, 
       add_time, add_user, update_user, 
       update_time, production)
-    values (#{id,jdbcType=BIGINT}, #{projectCreationTime,jdbcType=TIMESTAMP}, #{customerSource,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{projectCreationTime,jdbcType=VARCHAR}, #{customerSource,jdbcType=VARCHAR},
       #{customerCode,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{customerPhone,jdbcType=VARCHAR}, #{salesArea,jdbcType=BIGINT},
       #{unitPrice,jdbcType=BIGINT}, #{costPrice,jdbcType=BIGINT}, #{designSalesCost,jdbcType=BIGINT}, 
       #{designCost,jdbcType=BIGINT}, #{profit,jdbcType=BIGINT}, #{amountReturned,jdbcType=BIGINT}, 
@@ -142,7 +142,7 @@
         #{id,jdbcType=BIGINT},
       </if>
       <if test="projectCreationTime != null" >
-        #{projectCreationTime,jdbcType=TIMESTAMP},
+        #{projectCreationTime,jdbcType=VARCHAR},
       </if>
       <if test="customerSource != null" >
         #{customerSource,jdbcType=VARCHAR},
@@ -216,7 +216,7 @@
     update dms_main_project
     <set >
       <if test="projectCreationTime != null" >
-        project_creation_time = #{projectCreationTime,jdbcType=TIMESTAMP},
+        project_creation_time = #{projectCreationTime,jdbcType=VARCHAR},
       </if>
       <if test="customerSource != null" >
         customer_source = #{customerSource,jdbcType=VARCHAR},
@@ -289,7 +289,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.visionbuilding.manage.modle.entity.DmsMainProject" >
     update dms_main_project
-    set project_creation_time = #{projectCreationTime,jdbcType=TIMESTAMP},
+    set project_creation_time = #{projectCreationTime,jdbcType=VARCHAR},
       customer_source = #{customerSource,jdbcType=VARCHAR},
       customer_code = #{customerCode,jdbcType=VARCHAR},
       place = #{place,jdbcType=VARCHAR}
@@ -336,5 +336,17 @@
     select  count(1)
     from dms_main_project where 1=1
     <include refid = "where-all-condition" />
+  </select>
+  <select id="getMaxCode" parameterType="com.visionbuilding.manage.modle.entity.DmsMainProject" resultType="com.visionbuilding.manage.modle.entity.DmsMainProject">
+    select project_creation_time as projectCreationTime, customer_code as customerCode
+    from dms_main_project
+    WHERE 1=1
+    <if test="projectCreationTime != null and projectCreationTime != ''">and
+      project_creation_time like CONCAT(#{projectCreationTime},'%')
+    </if>
+    <if test="customerCode != null and customerCode != ''">and
+      customer_code like CONCAT(#{customerCode},'%')
+    </if>
+    order by id desc limit 1
   </select>
 </mapper>

@@ -44,13 +44,13 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="col-sm-2">
-                                <h4 class="pull-left page-title">项目结算管理</h4>
+                                <h4 class="pull-left page-title">运营中心子项目信息填写</h4>
                             </div>
 <%--                            <div class="col-sm-2">--%>
 <%--                                <input style="float: left;" type="button" id="addSub" class="btn btn-primary" onclick="addSubproject();" value="新增子项目">--%>
 <%--                            </div>--%>
                                 <ol class="breadcrumb pull-right">
-                                <li><a href="#">项目管理</a></li>
+                                <li><a href="#">运营中心子项目信息填写</a></li>
                                 <li class="active">项目结算管理</li>
                             </ol>
                         </div>
