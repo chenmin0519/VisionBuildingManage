@@ -2,9 +2,11 @@ package com.visionbuilding.manage.service.impl;
 
 import com.visionbuilding.manage.dao.mapper.DmsChildProjectMapper;
 import com.visionbuilding.manage.dao.mapper.DmsMainProjectMapper;
+import com.visionbuilding.manage.dao.mapper.DmsSettlementMapper;
 import com.visionbuilding.manage.modle.ResultPOListBean;
 import com.visionbuilding.manage.modle.entity.DmsChildProject;
 import com.visionbuilding.manage.modle.entity.DmsMainProject;
+import com.visionbuilding.manage.modle.entity.DmsSettlement;
 import com.visionbuilding.manage.modle.query.QueryBean;
 import com.visionbuilding.manage.service.DmsMainProjectService;
 import org.springframework.beans.BeanUtils;
@@ -25,6 +27,9 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
 
     @Autowired
     private DmsChildProjectMapper dmsChildProjectMapper;
+
+    @Autowired
+    private DmsSettlementMapper dmsSettlementMapper;
 
     @Override
     public DmsMainProject selectByPrimaryKey(Long id) {
@@ -212,7 +217,15 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
         dmsChildProject.setConfirmStatus((byte) 2);
         dmsChildProjectMapper.updateStatusById(dmsChildProject);
         // 7.把统计到的数据存进统计表
-
+        DmsSettlement dmsSettlement = new DmsSettlement();
+        dmsSettlement.setParentProject(parentId);
+        dmsSettlement.setChildProject(id);
+        dmsSettlement.setSaleAmount(smallTotalSalesPrice);
+        dmsSettlement.setCostAmount(smallTotalCost);
+        dmsSettlement.setCommissionAmount(dmsChildProject.getDesignerCommission());
+        Date date = new Date();
+        dmsSettlement.setEventDate(date);
+        dmsSettlementMapper.insertSelective(dmsSettlement);
     }
 
     @Override
