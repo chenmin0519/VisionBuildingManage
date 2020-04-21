@@ -43,7 +43,12 @@
     from dms_business
     where id = #{id}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="getAll" resultType="com.visionbuilding.manage.modle.entity.DmsBusiness">
+      select  <include refid="Base_Column_List"/>
+      from dms_business where 1=1
+      order by id desc
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from dms_business
     where id = #{id}
   </delete>

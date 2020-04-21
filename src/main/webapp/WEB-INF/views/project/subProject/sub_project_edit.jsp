@@ -257,7 +257,6 @@
      * @param date
      */
     function initProjectType(data) {
-        console.log(data);
         // console.log("aaa:"+data.aaData);
         if(data) {
             for(var i = 0; i < data.length; i++) {

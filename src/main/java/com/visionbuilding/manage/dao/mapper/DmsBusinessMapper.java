@@ -1,6 +1,7 @@
 package com.visionbuilding.manage.dao.mapper;
 
 import com.visionbuilding.manage.modle.entity.DmsBusiness;
+import com.visionbuilding.manage.modle.entity.DmsProjectType;
 import com.visionbuilding.manage.modle.query.QueryBean;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,4 +23,6 @@ public interface DmsBusinessMapper {
     int queryPageCount(QueryBean queryBean);
 
     List<DmsBusiness> queryPage(QueryBean queryBean);
+
+    List<DmsBusiness> getAll();
 }

@@ -72,6 +72,18 @@
                                                 <input id="menuPid" name="menuPid" type="hidden" value="${menuPid}"/>
 
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
+                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">客户来源<span
+                                                            class="required" style="color: red"> * </span>：</label>
+                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
+
+                                                        <select id="customerCode" name="customerCode"
+                                                                class="form-control">
+                                                            <option value="">--请选择--</option>
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">项目地点<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
@@ -206,6 +218,11 @@
 <%@ include file="../../common/formajax_js.jsp"%>
 <!-- jQuery  -->
 <script type="text/javascript">
+    $(function () {
+        baseCallBackAJAX("post","${base}/data/business/getAll",null,"json","initBusiness(data)");
+
+    })
+
 
     $("#save").click(function(){
         // 非空校验
@@ -259,6 +276,10 @@
             par += "&amountsPayable="+amountsPayable;
         }
 
+        var customerSource = $('#customerCode option:selected').text();
+        if(customerSource) {
+            par += "&customerSource="+customerSource;
+        }
         baseCallBackAJAX("post","${base}/project/main-project/save",par,"json","saveCallback(data)");
     });
     function saveCallback(data){
@@ -290,6 +311,24 @@
                 closeOnConfirm : true, //关闭按钮
                 closeOnCancel : true
             });
+        }
+    }
+
+    /**
+     * 初始化客户来源下拉框
+     * @param date
+     */
+    function initBusiness(data) {
+        if(data) {
+            for(var i = 0; i < data.length; i++) {
+                var business = data[i];
+                var pinyin = "";
+                var businessName = "";
+
+                if (business.pinyin) {pinyin = business.pinyin}
+                if (business.business) {businessName = business.business;}
+                $("#customerCode").append("<option value='"+pinyin+"' >"+businessName+"</option>");
+            }
         }
     }
 </script>

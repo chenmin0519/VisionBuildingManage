@@ -3,6 +3,7 @@ package com.visionbuilding.manage.service.impl;
 import com.visionbuilding.manage.dao.mapper.DmsBusinessMapper;
 import com.visionbuilding.manage.modle.ResultPOListBean;
 import com.visionbuilding.manage.modle.entity.DmsBusiness;
+import com.visionbuilding.manage.modle.entity.DmsProjectType;
 import com.visionbuilding.manage.modle.query.QueryBean;
 import com.visionbuilding.manage.service.DmsBusinessService;
 import org.springframework.beans.BeanUtils;
@@ -58,5 +59,10 @@ public class DmsBusinessServiceImpl implements DmsBusinessService {
         //分页信息
         BeanUtils.copyProperties(queryBean, result);
         return result;
+    }
+
+    @Override
+    public List<DmsBusiness> getAll() {
+        return dmsBusinessMapper.getAll();
     }
 }

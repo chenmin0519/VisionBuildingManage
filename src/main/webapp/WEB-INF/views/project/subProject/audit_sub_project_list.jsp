@@ -144,7 +144,40 @@
 <!-- jQuery  -->
 
 <script type="text/javascript">
-    var functionlist=[{targets:[8],
+    var functionlist=[{targets:[3],
+        mRender:function(data) {
+            debugger;
+            var result = "";
+            if(data.salesArea != null){
+                result = data.salesArea/100;
+            }
+            return result;
+        }
+    },{targets:[4],
+        mRender:function(data) {
+            var result = "";
+            if(data.unitPrice != null){
+                result = data.unitPrice/100;
+            }
+            return result;
+        }
+    },{targets:[5],
+        mRender:function(data) {
+        var result = "";
+            if(data.totalSalesPrice != null){
+                result = data.totalSalesPrice/100;
+            }
+            return result;
+        }
+    },{targets:[6],
+        mRender:function(data) {
+            var result = "";
+            if(data != null){
+                result = getDateStr(data);
+            }
+            return result;
+        }
+    },{targets:[8],
         mRender:function(data) {
             var result = "";
             result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
@@ -156,7 +189,7 @@
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
         var par = $("#form").serialize();
-        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectCreationTime,projectTypeName,salesArea,unitPrice,totalSalesPrice,acquisitionDate,remark,",functionlist);
+        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectCreationTime,projectTypeName,,,,,remark,",functionlist);
 
     }
     $(document).ready(function(){

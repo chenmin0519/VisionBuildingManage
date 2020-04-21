@@ -45,9 +45,9 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
     @Override
     public void insertSelective(DmsMainProject dmsMainProject) {
         //1.获取客户来源的名称
-        dmsMainProject.setCustomerSource("郑灿大傻逼");
+//        dmsMainProject.setCustomerSource("郑灿大傻逼");
         // 2.获取客户来源名称的简写
-        String jx = "ZC-";
+        String jx = dmsMainProject.getCustomerCode()+"-";
         // 3.获取当天(年月日.yyyyMMdd格式)
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");

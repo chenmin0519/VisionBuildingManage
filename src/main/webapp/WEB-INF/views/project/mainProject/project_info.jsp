@@ -219,6 +219,30 @@
                 +data.id+"')><i class='ion-ios7-paper-outline'></i> 详情</button>";
             return result;
         }
+    },{targets:[2],
+        mRender:function(data) {
+            var result = "";
+            if(data.salesArea != null){
+                result = data.salesArea/100;
+            }
+            return result;
+        }
+    },{targets:[3],
+        mRender:function(data) {
+            var result = "";
+            if(data.unitPrice != null){
+                result = data.unitPrice/100;
+            }
+            return result;
+        }
+    },{targets:[4],
+        mRender:function(data) {
+            var result = "";
+            if(data.totalSalesPrice != null){
+                result = data.totalSalesPrice/100;
+            }
+            return result;
+        }
     },{targets:[5],
         mRender:function(data) {
             var result = "";
@@ -253,7 +277,7 @@
         var par = $("#form_sub").serialize();
         var id = $("#id").val();
         par += "&parentId="+id;
-        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,salesArea,unitPrice,totalSalesPrice,acquisitionDate,remark,",functionlist);
+        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,,,,acquisitionDate,remark,",functionlist);
     }
 
     function edit(id){

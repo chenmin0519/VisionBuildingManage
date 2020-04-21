@@ -5,6 +5,7 @@ import com.visionbuilding.manage.controller.BaseController;
 import com.visionbuilding.manage.modle.ResultBean;
 import com.visionbuilding.manage.modle.ResultPOListBean;
 import com.visionbuilding.manage.modle.entity.DmsBusiness;
+import com.visionbuilding.manage.modle.entity.DmsProjectType;
 import com.visionbuilding.manage.service.DmsBusinessService;
 import com.visionbuilding.manage.utill.FormDataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -79,4 +82,15 @@ public class DmsBusinessController extends BaseController {
         return JSON.toJSONString(resultBean);
     }
 
+    @ResponseBody
+    @RequestMapping("/getAll")
+    public String getAll()throws Exception{
+        List<DmsBusiness> resultBean = new ArrayList<>();
+        try {
+            resultBean = dmsBusinessService.getAll();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return JSON.toJSONString(resultBean);
+    }
 }
