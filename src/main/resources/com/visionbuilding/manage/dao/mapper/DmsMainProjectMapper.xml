@@ -314,6 +314,22 @@
       production = #{production,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <update id="updateMoneyById" parameterType="com.visionbuilding.manage.modle.entity.DmsMainProject">
+    update dms_main_project
+    <set >
+      <if test="designSalesCost != null" >
+        design_sales_cost = #{designSalesCost,jdbcType=BIGINT},
+      </if>
+      <if test="designCost != null" >
+        design_cost = #{designCost,jdbcType=BIGINT},
+      </if>
+      <if test="profit != null" >
+        profit = #{profit,jdbcType=BIGINT},
+      </if>
+      update_time = now(),
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 
   <sql id="where-all-condition">
     <if test="f.customer_source != null and f.customer_source!= ''"  >

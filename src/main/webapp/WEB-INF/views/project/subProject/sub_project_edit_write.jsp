@@ -81,8 +81,8 @@
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">项目建档时间<span
                                                             class="required" style="color: red"> * </span>：</label>
-                                                    <div class='input-group date col-sm-6 col-md-6 col-xs-6' id='datetimepicker4' >
-                                                        <input type="text" id="endTime2" readonly="readonly" value="<c:if test='${parentPo.projectCreationTime != null}'><fmt:formatDate value='${parentPo.projectCreationTime}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if>" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
+                                                    <div class='input-group date col-sm-6 col-md-6 col-xs-6' >
+                                                        <input type="text" id="endTime2" readonly="readonly" value="${parentPo.projectCreationTime}" class="form-control" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
@@ -111,7 +111,7 @@
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">收单日期<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="input-group date col-sm-6 col-md-6 col-xs-6" id='datetimepicker1' >
-                                                        <input type="text" id="endTimee" readonly="readonly" value="<c:if test='${po.acquisitionDate != null}'><fmt:formatDate value='${po.acquisitionDate}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if>" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
+                                                        <input type="text" id="endTime" readonly="readonly" value="<c:if test='${po.acquisitionDate != null}'><fmt:formatDate value='${po.acquisitionDate}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if>" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12" id="constructionAreaDiv">
@@ -133,10 +133,17 @@
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">初次交付日期<span
                                                             class="required" style="color: red"> * </span>：</label>
-                                                    <div class="input-group date col-sm-6 col-md-6 col-xs-6" id='datetimepicker2' >
-                                                        <input type="text"  name="initialDeliveryDate" id="initialDeliveryDate"  value="<c:if test='${po.initialDeliveryDate != null}'>
-                                                            <fmt:formatDate value='${po.initialDeliveryDate}' pattern='yyyy-MM-dd　HH:mm:ss'/>" class="form-control" /></c:if>
-                                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
+<%--                                                    <div class="form-group date col-sm-6 col-md-6 col-xs-6" id='datetimepicker2' >--%>
+<%--                                                        <input type="text" id="initialDeliveryDate" name="initialDeliveryDate" value="<c:if test='${po.initialDeliveryDate != null}'><fmt:formatDate value='${po.initialDeliveryDate}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if>" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>--%>
+<%--                                                    </div>--%>
+                                                    <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left" >
+<%--                                                        <div class="col-sm-6 col-lg-6 col-md-6 pull-left">--%>
+                                                            <div class='input-group date' id='datetimepicker4' >
+                                                                <input placeholder="初次交付日期" type='text' id="initialDeliveryDate" name="initialDeliveryDate"
+                                                                       value="<c:if test='${po.initialDeliveryDate != null}'><fmt:formatDate value='${po.initialDeliveryDate}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if>"
+                                                                       class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
+                                                            </div>
+<%--                                                        </div>--%>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
@@ -155,7 +162,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
-                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">成本总价<span
+                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">成本总价(元)<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
                                                         <input type="text" readonly="readonly" name="totalCost" id="totalCost" value="${po.totalCost}" class="form-control required" >
@@ -225,22 +232,27 @@
 
     $(document).ready(function(){
         // initBaseDateTimePicker("datetimepicker3", "datetimepicker4");
+        // $('#datetimepicker4').datetimepicker({
+        //     format:"YYYY-MM-DD HH:mm:ss"
+        // });
+        // $("#datetimepicker4").on("dp.change", function (e) {
+        //     $('#datetimepicker4').data("DateTimePicker").minDate(e.date);
+        // });
         $('#datetimepicker4').datetimepicker({
             format:"YYYY-MM-DD HH:mm:ss"
         });
         $("#datetimepicker4").on("dp.change", function (e) {
             $('#datetimepicker4').data("DateTimePicker").minDate(e.date);
         });
-        $('#datetimepicker2').datetimepicker({
-            format:"YYYY-MM-DD HH:mm:ss"
-        });
-        $("#datetimepicker2").on("dp.change", function (e) {
-            $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
-        });
 
     });
     $("#save").click(function(){
-        var par = $("form").serialize();
+        // 非空校验
+        if($("#form").valid() == false){
+            alert("操作失败,请检查各个输入项是否正确!");
+            return false;
+        }
+        var par = $("#form").serialize();
         baseCallBackAJAX("post","${base}/project/main-project/save-sub-project",par,"json","saveCallback(data)");
     });
     function saveCallback(data){

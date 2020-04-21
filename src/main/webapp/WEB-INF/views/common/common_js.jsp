@@ -55,3 +55,6 @@
 <script src="${cssjs}/blue/assets/js/moment-with-locales.min.js"></script>
 
 <script src="${cssjs}/blue/assets/js/bootstrap-datetimepicker.min.js"></script>
+
+<!-- 表单校验 -->
+<script src="${cssjs}/blue/assets/js/jquery.validate.js" charset="gb2312"></script>

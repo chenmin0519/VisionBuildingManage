@@ -178,4 +178,52 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
         return dmsChildProjectMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public void auditSubProject(Long id) {
+        // 1.根据子项目id获取到该子项目
+        DmsChildProject dmsChildProject = dmsChildProjectMapper.selectByPrimaryKey(id);
+        if(dmsChildProject == null) {
+          throw new RuntimeException("未找到该子项目!");
+        }
+
+        // 2.根据parentId查出大项目
+        Long parentId = dmsChildProject.getParentId();
+        DmsMainProject dmsMainProject = dmsMainProjectMapper.selectByPrimaryKey(parentId);
+
+        // 3.拿到小项目和大项目的销售总价,成本总价, 然后累加
+        Long smallTotalSalesPrice = dmsChildProject.getTotalSalesPrice(); //小项目销售总价
+        Long bigTotalSalesPrice = dmsMainProject.getDesignSalesCost(); //大项目销售总价(设计销售费用)
+        bigTotalSalesPrice += smallTotalSalesPrice;
+        dmsMainProject.setDesignSalesCost(bigTotalSalesPrice);
+
+        Long smallTotalCost = dmsChildProject.getTotalCost(); //小项目成本总价
+        Long bigTotalCost = dmsMainProject.getDesignCost(); //大项目成本总价(设计成本费用)
+        bigTotalCost += smallTotalCost;
+        dmsMainProject.setDesignCost(bigTotalCost);
+
+        // 4.计算利润.利润 = 设计销售费用-设计成本费用
+        Long profit = dmsMainProject.getProfit();
+        profit = profit + bigTotalSalesPrice - bigTotalCost;
+        dmsMainProject.setProfit(profit);
+
+        // 5.存进大项目数据库
+        dmsMainProjectMapper.updateMoneyById(dmsMainProject);
+        // 6.状态设为审核通过,存进子项目数据库
+        dmsChildProject.setConfirmStatus((byte) 2);
+        dmsChildProjectMapper.updateStatusById(dmsChildProject);
+        // 7.把统计到的数据存进统计表
+
+    }
+
+    @Override
+    public void noAuditSubProject(Long id) {
+        // 1.根据子项目id获取到该子项目
+        DmsChildProject dmsChildProject = dmsChildProjectMapper.selectByPrimaryKey(id);
+        if(dmsChildProject == null) {
+            throw new RuntimeException("未找到该子项目!");
+        }
+        dmsChildProject.setConfirmStatus((byte) 3);
+        dmsChildProjectMapper.updateStatusById(dmsChildProject);
+    }
+
 }

@@ -22,4 +22,6 @@ public interface DmsChildProjectMapper {
     List<DmsChildProject> querySubPage(QueryBean queryBean);
 
     int queryPageCount(QueryBean queryBean);
+
+    int updateStatusById(DmsChildProject dmsChildProject);
 }

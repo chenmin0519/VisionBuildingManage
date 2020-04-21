@@ -312,12 +312,21 @@
       rendering_num = #{renderingNum,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <update id="updateStatusById" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject">
+    update dms_child_project
+    <set >
+      <if test="confirmStatus != null" >
+        confirm_status = #{confirmStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 
   <select id="querySubPage" resultType="com.visionbuilding.manage.modle.entity.DmsChildProject">
 -- 1.根据前端传的父级code去大项目表查销售面积,销售单价. 同时根据父级code在自子项目表查到父级code是该父级code的
     select dcp.id, dcp.parent_id as parentId, dcp.project_type_code as projectTypeCode, dcp.project_type_name as projectTypeName,
      dcp.total_sales_price as totalSalesPrice, dcp.acquisition_date as acquisitionDate, dcp.remarks, dcp.confirm_status as confirmStatus,
-    dmp.sales_area as salesArea, dmp.unit_price as unitPrice
+    dmp.sales_area as salesArea, dmp.unit_price as unitPrice, dmp.project_creation_time as projectCreationTime
     from dms_child_project dcp, dms_main_project dmp
     where dcp.parent_id = dmp.id
     <if test="f.parentId != null and f.parentId!= ''"  >

@@ -95,7 +95,7 @@
                                                     <th nowrap="nowrap">客户编码</th>
                                                     <th nowrap="nowrap">项目地点</th>
                                                     <th nowrap="nowrap">客户电话</th>
-                                                    <th nowrap="nowrap">销售面积</th>
+                                                    <th nowrap="nowrap">销售面积(㎡)</th>
                                                     <th nowrap="nowrap">销售单价(元/㎡)</th>
                                                     <th nowrap="nowrap">成本单价(元/㎡)</th>
                                                     <th nowrap="nowrap">操作</th>
@@ -157,7 +157,7 @@
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
-        initBaseTable($("form").serialize(),"datatable","${base}/project/main-project/getDates",
+        initBaseTable($("#form").serialize(),"datatable","${base}/project/main-project/getDates",
             ",projectCreationTime,customerSource,customerCode,place,customerPhone,salesArea,unitPrice,costPrice,",
             functionlist);
     }

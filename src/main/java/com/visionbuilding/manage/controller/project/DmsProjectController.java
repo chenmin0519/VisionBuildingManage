@@ -11,7 +11,9 @@ import com.visionbuilding.manage.service.DmsMainProjectService;
 import com.visionbuilding.manage.utill.FormDataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -101,7 +103,7 @@ public class DmsProjectController extends BaseController {
     }
 
     /**
-     * 运营中心新增或编辑子项目
+     * 运营中心(设计院)新增或编辑子项目
      * @return
      */
     @ResponseBody
@@ -193,5 +195,60 @@ public class DmsProjectController extends BaseController {
         request.setAttribute("po",dmsChildProject);
         request.setAttribute("parentPo",dmsMainProject);
         return "project/subProject/sub_project_info";
+    }
+
+
+    @RequestMapping("/auditSubProject.html")
+    public String goAuditSubProjectList(){
+        return "project/subProject/audit_sub_project_list";
+    }
+
+    @RequestMapping("/auditSub.html")
+    public String goAuditSubProject(HttpServletRequest request,Long id){
+        // 1.传进来子项目id,根据id查询到子项目的数据
+        DmsChildProject dmsChildProject =  dmsMainProjectService.selectSubByPrimaryKey(id);
+
+        // 2.拿到子项目里的parentId,根据这个parentId去大项目表查到大项目的数据
+        Long parentId = dmsChildProject.getParentId();
+        DmsMainProject dmsMainProject = dmsMainProjectService.selectByPrimaryKey(parentId);
+
+        // 3.把大小项目的数据都set进request中,在页面中调用
+        request.setAttribute("po",dmsChildProject);
+        request.setAttribute("parentPo",dmsMainProject);
+        return "project/subProject/audit_sub_project";
+    }
+
+    @ResponseBody
+    @RequestMapping("/audit-sub-project")
+    public String auditSubProject(
+            @RequestParam(required = true, name = "id") Long id,
+            @RequestParam(required = true, name = "audit") String audit) throws Exception{
+        ResultBean resultBean = new ResultBean();
+        try {
+            if(id == null){
+                resultBean.failure("未获取到子项目id!");
+            }else{
+                if(audit == null || audit == "") {
+                    resultBean.failure("未填写审核状态!");
+                } else {
+                    if("0".equals(audit)) { //审核通过
+                        dmsMainProjectService.auditSubProject(id);
+                    } else if("1".equals(audit)) { //审核不通过
+                        dmsMainProjectService.noAuditSubProject(id);
+                    }
+
+
+                }
+//                DmsChildProject dmsChildProject = new DmsChildProject();
+//                dmsChildProject.setId(id);
+                // 审核通过
+
+            }
+            resultBean.success();
+        }catch (Exception e){
+            e.printStackTrace();
+            resultBean.failure("系统异常");
+        }
+        return JSON.toJSONString(resultBean);
     }
 }

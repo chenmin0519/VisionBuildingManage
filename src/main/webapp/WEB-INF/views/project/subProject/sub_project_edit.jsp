@@ -90,7 +90,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
-                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售面积<span
+                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售面积(㎡)<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
                                                         <input type="text" readonly="readonly" <%--name="constructionArea"--%> id="constructionArea" placeholder="请输入销售面积" value="${po.salesArea}" class="form-control required" >
@@ -104,7 +104,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
-                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售总价：</label>
+                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售总价(元)：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
                                                         <input type="text" readonly="readonly" name="totalSalesPrice" id="totalSalesPrice"  value="${po.totalSalesPrice}" class="form-control" >
                                                     </div>
@@ -193,7 +193,12 @@
         });
     });
     $("#save").click(function(){
-        var par = $("form").serialize();
+        // 非空校验
+        if($("#form").valid() == false){
+            alert("操作失败,请检查各个输入项是否正确!");
+            return false;
+        }
+        var par = $("#form").serialize();
         var projectTypeName = $('#projectTypeCode option:selected').text();
         console.log("projectTypeName:"+projectTypeName);
         if(projectTypeName != undefined && projectTypeName != null){

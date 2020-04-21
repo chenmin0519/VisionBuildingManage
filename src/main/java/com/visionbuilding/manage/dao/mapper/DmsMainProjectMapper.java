@@ -23,4 +23,6 @@ public interface DmsMainProjectMapper {
     int queryPageCount(QueryBean queryBean);
 
     DmsMainProject getMaxCode(DmsMainProject dmsMainProject);
+
+    int updateMoneyById(DmsMainProject dmsMainProject);
 }

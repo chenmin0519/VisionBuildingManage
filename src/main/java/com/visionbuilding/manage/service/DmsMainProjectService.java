@@ -24,4 +24,16 @@ public interface DmsMainProjectService {
      * @return
      */
     DmsChildProject selectSubByPrimaryKey(Long id);
+
+    /**
+     * 子项目提审(通过)
+     * @param id
+     */
+    void auditSubProject(Long id);
+
+    /**
+     * 子项目提审(不通过)
+     * @param id
+     */
+    void noAuditSubProject(Long id);
 }

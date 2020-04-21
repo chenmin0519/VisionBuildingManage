@@ -43,9 +43,9 @@
                     <!-- Page-Title -->
                     <div class="row">
                         <div class="col-sm-12">
-                            <h4 class="pull-left page-title">子项目信息管理</h4>
+                            <h4 class="pull-left page-title">项目结算确认</h4>
                             <ol class="breadcrumb pull-right">
-                                <li><a href="#">子项目信息管理</a></li>
+                                <li><a href="#">项目结算确认</a></li>
                                 <li class="active">项目结算管理</li>
                             </ol>
                         </div>
@@ -91,6 +91,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th nowrap="nowrap">序号</th>
+                                                    <th nowrap="nowrap">项目建档时间</th>
                                                     <th nowrap="nowrap">项目类型</th>
                                                     <th nowrap="nowrap">销售面积(㎡)</th>
                                                     <th nowrap="nowrap">销售单价(元/㎡)</th>
@@ -143,12 +144,10 @@
 <!-- jQuery  -->
 
 <script type="text/javascript">
-    var functionlist=[{targets:[7],
+    var functionlist=[{targets:[8],
         mRender:function(data) {
             var result = "";
-            result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
-                +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=edit('"
-                +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
+            result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
                 +data.id+"')><i class='ion-ios7-paper-outline'></i> 详情</button>";
             return result;
         }
@@ -157,7 +156,7 @@
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
         var par = $("#form").serialize();
-        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,salesArea,unitPrice,totalSalesPrice,acquisitionDate,remark,",functionlist);
+        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectCreationTime,projectTypeName,salesArea,unitPrice,totalSalesPrice,acquisitionDate,remark,",functionlist);
 
     }
     $(document).ready(function(){
@@ -207,7 +206,7 @@
         window.location.href="${base}/project/main-project/editSub.html?id="+id+"&chirld=${chirld}&parent=${parent}";
     }
     function detail(id){
-        window.location.href="${base}/project/main-project/subInfo.html?id="+id+"&chirld=${chirld}&parent=${parent}";
+        window.location.href="${base}/project/main-project/auditSub.html?id="+id+"&chirld=${chirld}&parent=${parent}";
     }
     <%--$("#add").click(function(){--%>
     <%--    window.location.href="${base}/project/main-project/add.html?chirld=${chirld}&parent=${parent}";--%>
@@ -220,11 +219,10 @@
             // 查看待填写状态的子项目,即运营中心发布还未被设计院填写的(可以被查看和编辑)
             $("#confirmStatus").val("0");
 
-            functionlist=[{targets:[7],
+            functionlist=[{targets:[8],
                 mRender:function(data) {
                     var result = "";
-                    result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=edit('"
-                        +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
+                    result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
                         +data.id+"')><i class='ion-ios7-paper-outline'></i> 详情</button>";
                     return result;
                 }
@@ -234,7 +232,7 @@
             // 查看已填写状态的子项目(只能被查看)
             $("#confirmStatus").val("123");
 
-            functionlist=[{targets:[7],
+            functionlist=[{targets:[8],
                 mRender:function(data) {
                     var result = "";
                     result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"

@@ -46,10 +46,7 @@
                             <div class="col-sm-2">
                                 <h4 class="pull-left page-title">子项目详情</h4>
                             </div>
-<%--                            <div class="col-sm-2">--%>
-<%--                                <input style="float: left;" type="button" id="addSub" class="btn btn-primary" onclick="addSubproject();" value="新增子项目">--%>
-<%--                            </div>--%>
-                                <ol class="breadcrumb pull-right">
+                            <ol class="breadcrumb pull-right">
                                 <li><a href="#">子项目详情</a></li>
                                 <li class="active">项目结算管理</li>
                             </ol>
@@ -70,7 +67,7 @@
                                             <form id="form">
                                                 <table class="table table-striped table-bordered">
                                                     <thead>
-                                                    <input type="hidden" id="resourcePid" value="${po.id}">
+                                                    <input type="hidden" name="id" id="id" value="${po.id}">
                                                     <tr>
                                                         <th width="15%" style="text-align: center">项目建档时间</th>
                                                         <td width="35%"><div>${parentPo.projectCreationTime}</div></td>
@@ -84,10 +81,35 @@
                                                         <td><div >${po.projectTypeName}</div></td>
                                                     </tr>
                                                     <tr>
+                                                        <th style="text-align: center">客户名称</th>
+                                                        <td><div >${parentPo.customerSource}</div></td>
+                                                        <th style="text-align: center">项目地点</th>
+                                                        <td><div >${parentPo.place}</div></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center">客户电话</th>
+                                                        <td><div >${parentPo.customerPhone}</div></td>
+                                                        <th style="text-align: center">销售面积</th>
+                                                        <td><div >${parentPo.salesArea}</div></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center">销售单价</th>
+                                                        <td><div >${parentPo.unitPrice}</div></td>
+                                                        <th style="text-align: center">销售总价</th>
+                                                        <td><div >${po.totalSalesPrice}</div></td>
+                                                    </tr>
+                                                    <tr>
                                                         <th style="text-align: center">收单日期</th>
                                                         <td><div ><c:if test='${po.acquisitionDate != null}'><fmt:formatDate value='${po.acquisitionDate}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if></div></td>
-                                                        <th style="text-align: center">建筑面积</th>
-                                                        <td><div >${po.constructionArea}</div></td>
+                                                        <!--建筑面积和效果图张数只显示一个-->
+                                                        <c:if test="${po.projectTypeCode == '005'}">
+                                                            <th style="text-align: center">效果图张数</th>
+                                                            <td><div >${po.renderingNum}</div></td>
+                                                        </c:if>
+                                                        <c:if test="${po.projectTypeCode != '005'}">
+                                                            <th style="text-align: center">建筑面积</th>
+                                                            <td><div >${po.constructionArea}</div></td>
+                                                        </c:if>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: center">初次交付日期</th>
@@ -105,23 +127,40 @@
                                                     <tr>
                                                         <th style="text-align: center">设计师提成</th>
                                                         <td><div >${po.designerCommission}</div></td>
-                                                        <th style="text-align: center">效果图张数</th>
-                                                        <td><div >${po.renderingNum}</div></td>
+                                                        <th style="text-align: center">确认状态</th>
+                                                        <td><div >
+                                                            <c:if test="${po.confirmStatus == '1'}">待确认</c:if>
+                                                            <c:if test="${po.confirmStatus == '2'}">已确认</c:if>
+                                                        </div></td>
                                                     </tr>
+                                                    <tr>
+                                                        <th style="text-align: center">确认时间</th>
+                                                        <td><div ><c:if test='${po.confirmTime != null}'><fmt:formatDate value='${po.confirmTime}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if></div></td>
+                                                        <th style="text-align: center"></th>
+                                                        <td><div ></div></td>
+                                                    </tr>
+
                                                     </thead>
                                                 </table>
+                                                <div class="panel-body">
+                                                    <div class="col-sm-10 pull-right">
+                                                        <button id="pass" type="button"
+                                                                class="btn btn-primary waves-effect waves-light m-b-5">
+                                                            <i class="ion-checkmark"></i>&nbsp;通过
+                                                        </button>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <button id="fail" type="button"
+                                                                class="btn btn-primary waves-effect waves-light m-b-5">
+                                                            <i class="ion-checkmark"></i>&nbsp;不通过
+                                                        </button>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <button onclick="history.back();" type="button"
+                                                                class="btn btn-primary waves-effect waves-light m-b-5">
+                                                            <i class="ion-reply"></i>&nbsp;返回
+                                                        </button>
+                                                    </div>
 
-
-
-
-
-<%--                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">--%>
-<%--                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">项目建档时间<span--%>
-<%--                                                            class="required" style="color: red"> * </span>：</label>--%>
-<%--                                                    <div class='input-group date col-sm-6 col-md-6 col-xs-6' id='datetimepicker4' >--%>
-<%--                                                        <input type="text" id="endTime2" readonly="readonly" value="<c:if test='${parentPo.projectCreationTime != null}'><fmt:formatDate value='${parentPo.projectCreationTime}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if>" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>--%>
-<%--                                                    </div>--%>
-<%--                                                </div>--%>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -180,20 +219,58 @@
 
     });
 
-    /*$(function () {
-        baseCallBackAJAX("post","${base}/data/projectType/getAll",null,"json","initProjectType(data)");
-
-        // 成本总价=成本单价*建筑面积(制图张数)
-       var constructionArea = $("#constructionArea").val();
-       var costPrice = $("#costPrice").val();
-       if(constructionArea && costPrice) {
-           var totalCost = constructionArea * 1 * costPrice * 1;
-           $("#totalCost").val(totalCost);
-       } else {
-           $("#totalCost").val(0);
-       }
+    // 审核通过
+    $("#pass").click(function(){
+        var id = $("#id").val();
+        if(!id) {
+            alert("没有获取到子项目的id!");
+            return false;
+        }
+        baseCallBackAJAX("post","${base}/project/main-project/audit-sub-project",{"id":id, "audit":"0"},"json","saveCallback(data)");
     });
-*/
+
+    // 审核不通过
+    $("#fail").click(function(){
+        var id = $("#id").val();
+        if(!id) {
+            alert("没有获取到子项目的id!");
+            return false;
+        }
+        baseCallBackAJAX("post","${base}/project/main-project/audit-sub-project",{"id":id,"audit":"1"},"json","saveCallback(data)");
+    });
+
+    function saveCallback(data){
+        if(data.status=="0"){
+            swal({
+                title: "操作成功",
+                text:data.message,
+                type: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm : true, //关闭按钮
+                closeOnCancel : true
+            },function(isConfirm) {
+                if(isConfirm==true){
+                    history.back();
+                    <%--window.location.href="${base}/project/main-project/project.html?chirld=${chirld}&parent=${parent}";--%>
+                }
+            });
+        }else{
+            swal({
+                title: "操作失败",
+                text:data.message,
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm : true, //关闭按钮
+                closeOnCancel : true
+            });
+        }
+    }
 </script>
 
 

@@ -93,7 +93,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
-                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售面积<span
+                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售面积(㎡)<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
                                                         <input type="text" name="salesArea" id="salesArea" placeholder="请输入销售面积" value="${po.salesArea}" class="form-control required" >
@@ -215,6 +215,13 @@
 <script type="text/javascript">
 
     $("#save").click(function(){
+        // 非空校验
+        if($("#form").valid() == false){
+            alert("操作失败,请检查各个输入项是否正确!");
+            return false;
+        }
+        // 把单价和面积都*100,总价除以100
+
         baseCallBackAJAX("post","${base}/project/main-project/save",$("#form").serialize(),"json","saveCallback(data)");
     });
     function saveCallback(data){

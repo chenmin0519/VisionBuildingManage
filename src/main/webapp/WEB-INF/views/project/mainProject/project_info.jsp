@@ -87,7 +87,7 @@
                                                         <td width="35%"><div >${po.customerPhone}</div></td>
                                                     </tr>
                                                     <tr>
-                                                        <th style="text-align: center">销售面积</th>
+                                                        <th style="text-align: center">销售面积(㎡)</th>
                                                         <td><div >${po.salesArea}</div></td>
                                                         <th style="text-align: center">销售单价(元/㎡)</th>
                                                         <td><div >${po.unitPrice}</div></td>
@@ -157,9 +157,9 @@
                                                 <tr>
                                                     <th nowrap="nowrap">序号</th>
                                                     <th nowrap="nowrap">项目类型</th>
-                                                    <th nowrap="nowrap">销售面积</th>
-                                                    <th nowrap="nowrap">销售单价</th>
-                                                    <th nowrap="nowrap">销售总价</th>
+                                                    <th nowrap="nowrap">销售面积(㎡)</th>
+                                                    <th nowrap="nowrap">销售单价(元/㎡)</th>
+                                                    <th nowrap="nowrap">销售总价(元)</th>
                                                     <th nowrap="nowrap">平面收单日期</th>
                                                     <th nowrap="nowrap">备注</th>
                                                     <th nowrap="nowrap">操作</th>
@@ -257,7 +257,7 @@
     }
 
     function edit(id){
-        window.location.href="${base}/project/main-project/subedit.html?id="+id+"&chirld=${chirld}&parent=${parent}";
+        window.location.href="${base}/project/main-project/addSub.html?id="+id+"&chirld=${chirld}&parent=${parent}";
     }
     function detail(id){
         window.location.href="${base}/project/main-project/info.html?id="+id+"&chirld=${chirld}&parent=${parent}";
