@@ -94,12 +94,6 @@
                                                         <i class="ion-ios7-search"></i> 查询
                                                     </button>
                                                 </div>
-                                                <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">
-                                                    <button id="add" type="button" style="position: absolute;right: -10px;"
-                                                            class="btn btn-primary waves-effect waves-light m-b-5">
-                                                        <i class="glyphicon glyphicon-plus"></i> 新建
-                                                    </button>
-                                                </div>
                                             </form>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12" id = "datatable_div_1">
@@ -108,11 +102,14 @@
                                                 <thead>
                                                 <tr>
                                                     <th nowrap="nowrap">序号</th>
-                                                    <th nowrap="nowrap">用户名</th>
-                                                    <th nowrap="nowrap">密码</th>
-                                                    <th nowrap="nowrap">姓名</th>
-                                                    <th nowrap="nowrap">状态</th>
-                                                    <th nowrap="nowrap">操作</th>
+                                                    <th nowrap="nowrap">销售面积</th>
+                                                    <th nowrap="nowrap">销售单价</th>
+                                                    <th nowrap="nowrap">成本单价</th>
+                                                    <th nowrap="nowrap">已回款金额</th>
+                                                    <th nowrap="nowrap">支出金额</th>
+                                                    <th nowrap="nowrap">应收金额</th>
+                                                    <th nowrap="nowrap">应付金额</th>
+                                                    <th nowrap="nowrap">修改人id</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -124,11 +121,14 @@
                                                 <thead>
                                                 <tr>
                                                     <th nowrap="nowrap">序号</th>
-                                                    <th nowrap="nowrap">用户名</th>
-                                                    <th nowrap="nowrap">密码</th>
-                                                    <th nowrap="nowrap">姓名</th>
-                                                    <th nowrap="nowrap">状态</th>
-                                                    <th nowrap="nowrap">操作</th>
+                                                    <th nowrap="nowrap">销售面积</th>
+                                                    <th nowrap="nowrap">销售单价</th>
+                                                    <th nowrap="nowrap">成本单价</th>
+                                                    <th nowrap="nowrap">已回款金额</th>
+                                                    <th nowrap="nowrap">支出金额</th>
+                                                    <th nowrap="nowrap">应收金额</th>
+                                                    <th nowrap="nowrap">应付金额</th>
+                                                    <th nowrap="nowrap">修改人id</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -140,11 +140,10 @@
                                                 <thead>
                                                 <tr>
                                                     <th nowrap="nowrap">序号</th>
-                                                    <th nowrap="nowrap">用户名</th>
-                                                    <th nowrap="nowrap">密码</th>
-                                                    <th nowrap="nowrap">姓名</th>
-                                                    <th nowrap="nowrap">状态</th>
-                                                    <th nowrap="nowrap">操作</th>
+                                                    <th nowrap="nowrap">收单日期</th>
+                                                    <th nowrap="nowrap">成本单价</th>
+                                                    <th nowrap="nowrap">备注</th>
+                                                    <th nowrap="nowrap">修改人id</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -156,11 +155,10 @@
                                                 <thead>
                                                 <tr>
                                                     <th nowrap="nowrap">序号</th>
-                                                    <th nowrap="nowrap">用户名</th>
-                                                    <th nowrap="nowrap">密码</th>
-                                                    <th nowrap="nowrap">姓名</th>
-                                                    <th nowrap="nowrap">状态</th>
-                                                    <th nowrap="nowrap">操作</th>
+                                                    <th nowrap="nowrap">收单日期</th>
+                                                    <th nowrap="nowrap">成本单价</th>
+                                                    <th nowrap="nowrap">备注</th>
+                                                    <th nowrap="nowrap">修改人id</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -236,49 +234,138 @@
 <!-- jQuery  -->
 
 <script type="text/javascript">
-    var functionlist=[{targets:[5],
+    var functionlist=[{targets:[1],
         mRender:function(data) {
             var result = "";
-            if(data.status == 1){
-                result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=resetPassword('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 重置密码</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=resetZt('"
-                    + data.id+"','0')><i class='ion-ios7-paper-outline'></i> 冻结</button>";
+            if(data.newValue.salesArea != null){
+                result = data.newValue.salesArea/100;
             }else{
-                result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=resetPassword('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 重置密码</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=resetZt('"
-                    + data.id+"','1')><i class='ion-ios7-paper-outline'></i> 激活</button>";
+                result = "";
             }
             return result;
         }
     },{targets:[2],
         mRender:function(data) {
-            var result = "******";
+            var result = "";
+            if(data.newValue.unitPrice != null){
+                result = data.newValue.unitPrice/100;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[3],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.costPrice != null){
+                result = data.newValue.costPrice/100;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[4],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.amountReturned != null){
+                result = data.newValue.amountReturned/100;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[5],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.amountSpent != null){
+                result = data.newValue.amountSpent/100;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[6],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.amountReceivable != null){
+                result = data.newValue.amountReceivable/100;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[7],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.amountsPayable != null){
+                result = data.newValue.amountsPayable/100;
+            }else{
+                result = "";
+            }
             return result;
         }
     }];
+    var functionlist_child=[{targets:[1],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.acquisitionDate != null){
+                result = getDateStr(data.newValue.acquisitionDate);
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[2],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.costPrice != null){
+                result = data.newValue.costPrice/100;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[3],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.remarks != null){
+                result = data.newValue.remarks;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    }];
+
+    var functionlist_report=[{targets:[1],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.remarks != null){
+                result = data.newValue.remarks;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    }]
     function initTbale(type){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
         var par = $("form").serialize();
         par += "&type="+type
         if(type == 1){
-            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",id,,type,,",functionlist);
+            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",,,,,,,,user",functionlist);
         }else if(type == 2){
-            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",id,,type,,",functionlist);
+            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",,,,,,,,user",functionlist);
         }else if(type == 3){
-            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",id,,type,,",functionlist);
+            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",,,,user",functionlist_child);
         }else if(type == 4){
-            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",id,,type,,",functionlist);
+            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",,,,user",functionlist_child);
         }else if(type == 5){
-            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",id,,type,,",functionlist);
+            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",id,,type,,",functionlist_report);
         }else if(type == 6){
-            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",id,,type,,",functionlist);
+            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",id,,type,,",functionlist_reportup);
         }
-
     }
 
     $(document).ready(function(){

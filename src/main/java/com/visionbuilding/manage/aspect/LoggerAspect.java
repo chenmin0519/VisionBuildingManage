@@ -94,8 +94,12 @@ public class LoggerAspect {
             dmsProjectLog.setNewValue(JSONObject.toJSONString(joinPoint.getArgs()[0]));
             dmsProjectLog.setUser(user.getId());
             dmsProjectLog.setEditeTime(new Date());
-            dmsProjectLog.setType(EnumLoggerType.CHILDPROJECT_UPDATE.getKey());
             DmsChildProject childProject = (DmsChildProject) joinPoint.getArgs()[0];
+            if(childProject.getDesignerCommission() != null){
+                dmsProjectLog.setType(EnumLoggerType.REPORT_ADD.getKey());
+            }else{
+                dmsProjectLog.setType(EnumLoggerType.CHILDPROJECT_UPDATE.getKey());
+            }
             childProject = dmsChildProjectMapper.selectByPrimaryKey(childProject.getId());
             dmsProjectLog.setOldValue(JSONObject.toJSONString(childProject));
             dmsProjectLogMapper.insertSelective(dmsProjectLog);
@@ -103,4 +107,6 @@ public class LoggerAspect {
             e.printStackTrace();
         }
     }
+
+
 }

@@ -19,4 +19,5 @@
 	</context:component-scan>
 
 	<context:component-scan base-package="com.visionbuilding.manage"/>
+
 </beans>

@@ -64,11 +64,25 @@ public class LoggerServiceImpl implements LoggerService {
                 EnumLoggerType.BIGPROJECT_UPDATE.getKey() == dmsProjectLog.getType()){
             //大项目
             loggerVo.setNewValue(JSONObject.parseObject(dmsProjectLog.getNewValue(), DmsMainProject.class));
-//            loggerVo.setOldValue(JSONObject.parseObject(dmsProjectLog.getOldValue(), DmsMainProject.class));
+            if(dmsProjectLog.getOldValue() != null) {
+                loggerVo.setOldValue(JSONObject.parseObject(dmsProjectLog.getOldValue(), DmsMainProject.class));
+            }
         }else if(EnumLoggerType.CHILDPROJECT_ADD.getKey() == dmsProjectLog.getType()||
                     EnumLoggerType.CHILDPROJECT_UPDATE.getKey() == dmsProjectLog.getType()){
             loggerVo.setNewValue(JSONObject.parseObject(dmsProjectLog.getNewValue(), DmsChildProject.class));
-            loggerVo.setOldValue(JSONObject.parseObject(dmsProjectLog.getOldValue(), DmsChildProject.class));
+            if(dmsProjectLog.getOldValue() != null) {
+                loggerVo.setOldValue(JSONObject.parseObject(dmsProjectLog.getOldValue(), DmsChildProject.class));
+            }
+        }else if(EnumLoggerType.REPORT_ADD.getKey() == dmsProjectLog.getType()){
+            loggerVo.setNewValue(JSONObject.parseObject(dmsProjectLog.getNewValue(), DmsChildProject.class));
+            if(dmsProjectLog.getOldValue() != null) {
+                loggerVo.setOldValue(JSONObject.parseObject(dmsProjectLog.getOldValue(), DmsChildProject.class));
+            }
+        }else if(EnumLoggerType.REPORT_UPDATE.getKey() == dmsProjectLog.getType()){
+            loggerVo.setNewValue(JSONObject.parseObject(dmsProjectLog.getNewValue(), DmsChildProject.class));
+            if(dmsProjectLog.getOldValue() != null) {
+                loggerVo.setOldValue(JSONObject.parseObject(dmsProjectLog.getOldValue(), DmsChildProject.class));
+            }
         }
         return loggerVo;
     }

@@ -96,7 +96,14 @@ public class ExcelGenerateUtils<T> {
                                }else{
                                    hssfRow.createCell(j).setCellValue("");
                                }
-                           }else {
+                           }else if(field.getType() == Long.class){
+                               String value = "";
+                               if (field.get(t) != null) {
+                                   float num = Long.parseLong(field.get(t).toString())/100;
+                                   value = num + "";
+                               }
+                               hssfRow.createCell(j).setCellValue(value);
+                           }else{
                                String value = Optional.ofNullable(field.get(t)).orElse("").toString();
                                hssfRow.createCell(j).setCellValue(value);
                            }

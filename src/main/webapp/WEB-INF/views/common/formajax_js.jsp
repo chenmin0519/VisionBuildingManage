@@ -891,10 +891,10 @@
 		function initBaseDateTimePicker(minDateTimePickerId,maxDateTimePickerId){
 			
 			 $('#'+minDateTimePickerId).datetimepicker({
-				  format:"YYYY/MM/DD HH:mm 上午" 
+				  format:"YYYY-MM-DD HH:mm:ss"
              });
 		     $('#'+maxDateTimePickerId).datetimepicker({
-				  format:"YYYY/MM/DD HH:mm 上午" 
+				  format:"YYYY-MM-DD HH:mm:ss"
              });
 		        
 		        $("#"+minDateTimePickerId).on("dp.change", function (e) {

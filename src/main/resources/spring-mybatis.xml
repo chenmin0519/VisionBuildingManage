@@ -42,6 +42,7 @@
     <property name="maxWait">
       <value>120000</value>
     </property>
+
   </bean>
  
   <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.visionbuilding.manage.dao.mapper.StaticsMapper" >
+
+  <select id="queryList" resultType="com.visionbuilding.manage.modle.po.DepartmentStaticsPo">
+      select b.project_creation_time as projectCode,
+      b.customer_source as customerSource,
+      b.customer_code as customerCode,
+      b.place as place,
+      b.sales_area as salesArea,
+      b.cost_price as costPrice,
+      b.design_sales_cost as designSalesCost,
+      a.parent_id as parentId,
+      a.project_type_code as typeCode,
+      a.project_type_name as typeName,
+      a.construction_area as constructionArea,
+      a.cost_price as childCostPrice,
+      a.total_cost as totalCost,
+      a.total_sales_price as totalSalesPrice,
+      a.designer_commission_price as designerCommissionPrice,
+      a.designer_commission as designerCommission,
+      a.department as department,
+      a.designer as designer
+      from dms_child_project a left join dms_main_project b on a.parent_id = b.id
+    where 1=1 and a.confirm_status = 2
+    <if test="f.type != null">
+      and a.project_type_code = #{f.type}
+    </if>
+    <if test="f.startTime != null">
+      and a.confirm_time &gt;= #{f.startTime}
+    </if>
+    <if test="f.endTime != null">
+      and a.confirm_time &lt;= #{f.endTime}
+    </if>
+    order by a.id desc
+    limit #{startPage},${pageRows}
+  </select>
+  <select id="querycount" resultType="java.lang.Integer">
+    select count(1)
+    from dms_child_project a left join dms_main_project b on a.parent_id = b.id
+    where 1=1 and a.confirm_status = 2
+    <if test="f.type != null and f.type != ''">
+      and a.project_type_code = #{f.type}
+    </if>
+    <if test="f.department != null and f.department != ''">
+        and a.department = #{f.department}
+    </if>
+    <if test="f.startTime != null">
+      and a.confirm_time &gt;= #{f.startTime}
+    </if>
+    <if test="f.endTime != null">
+      and a.confirm_time &lt;= #{f.endTime}
+    </if>
+  </select>
+
+    <select id="queryListByParam" resultType="com.visionbuilding.manage.modle.po.DepartmentStaticsPo">
+        select b.project_creation_time as projectCode,
+        b.customer_source as customerSource,
+        b.customer_code as customerCode,
+        b.place as place,
+        b.sales_area as salesArea,
+        b.cost_price as costPrice,
+        b.design_sales_cost as designSalesCost,
+        a.parent_id as parentId,
+        a.project_type_code as typeCode,
+        a.project_type_name as typeName,
+        a.acquisition_date as acquisitionDate,
+        a.initial_delivery_date as initialDeliveryDate,
+        a.construction_area as constructionArea,
+        a.cost_price as childCostPrice,
+        a.total_cost as totalCost,
+        a.designer_commission_price as designerCommissionPrice,
+        a.designer_commission as designerCommission,
+        a.department as department,
+        a.designer as designer
+        from dms_child_project a left join dms_main_project b on a.parent_id = b.id
+        where 1=1 and a.confirm_status = 2
+        <if test="type != null and type != ''">
+            and a.project_type_code = #{type}
+        </if>
+        <if test="department != null and department != ''">
+            and a.department = #{department}
+        </if>
+        <if test="startTime != null">
+            and a.confirm_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null">
+            and a.confirm_time &lt;= #{endTime}
+        </if>
+    </select>
+</mapper>
