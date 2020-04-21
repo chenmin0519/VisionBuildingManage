@@ -286,6 +286,41 @@
     function detail(id){
         window.location.href="${base}/project/main-project/subInfo.html?id="+id+"&chirld=${chirld}&parent=${parent}";
     }
+
+    function del(id){
+        baseCallBackAJAX("get","${base}/project/main-project/delSub",{'id':id},"json","callback(data)");
+    }
+    function callback(data){
+        if(data.status=="0"){
+            swal({
+                title: "操作成功",
+                text:data.message,
+                type: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm : true, //关闭按钮
+                closeOnCancel : true
+            },function(isConfirm) {
+                if(isConfirm==true){
+                    initTbale();
+                }
+            });
+        }else{
+            swal({
+                title: "操作失败",
+                text:data.message,
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm : true, //关闭按钮
+                closeOnCancel : true
+            });
+        }
+    }
 </script>
 
 

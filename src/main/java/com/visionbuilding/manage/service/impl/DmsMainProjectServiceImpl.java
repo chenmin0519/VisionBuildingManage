@@ -39,6 +39,14 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
 
     @Override
     public void deleteByPrimaryKey(Long id) {
+        // 1.查询该主项目包含的子项目
+        List<DmsChildProject> list = dmsChildProjectMapper.queryAllSub(id);
+        // 1.判断如果里面有子项目的状态是审核已通过(2),就不能删除
+        for(DmsChildProject dmsChildProject : list) {
+            if(dmsChildProject.getConfirmStatus() != null && "2".equals(dmsChildProject.getConfirmStatus())) {
+                throw new RuntimeException("有子项目审核已通过,该项目不能被删除!");
+            }
+        }
         dmsMainProjectMapper.deleteByPrimaryKey(id);
     }
 
@@ -238,6 +246,20 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
         }
         dmsChildProject.setConfirmStatus((byte) 0);
         dmsChildProjectMapper.updateStatusById(dmsChildProject);
+    }
+
+    @Override
+    public void deleteSubByPrimaryKey(Long id) {
+        // 如果子项目已经被确认了就不能被删除
+        // 1.根据id去子项目表查询,如果状态是2(已确认),就不能删除
+        DmsChildProject dmsChildProject = dmsChildProjectMapper.selectByPrimaryKey(id);
+        if(dmsChildProject == null) {
+            throw new RuntimeException("该子项目不存在!");
+        }
+        if(dmsChildProject.getConfirmStatus() != null && "2".equals(dmsChildProject.getConfirmStatus())) {
+            throw new RuntimeException("该子项目已审核通过,不能删除!");
+        }
+        dmsChildProjectMapper.deleteByPrimaryKey(id);
     }
 
 }

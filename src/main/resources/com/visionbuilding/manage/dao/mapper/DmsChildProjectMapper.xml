@@ -366,4 +366,13 @@
     </if>
 <!--    <include refid = "where-all-condition" />-->
   </select>
+  <select id="queryAllSub" resultType="com.visionbuilding.manage.modle.entity.DmsChildProject" parameterType="java.lang.Long">
+  -- 1.根据前端传的父级code去大项目表查销售面积,销售单价. 同时根据父级code在自子项目表查到父级code是该父级code的
+  select <include refid="Base_Column_List" />
+  from dms_child_project dcp, dms_main_project dmp
+  where dcp.parent_id = dmp.id
+  <if test="id != null and id!= ''"  >
+    and dmp.id = #{id}
+  </if>
+  </select>
 </mapper>

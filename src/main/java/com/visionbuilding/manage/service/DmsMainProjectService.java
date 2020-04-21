@@ -36,4 +36,6 @@ public interface DmsMainProjectService {
      * @param id
      */
     void noAuditSubProject(Long id);
+
+    void deleteSubByPrimaryKey(Long id);
 }

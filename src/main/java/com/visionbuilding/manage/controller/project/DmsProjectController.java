@@ -68,6 +68,21 @@ public class DmsProjectController extends BaseController {
         }
         return JSON.toJSONString(resultBean);
     }
+
+    @ResponseBody
+    @RequestMapping("/delSub")
+    public String delSub(Long id)throws Exception{
+        ResultBean resultBean = new ResultBean();
+        try {
+            dmsMainProjectService.deleteSubByPrimaryKey(id);
+            resultBean.success();
+        }catch (Exception e){
+            e.printStackTrace();
+            resultBean.failure("系统异常");
+        }
+        return JSON.toJSONString(resultBean);
+    }
+
     @ResponseBody
     @RequestMapping("/save")
     public String save(DmsMainProject dmsMainProject)throws Exception{

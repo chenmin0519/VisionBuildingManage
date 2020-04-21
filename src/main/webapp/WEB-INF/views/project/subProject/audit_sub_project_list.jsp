@@ -249,11 +249,11 @@
         //暂存现在选项卡
         // $("#type-int").val(type);
         if(type == '1') {
-            // 查看待填写状态的子项目,即运营中心发布还未被设计院填写的(可以被查看和编辑)
-            $("#confirmStatus").val("0");
+            // 查看待确认状态的子项目
+            $("#confirmStatus").val("1");
         } else if(type == '2') {
             // 查看已填写状态的子项目(只能被查看)
-            $("#confirmStatus").val("123");
+            $("#confirmStatus").val("2");
         }
         // 每次重新选择tab,加载页面的表单
         initTbale();
