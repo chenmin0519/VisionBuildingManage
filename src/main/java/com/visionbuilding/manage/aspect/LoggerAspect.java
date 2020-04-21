@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.visionbuilding.manage.dao.mapper.DmsChildProjectMapper;
 import com.visionbuilding.manage.dao.mapper.DmsMainProjectMapper;
 import com.visionbuilding.manage.dao.mapper.DmsProjectLogMapper;
-import com.visionbuilding.manage.modle.entity.DmsChildProject;
-import com.visionbuilding.manage.modle.entity.DmsMainProject;
-import com.visionbuilding.manage.modle.entity.DmsProjectLog;
-import com.visionbuilding.manage.modle.entity.DmsUser;
+import com.visionbuilding.manage.modle.entity.*;
 import com.visionbuilding.manage.myenum.EnumLoggerType;
 import com.visionbuilding.manage.myenum.SessionAttributes;
 import org.aspectj.lang.JoinPoint;
@@ -108,5 +105,19 @@ public class LoggerAspect {
         }
     }
 
-
+    @Before("execution(* com.visionbuilding.manage.dao.mapper.DmsSettlementMapper.insertSelective(..))")
+    public void reportUpdate(JoinPoint joinPoint){
+        try{
+            HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            DmsUser user = (DmsUser) request.getSession().getAttribute(SessionAttributes.USER_SESSION_NAME);
+            DmsProjectLog dmsProjectLog = new DmsProjectLog();
+            dmsProjectLog.setNewValue(JSONObject.toJSONString(joinPoint.getArgs()[0]));
+            dmsProjectLog.setUser(user.getId());
+            dmsProjectLog.setEditeTime(new Date());
+            dmsProjectLog.setType(EnumLoggerType.REPORT_UPDATE.getKey());
+            dmsProjectLogMapper.insertSelective(dmsProjectLog);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

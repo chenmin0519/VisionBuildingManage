@@ -6,6 +6,8 @@ import com.visionbuilding.manage.modle.ResultPOBean;
 import com.visionbuilding.manage.modle.ResultPOListBean;
 import com.visionbuilding.manage.modle.entity.DmsUser;
 
+import java.util.List;
+
 public interface DmsUserService {
     /**
      * 分页查询
@@ -38,4 +40,6 @@ public interface DmsUserService {
     void resetPwd(String userName, String newPwd);
 
     void resetZt(DmsUser user);
+
+    List<DmsUser> getUserByDepartment(Long department);
 }

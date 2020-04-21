@@ -45,11 +45,11 @@
     select 
     <include refid="Base_Column_List" />
     from dms_child_project
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from dms_child_project
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </delete>
   <insert id="insert" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject" >
     insert into dms_child_project (id, parent_id, project_type_code, 
@@ -60,14 +60,14 @@
       status, add_user, add_time, 
       update_user, update_time, department, 
       rendering_num)
-    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{projectTypeCode,jdbcType=VARCHAR}, 
-      #{projectTypeName,jdbcType=VARCHAR}, #{acquisitionDate,jdbcType=TIMESTAMP}, #{constructionArea,jdbcType=BIGINT}, 
-      #{initialDeliveryDate,jdbcType=TIMESTAMP}, #{costPrice,jdbcType=BIGINT}, #{totalCost,jdbcType=BIGINT}, #{totalSalesPrice,jdbcType=BIGINT},
-      #{draftingUnit,jdbcType=VARCHAR}, #{designerCommission,jdbcType=BIGINT}, #{designerCommissionPrice,jdbcType=BIGINT}, 
-      #{confirmStatus,jdbcType=TINYINT}, #{confirmTime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{addUser,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
-      #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{department,jdbcType=BIGINT}, 
-      #{renderingNum,jdbcType=BIGINT})
+    values (#{id}, #{parentId}, #{projectTypeCode}, 
+      #{projectTypeName}, #{acquisitionDate}, #{constructionArea}, 
+      #{initialDeliveryDate}, #{costPrice}, #{totalCost}, #{totalSalesPrice},
+      #{draftingUnit}, #{designerCommission}, #{designerCommissionPrice}, 
+      #{confirmStatus,jdbcType=TINYINT}, #{confirmTime}, #{remarks}, 
+      #{status,jdbcType=TINYINT}, #{addUser}, #{addTime}, 
+      #{updateUser}, #{updateTime}, #{department}, 
+      #{renderingNum})
   </insert>
   <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject" >
     insert into dms_child_project
@@ -141,76 +141,82 @@
       <if test="renderingNum != null" >
         rendering_num,
       </if>
+      <if test="designer != null" >
+        designer,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=BIGINT},
+        #{id},
       </if>
       <if test="parentId != null" >
-        #{parentId,jdbcType=BIGINT},
+        #{parentId},
       </if>
       <if test="projectTypeCode != null" >
-        #{projectTypeCode,jdbcType=VARCHAR},
+        #{projectTypeCode},
       </if>
       <if test="projectTypeName != null" >
-        #{projectTypeName,jdbcType=VARCHAR},
+        #{projectTypeName},
       </if>
       <if test="acquisitionDate != null" >
-        #{acquisitionDate,jdbcType=TIMESTAMP},
+        #{acquisitionDate},
       </if>
       <if test="constructionArea != null" >
-        #{constructionArea,jdbcType=BIGINT},
+        #{constructionArea},
       </if>
       <if test="initialDeliveryDate != null" >
-        #{initialDeliveryDate,jdbcType=TIMESTAMP},
+        #{initialDeliveryDate},
       </if>
       <if test="costPrice != null" >
-        #{costPrice,jdbcType=BIGINT},
+        #{costPrice},
       </if>
       <if test="totalCost != null" >
-        #{totalCost,jdbcType=BIGINT},
+        #{totalCost},
       </if>
       <if test="totalSalesPrice != null" >
-        #{totalSalesPrice,jdbcType=BIGINT},
+        #{totalSalesPrice},
       </if>
       <if test="draftingUnit != null" >
-        #{draftingUnit,jdbcType=VARCHAR},
+        #{draftingUnit},
       </if>
       <if test="designerCommission != null" >
-        #{designerCommission,jdbcType=BIGINT},
+        #{designerCommission},
       </if>
       <if test="designerCommissionPrice != null" >
-        #{designerCommissionPrice,jdbcType=BIGINT},
+        #{designerCommissionPrice},
       </if>
       <if test="confirmStatus != null" >
         #{confirmStatus,jdbcType=TINYINT},
       </if>
       <if test="confirmTime != null" >
-        #{confirmTime,jdbcType=TIMESTAMP},
+        #{confirmTime},
       </if>
       <if test="remarks != null" >
-        #{remarks,jdbcType=VARCHAR},
+        #{remarks},
       </if>
       <if test="status != null" >
         #{status,jdbcType=TINYINT},
       </if>
       <if test="addUser != null" >
-        #{addUser,jdbcType=VARCHAR},
+        #{addUser},
       </if>
       <if test="addTime != null" >
-        #{addTime,jdbcType=TIMESTAMP},
+        #{addTime},
       </if>
       <if test="updateUser != null" >
-        #{updateUser,jdbcType=VARCHAR},
+        #{updateUser},
       </if>
       <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
+        #{updateTime},
       </if>
       <if test="department != null" >
-        #{department,jdbcType=BIGINT},
+        #{department},
       </if>
       <if test="renderingNum != null" >
-        #{renderingNum,jdbcType=BIGINT},
+        #{renderingNum},
+      </if>
+      <if test="designer != null" >
+        #{designer},
       </if>
     </trim>
   </insert>
@@ -218,99 +224,102 @@
     update dms_child_project
     <set >
       <if test="parentId != null" >
-        parent_id = #{parentId,jdbcType=BIGINT},
+        parent_id = #{parentId},
       </if>
       <if test="projectTypeCode != null" >
-        project_type_code = #{projectTypeCode,jdbcType=VARCHAR},
+        project_type_code = #{projectTypeCode},
       </if>
       <if test="projectTypeName != null" >
-        project_type_name = #{projectTypeName,jdbcType=VARCHAR},
+        project_type_name = #{projectTypeName},
       </if>
       <if test="acquisitionDate != null" >
-        acquisition_date = #{acquisitionDate,jdbcType=TIMESTAMP},
+        acquisition_date = #{acquisitionDate},
       </if>
       <if test="constructionArea != null" >
-        construction_area = #{constructionArea,jdbcType=BIGINT},
+        construction_area = #{constructionArea},
       </if>
       <if test="initialDeliveryDate != null" >
-        initial_delivery_date = #{initialDeliveryDate,jdbcType=TIMESTAMP},
+        initial_delivery_date = #{initialDeliveryDate},
       </if>
       <if test="costPrice != null" >
-        cost_price = #{costPrice,jdbcType=BIGINT},
+        cost_price = #{costPrice},
       </if>
       <if test="totalCost != null" >
-        total_cost = #{totalCost,jdbcType=BIGINT},
+        total_cost = #{totalCost},
       </if>
       <if test="totalSalesPrice != null" >
-        total_sales_price = #{totalSalesPrice,jdbcType=BIGINT},
+        total_sales_price = #{totalSalesPrice},
       </if>
       <if test="draftingUnit != null" >
-        drafting_unit = #{draftingUnit,jdbcType=VARCHAR},
+        drafting_unit = #{draftingUnit},
       </if>
       <if test="designerCommission != null" >
-        designer_commission = #{designerCommission,jdbcType=BIGINT},
+        designer_commission = #{designerCommission},
       </if>
       <if test="designerCommissionPrice != null" >
-        designer_commission_price = #{designerCommissionPrice,jdbcType=BIGINT},
+        designer_commission_price = #{designerCommissionPrice},
       </if>
       <if test="confirmStatus != null" >
         confirm_status = #{confirmStatus,jdbcType=TINYINT},
       </if>
       <if test="confirmTime != null" >
-        confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+        confirm_time = #{confirmTime},
       </if>
       <if test="remarks != null" >
-        remarks = #{remarks,jdbcType=VARCHAR},
+        remarks = #{remarks},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=TINYINT},
       </if>
       <if test="addUser != null" >
-        add_user = #{addUser,jdbcType=VARCHAR},
+        add_user = #{addUser},
       </if>
       <if test="addTime != null" >
-        add_time = #{addTime,jdbcType=TIMESTAMP},
+        add_time = #{addTime},
       </if>
       <if test="updateUser != null" >
-        update_user = #{updateUser,jdbcType=VARCHAR},
+        update_user = #{updateUser},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime},
       </if>
       <if test="department != null" >
-        department = #{department,jdbcType=BIGINT},
+        department = #{department},
       </if>
       <if test="renderingNum != null" >
-        rendering_num = #{renderingNum,jdbcType=BIGINT},
+        rendering_num = #{renderingNum},
+      </if>
+      <if test="designer != null and designer != ''" >
+        designer = #{designer},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject" >
     update dms_child_project
-    set parent_id = #{parentId,jdbcType=BIGINT},
-      project_type_code = #{projectTypeCode,jdbcType=VARCHAR},
-      project_type_name = #{projectTypeName,jdbcType=VARCHAR},
-      acquisition_date = #{acquisitionDate,jdbcType=TIMESTAMP},
-      construction_area = #{constructionArea,jdbcType=BIGINT},
-      initial_delivery_date = #{initialDeliveryDate,jdbcType=TIMESTAMP},
-      cost_price = #{costPrice,jdbcType=BIGINT},
-      total_cost = #{totalCost,jdbcType=BIGINT},
-      total_sales_price = #{totalSalesPrice,jdbcType=BIGINT},
-      drafting_unit = #{draftingUnit,jdbcType=VARCHAR},
-      designer_commission = #{designerCommission,jdbcType=BIGINT},
-      designer_commission_price = #{designerCommissionPrice,jdbcType=BIGINT},
+    set parent_id = #{parentId},
+      project_type_code = #{projectTypeCode},
+      project_type_name = #{projectTypeName},
+      acquisition_date = #{acquisitionDate},
+      construction_area = #{constructionArea},
+      initial_delivery_date = #{initialDeliveryDate},
+      cost_price = #{costPrice},
+      total_cost = #{totalCost},
+      total_sales_price = #{totalSalesPrice},
+      drafting_unit = #{draftingUnit},
+      designer_commission = #{designerCommission},
+      designer_commission_price = #{designerCommissionPrice},
       confirm_status = #{confirmStatus,jdbcType=TINYINT},
-      confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
-      remarks = #{remarks,jdbcType=VARCHAR},
+      confirm_time = #{confirmTime},
+      remarks = #{remarks},
       status = #{status,jdbcType=TINYINT},
-      add_user = #{addUser,jdbcType=VARCHAR},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      update_user = #{updateUser,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      department = #{department,jdbcType=BIGINT},
-      rendering_num = #{renderingNum,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
+      add_user = #{addUser},
+      add_time = #{addTime},
+      update_user = #{updateUser},
+      update_time = #{updateTime},
+      department = #{department},
+      rendering_num = #{renderingNum}
+    where id = #{id}
   </update>
   <update id="updateStatusById" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject">
     update dms_child_project
@@ -319,7 +328,7 @@
         confirm_status = #{confirmStatus,jdbcType=TINYINT},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </update>
 
   <select id="querySubPage" resultType="com.visionbuilding.manage.modle.entity.DmsChildProject">

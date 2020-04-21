@@ -33,4 +33,6 @@ public interface DmsUserMapper {
     int insertUser(DmsUser user);
 
     int queryUserInfoByuserName(@Param("userName") String userName);
+
+    List<DmsUser> queryByDepartment(Long department);
 }

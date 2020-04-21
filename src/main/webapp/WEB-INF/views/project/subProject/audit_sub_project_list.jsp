@@ -63,10 +63,10 @@
                                     <div class="row">
                                         <ul id="checkul" class="nav nav-tabs navtab-bg" style="border-bottom: 2px solid #EED8AE;margin-left: 10px;margin-bottom:20px">
                                             <li onclick="changestatus('1')" id="type1" class="active "><a href="#jxz" data-toggle="tab" aria-expanded="true"> <span class="visible-xs"><i class="fa fa-home"></i></span> <span
-                                                    class="hidden-xs">待填写子项目</span>
+                                                    class="hidden-xs">待确认项目</span>
                                             </a></li>
                                             <li onclick="changestatus('2')" id="type2" class=""><a href="#wks" data-toggle="tab" aria-expanded="true"> <span class="visible-xs"><i class="fa fa-user"></i></span> <span
-                                                    class="hidden-xs">已填写子项目</span>
+                                                    class="hidden-xs">已确认项目</span>
                                             </a></li>
                                         </ul>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -144,7 +144,7 @@
 <!-- jQuery  -->
 
 <script type="text/javascript">
-    var functionlist=[{targets:[3],
+    var functionlist = [{targets:[3],
         mRender:function(data) {
             debugger;
             var result = "";
@@ -189,7 +189,7 @@
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
         var par = $("#form").serialize();
-        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectCreationTime,projectTypeName,,,,,remark,",functionlist);
+        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectCreationTime,projectTypeName,,,,acquisitionDate,remark,",functionlist);
 
     }
     $(document).ready(function(){
@@ -251,28 +251,9 @@
         if(type == '1') {
             // 查看待填写状态的子项目,即运营中心发布还未被设计院填写的(可以被查看和编辑)
             $("#confirmStatus").val("0");
-
-            functionlist=[{targets:[8],
-                mRender:function(data) {
-                    var result = "";
-                    result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
-                        +data.id+"')><i class='ion-ios7-paper-outline'></i> 详情</button>";
-                    return result;
-                }
-            }];
-
         } else if(type == '2') {
             // 查看已填写状态的子项目(只能被查看)
             $("#confirmStatus").val("123");
-
-            functionlist=[{targets:[8],
-                mRender:function(data) {
-                    var result = "";
-                    result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
-                        +data.id+"')><i class='ion-ios7-paper-outline'></i> 详情</button>";
-                    return result;
-                }
-            }];
         }
         // 每次重新选择tab,加载页面的表单
         initTbale();

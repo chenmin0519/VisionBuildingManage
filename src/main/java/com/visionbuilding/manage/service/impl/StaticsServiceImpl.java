@@ -180,6 +180,12 @@ public class StaticsServiceImpl implements StaticsService {
                     exclePo.setCustomerCode(po.getCustomerCode());
                     exclePo.setPlace(po.getPlace());
                     exclePo.setSalesArea(po.getSalesArea());
+                    exclePo.setAmountReturned(po.getAmountReturned());
+                    exclePo.setAmountReceivable(po.getAmountReceivable());
+                    exclePo.setAmountSpent(po.getAmountSpent());
+                    exclePo.setAmountsPayable(po.getAmountsPayable());
+                    exclePo.setContractNo(po.getContractNo());
+                    exclePo.setRemarks(po.getRemarks());
                     initAllData(exclePo,po,departmentMap);
                 }
                 f.put(po.getParentId(),exclePo);
@@ -192,6 +198,9 @@ public class StaticsServiceImpl implements StaticsService {
     }
 
     private void initAllData(ExportExclePo exclePo, DepartmentStaticsPo po, Map<Long, String> departmentMap) {
+        exclePo.setDesignSalesCost(Optional.ofNullable(exclePo.getDesignSalesCost()).orElse(0l)+po.getTotalSalesPrice());//销售费用
+        exclePo.setDesignCost(Optional.ofNullable(exclePo.getDesignCost()).orElse(0l)+po.getChildTotalCost());//成本
+        exclePo.setProfit(exclePo.getDesignSalesCost() - exclePo.getDesignCost());//利润
         if("001".equals(po.getTypeCode())){
             //平面
             exclePo.setArea1(po.getConstructionArea());
@@ -219,8 +228,7 @@ public class StaticsServiceImpl implements StaticsService {
             exclePo.setDesignerCommission5(po.getDesignerCommission());
             exclePo.setDepartment5(departmentMap.get(po.getDepartment()));
             exclePo.setDesigner5(po.getDesigner());
-        }
-        else if("004".equals(po.getTypeCode())){
+        }else if("004".equals(po.getTypeCode())){
             //结构4
             exclePo.setArea4(po.getConstructionArea());
             exclePo.setAcquisitionDate4(po.getAcquisitionDate());
@@ -229,8 +237,7 @@ public class StaticsServiceImpl implements StaticsService {
             exclePo.setDesignerCommission4(po.getDesignerCommission());
             exclePo.setDepartment4(departmentMap.get(po.getDepartment()));
             exclePo.setDesigner4(po.getDesigner());
-        }
-        else if("005".equals(po.getTypeCode())){
+        }else if("005".equals(po.getTypeCode())){
             //效果图3
             exclePo.setArea3(po.getConstructionArea());
             exclePo.setAcquisitionDate3(po.getAcquisitionDate());
@@ -239,8 +246,7 @@ public class StaticsServiceImpl implements StaticsService {
             exclePo.setDesignerCommission3(po.getDesignerCommission());
             exclePo.setDepartment3(departmentMap.get(po.getDepartment()));
             exclePo.setDesigner3(po.getDesigner());
-        }
-        else if("006".equals(po.getTypeCode())){
+        }else if("006".equals(po.getTypeCode())){
             //水电2
             exclePo.setArea2(po.getConstructionArea());
             exclePo.setAcquisitionDate2(po.getAcquisitionDate());
@@ -249,8 +255,7 @@ public class StaticsServiceImpl implements StaticsService {
             exclePo.setDesignerCommission2(po.getDesignerCommission());
             exclePo.setDepartment2(departmentMap.get(po.getDepartment()));
             exclePo.setDesigner2(po.getDesigner());
-        }
-        else if("007".equals(po.getTypeCode())){
+        } else if("007".equals(po.getTypeCode())){
             //预算
             exclePo.setArea(po.getConstructionArea());
             exclePo.setAcquisitionDate(po.getAcquisitionDate());
@@ -259,8 +264,7 @@ public class StaticsServiceImpl implements StaticsService {
             exclePo.setDesignerCommission(po.getDesignerCommission());
             exclePo.setDepartment(departmentMap.get(po.getDepartment()));
             exclePo.setDesigner(po.getDesigner());
-        }
-        else if("008".equals(po.getTypeCode())){
+        }else if("008".equals(po.getTypeCode())){
             //其他
         }
     }

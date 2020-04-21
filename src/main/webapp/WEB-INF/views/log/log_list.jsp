@@ -170,11 +170,11 @@
                                                 <thead>
                                                 <tr>
                                                     <th nowrap="nowrap">序号</th>
-                                                    <th nowrap="nowrap">用户名</th>
-                                                    <th nowrap="nowrap">密码</th>
-                                                    <th nowrap="nowrap">姓名</th>
-                                                    <th nowrap="nowrap">状态</th>
-                                                    <th nowrap="nowrap">操作</th>
+                                                    <th nowrap="nowrap">面积/张数</th>
+                                                    <th nowrap="nowrap">交付日期</th>
+                                                    <th nowrap="nowrap">成本单价</th>
+                                                    <th nowrap="nowrap">制图单位</th>
+                                                    <th nowrap="nowrap">提成单价</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -185,11 +185,11 @@
                                                 <thead>
                                                 <tr>
                                                     <th nowrap="nowrap">序号</th>
-                                                    <th nowrap="nowrap">用户名</th>
-                                                    <th nowrap="nowrap">密码</th>
-                                                    <th nowrap="nowrap">姓名</th>
-                                                    <th nowrap="nowrap">状态</th>
-                                                    <th nowrap="nowrap">操作</th>
+                                                    <th nowrap="nowrap">大项目id</th>
+                                                    <th nowrap="nowrap">小项目id</th>
+                                                    <th nowrap="nowrap">销售额</th>
+                                                    <th nowrap="nowrap">成本</th>
+                                                    <th nowrap="nowrap">利润</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -337,11 +337,107 @@
         }
     }];
 
+    // 面积/张数</th>
+    // 交付日期</th>
+    // 成本单价</th>
+    // 制图单位</th>
+    // 提成单价</th>
     var functionlist_report=[{targets:[1],
         mRender:function(data) {
             var result = "";
-            if(data.newValue.remarks != null){
-                result = data.newValue.remarks;
+            if(data.newValue.constructionArea != null){
+                result = data.newValue.constructionArea/100;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[2],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.initialDeliveryDate != null){
+                result = getDateStr(data.newValue.initialDeliveryDate);
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[3],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.costPrice != null){
+                result = data.newValue.costPrice/100;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[4],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.draftingUnit != null){
+                result = data.newValue.draftingUnit;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[5],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.designerCommissionPrice != null){
+                result = data.newValue.designerCommissionPrice/100;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    }];
+    var functionlist_reportup = [{targets:[1],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.parentProject != null){
+                result = data.newValue.parentProject;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[2],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.childProject != null){
+                result = data.newValue.childProject;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[3],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.saleAmount != null){
+                result = data.newValue.saleAmount/100;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[4],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.costAmount != null){
+                result = data.newValue.costAmount/100;
+            }else{
+                result = "";
+            }
+            return result;
+        }
+    },{targets:[5],
+        mRender:function(data) {
+            var result = "";
+            if(data.newValue.commissionAmount != null){
+                result = data.newValue.commissionAmount/100;
             }else{
                 result = "";
             }
@@ -362,9 +458,9 @@
         }else if(type == 4){
             initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",,,,user",functionlist_child);
         }else if(type == 5){
-            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",id,,type,,",functionlist_report);
+            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",,,,,",functionlist_report);
         }else if(type == 6){
-            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",id,,type,,",functionlist_reportup);
+            initBaseTable(par,"datatable_"+type,"${base}/log/log/getDates",",,,,,",functionlist_reportup);
         }
     }
 

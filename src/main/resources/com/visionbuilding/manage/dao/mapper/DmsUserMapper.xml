@@ -216,5 +216,12 @@
     <select id="queryUserInfoByuserName" resultType="java.lang.Integer">
         select count(1) from dms_user where user_name = #{userName}
     </select>
+    <select id="queryByDepartment" resultType="com.visionbuilding.manage.modle.entity.DmsUser">
+        select
+        <include refid="select-all-column" />
+        from dms_user where 1=1
+        AND department = #{department}
+        order by add_time desc
+    </select>
 
 </mapper>

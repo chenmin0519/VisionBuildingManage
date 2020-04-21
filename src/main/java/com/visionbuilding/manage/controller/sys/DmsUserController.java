@@ -1,6 +1,7 @@
 package com.visionbuilding.manage.controller.sys;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.visionbuilding.manage.controller.BaseController;
 import com.visionbuilding.manage.modle.ResultBean;
 import com.visionbuilding.manage.modle.ResultPOBean;
@@ -142,5 +143,17 @@ public class DmsUserController extends BaseController {
             resultBean.failure("服务器异常");
         }
         return JSON.toJSONString(resultBean);
+    }
+
+    @ResponseBody
+    @RequestMapping("/getUserByDepartment")
+    public String getUserByDepartment(Long department){
+        List<DmsUser> users = new ArrayList<>();
+        try{
+            users = dmsUserService.getUserByDepartment(department);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return JSONObject.toJSONString(users);
     }
 }

@@ -17,14 +17,21 @@ public class DepartmentStaticsPo {
     private Long totalSalesPrice;//设计销售zongjia
     private Long parentId;
     private Long typeCode;//类型编码
-    private Long typeName;
+    private String typeName;
     private Long constructionArea;//面积
     private Long childCostPrice;//成本单价
     private Long childTotalCost;//成本总价
     private Long designerCommissionPrice;//提成单价
     private Long designerCommission;//提成总价
+//    private Long totalSalesPrice;
     private Long department;//部门
     private String designer;//设计师
+    private Long amountReturned;
+    private Long amountReceivable;
+    private Long amountSpent;
+    private Long amountsPayable;
+    private String contractNo;
+    private String remarks;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date acquisitionDate;//shoudan
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

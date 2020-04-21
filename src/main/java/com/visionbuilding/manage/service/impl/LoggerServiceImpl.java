@@ -3,10 +3,7 @@ package com.visionbuilding.manage.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.visionbuilding.manage.dao.mapper.DmsProjectLogMapper;
 import com.visionbuilding.manage.modle.ResultPOListBean;
-import com.visionbuilding.manage.modle.entity.DmsChildProject;
-import com.visionbuilding.manage.modle.entity.DmsMainProject;
-import com.visionbuilding.manage.modle.entity.DmsProjectLog;
-import com.visionbuilding.manage.modle.entity.DmsUser;
+import com.visionbuilding.manage.modle.entity.*;
 import com.visionbuilding.manage.modle.po.LoggerVo;
 import com.visionbuilding.manage.modle.query.LoggerQuery;
 import com.visionbuilding.manage.modle.query.QueryBean;
@@ -79,9 +76,9 @@ public class LoggerServiceImpl implements LoggerService {
                 loggerVo.setOldValue(JSONObject.parseObject(dmsProjectLog.getOldValue(), DmsChildProject.class));
             }
         }else if(EnumLoggerType.REPORT_UPDATE.getKey() == dmsProjectLog.getType()){
-            loggerVo.setNewValue(JSONObject.parseObject(dmsProjectLog.getNewValue(), DmsChildProject.class));
+            loggerVo.setNewValue(JSONObject.parseObject(dmsProjectLog.getNewValue(), DmsSettlement.class));
             if(dmsProjectLog.getOldValue() != null) {
-                loggerVo.setOldValue(JSONObject.parseObject(dmsProjectLog.getOldValue(), DmsChildProject.class));
+                loggerVo.setOldValue(JSONObject.parseObject(dmsProjectLog.getOldValue(), DmsSettlement.class));
             }
         }
         return loggerVo;

@@ -168,4 +168,9 @@ public class DmsUserServiceImpl implements DmsUserService {
     public void resetZt(DmsUser user) {
         dmsUserMapper.resetZt(user.getStatus(),user.getId());
     }
+
+    @Override
+    public List<DmsUser> getUserByDepartment(Long department) {
+        return dmsUserMapper.queryByDepartment(department);
+    }
 }

@@ -126,7 +126,7 @@
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">效果图张数<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
-                                                        <input type="text" name="constructionArea" id="renderingNum" placeholder="效果图张数" value="${po.renderingNum/100}"
+                                                        <input type="text" id="renderingNum" placeholder="效果图张数" value="${po.renderingNum/100}"
                                                                class="form-control required" onchange="getTotalCost()">
                                                     </div>
                                                 </div>
@@ -155,12 +155,26 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
-                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">制图单位<span
-                                                            class="required" style="color: red"> * </span>：</label>
+                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">制图单位：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
-                                                        <input type="text" name="draftingUnit" id="draftingUnit" placeholder="请输入制图单位" value="${po.draftingUnit}" class="form-control required" >
+                                                        <input type="hidden" name="department" id="department" value="${po.department}">
+                                                        <select class="form-control departmentSelect"> <option value="">--请选择--</option> </select>
                                                     </div>
                                                 </div>
+                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
+                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">设计师：</label>
+                                                    <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
+                                                        <input type="hidden" name="designer" id="designer" value="${po.department}">
+                                                        <select class="form-control designerSelect"> <option value="">--请选择--</option> </select>
+                                                    </div>
+                                                </div>
+<%--                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">--%>
+<%--                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">制图单位<span--%>
+<%--                                                            class="required" style="color: red"> * </span>：</label>--%>
+<%--                                                    <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">--%>
+                                                        <input type="hidden" name="draftingUnit" id="draftingUnit" value="${po.draftingUnit}" class="form-control required" >
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">成本总价(元)<span
                                                             class="required" style="color: red"> * </span>：</label>
@@ -169,10 +183,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
+                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">设计师提成单价<span
+                                                            class="required" style="color: red"> * </span>：</label>
+                                                    <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
+                                                        <input type="text" onchange="getDesignerCommission()" id="designerCommissionPrice" value="${po.designerCommissionPrice/100}" class="form-control required" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">设计师提成<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
-                                                        <input type="text" name="designerCommission" id="designerCommission" value="${po.designerCommission/100}" class="form-control required" >
+                                                        <input type="text" readonly="readonly" id="designerCommission" value="${po.designerCommission/100}" class="form-control required" >
                                                     </div>
                                                 </div>
                                                 <div class="panel-body">
@@ -230,6 +251,8 @@
 <!-- jQuery  -->
 <script type="text/javascript">
 
+
+
     $(document).ready(function(){
         // initBaseDateTimePicker("datetimepicker3", "datetimepicker4");
         // $('#datetimepicker4').datetimepicker({
@@ -244,8 +267,60 @@
         $("#datetimepicker4").on("dp.change", function (e) {
             $('#datetimepicker4').data("DateTimePicker").minDate(e.date);
         });
-
+        initDepartmentOption();
     });
+    //初始化部门
+    function initDepartmentOption(){
+        baseCallBackAJAX("post","${base}/data/department/getAll",null,"json","initDepartmentOptionCallback(data)");
+    }
+    function initDepartmentOptionCallback(data){
+        var optionStr = "";
+        var datas = data;
+        var department = $("#department").val();
+        for(var i = 0;i < datas.length ; i++){
+            if(department == datas[i].id){
+                optionStr += "<option value = "+datas[i].id+"---"+datas[i].department+" selected = 'selected'>"+datas[i].department+"</option>";
+            } else {
+                optionStr += "<option value = "+datas[i].id+"---"+datas[i].department+" >"+datas[i].department+"</option>";
+            }
+        }
+        $(".departmentSelect").append(optionStr);
+    }
+    $(".departmentSelect").change(function(){
+        var department = $(".departmentSelect").val();
+        var departmentId = "";
+        var departmentname = "";
+        if(department != '' && department.split("---").length > 1){
+            departmentId = department.split("---")[0];
+            departmentname = department.split("---")[1];
+        }
+        $("#department").val(departmentId);
+        $("#draftingUnit").val(departmentname);
+        initUserOption(departmentId);
+    });
+    //初始化人
+    function initUserOption(id){
+        baseCallBackAJAX("post","${base}/sys/user/getUserByDepartment",{'department':id},"json","initUserOptionCallback(data)");
+    }
+    function initUserOptionCallback(data){
+        var optionStr = "";
+        var datas = data;
+        var department = $("#designer").val();
+        for(var i = 0;i < datas.length ; i++){
+            if(department == datas[i].id){
+                optionStr += "<option value = "+datas[i].id+" selected = 'selected'>"+datas[i].realName+"</option>";
+            } else {
+                optionStr += "<option value = "+datas[i].realName+">"+datas[i].realName+"</option>";
+            }
+        }
+        $(".designerSelect").append(optionStr);
+    }
+    $(".designerSelect").change(function(){
+        var department = $(".designerSelect").val();
+        $("#designer").val(department);
+    });
+
+
     $("#save").click(function(){
         // 非空校验
         if($("#form").valid() == false){
@@ -255,20 +330,31 @@
         var par = $("#form").serialize();
         var costPrice = $("#costPrice").val();
         if(costPrice) {
-            costPrice = eval(costPrice) * 100;
+            costPrice = eval(costPrice).toFixed(2) * 100;
             par += "&costPrice="+costPrice;
         }
 
         var totalCost = $("#totalCost").val();
         if(totalCost) {
-            totalCost = eval(totalCost) * 100;
+            totalCost = eval(totalCost).toFixed(2) * 100;
             par += "&totalCost="+totalCost;
         }
 
         var constructionArea = $("#constructionArea").val();
         if(constructionArea) {
-            constructionArea = eval(constructionArea) * 100;
+            constructionArea = eval(constructionArea).toFixed(2) * 100;
             par += "&constructionArea="+constructionArea;
+        }
+
+        var designerCommissionPrice = $("#designerCommissionPrice").val();
+        if(designerCommissionPrice) {
+            designerCommissionPrice = eval(designerCommissionPrice).toFixed(2) * 100;
+            par += "&designerCommissionPrice="+designerCommissionPrice;
+        }
+        var designerCommission = $("#designerCommission").val();
+        if(designerCommission) {
+            designerCommission = eval(designerCommission).toFixed(2) * 100;
+            par += "&designerCommission="+designerCommission;
         }
         baseCallBackAJAX("post","${base}/project/main-project/save-sub-project",par,"json","saveCallback(data)");
     });
@@ -309,7 +395,25 @@
         initTotalCost();
 
     });
-
+    //自动计算设计师提成
+    function getDesignerCommission(){
+        var projectTypeCode = $("#projectTypeCode").val();
+        var price =$("#designerCommissionPrice").val();
+        var total = '0';
+        if(projectTypeCode && projectTypeCode == '005') { //按效果图张数算
+            var renderingNum = $("#renderingNum").val();
+            if(renderingNum && price) {
+                total = eval(renderingNum * price).toFixed(2);;
+            }
+        } else { //按建筑面积算
+            // 成本总价=成本单价*建筑面积(制图张数)
+            var constructionArea = $("#constructionArea").val();
+            if(constructionArea && price) {
+                total = eval(constructionArea * price).toFixed(2);;
+            }
+        }
+        $("#designerCommission").val(total);
+    }
     /**
      * 修改建筑面积(制图张数)或者成本单价时,自动计算成本总价
      */
@@ -320,13 +424,13 @@
         if(projectTypeCode && projectTypeCode == '005') { //按效果图张数算
             var renderingNum = $("#renderingNum").val();
             if(renderingNum && costPrice) {
-                totalCost = eval(renderingNum * costPrice);
+                totalCost = eval(renderingNum * costPrice).toFixed(2);;
             }
         } else { //按建筑面积算
             // 成本总价=成本单价*建筑面积(制图张数)
             var constructionArea = $("#constructionArea").val();
             if(constructionArea && costPrice) {
-                totalCost = eval(constructionArea * costPrice);
+                totalCost = eval(constructionArea * costPrice).toFixed(2);;
             }
         }
         $("#totalCost").val(totalCost);
@@ -355,7 +459,7 @@
             $("#renderingNumDiv").show();
             var renderingNum = $("#renderingNum").val();
             if(renderingNum && costPrice) {
-                totalCost = eval(renderingNum * costPrice);
+                totalCost = eval(renderingNum * costPrice).toFixed(2);;
             }
         } else { //按建筑面积算
             // 显示建筑面积,隐藏效果图张数
@@ -364,7 +468,7 @@
             // 成本总价=成本单价*建筑面积(制图张数)
             var constructionArea = $("#constructionArea").val();
             if(constructionArea && costPrice) {
-                totalCost = eval(constructionArea * costPrice);
+                totalCost = eval(constructionArea * costPrice).toFixed(2);;
             }
         }
         $("#totalCost").val(totalCost);
