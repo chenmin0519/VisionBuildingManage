@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DmsMainProjectServiceImpl implements DmsMainProjectService {
@@ -196,18 +197,18 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
         DmsMainProject dmsMainProject = dmsMainProjectMapper.selectByPrimaryKey(parentId);
 
         // 3.拿到小项目和大项目的销售总价,成本总价, 然后累加
-        Long smallTotalSalesPrice = dmsChildProject.getTotalSalesPrice(); //小项目销售总价
-        Long bigTotalSalesPrice = dmsMainProject.getDesignSalesCost(); //大项目销售总价(设计销售费用)
+        Long smallTotalSalesPrice = Optional.ofNullable(dmsChildProject.getTotalSalesPrice()).orElse(0l); //小项目销售总价
+        Long bigTotalSalesPrice = Optional.ofNullable(dmsMainProject.getDesignSalesCost()).orElse(0l); //大项目销售总价(设计销售费用)
         bigTotalSalesPrice += smallTotalSalesPrice;
         dmsMainProject.setDesignSalesCost(bigTotalSalesPrice);
 
-        Long smallTotalCost = dmsChildProject.getTotalCost(); //小项目成本总价
-        Long bigTotalCost = dmsMainProject.getDesignCost(); //大项目成本总价(设计成本费用)
+        Long smallTotalCost = Optional.ofNullable(dmsChildProject.getTotalCost()).orElse(0l); //小项目成本总价
+        Long bigTotalCost = Optional.ofNullable(dmsMainProject.getDesignCost()).orElse(0l); //大项目成本总价(设计成本费用)
         bigTotalCost += smallTotalCost;
         dmsMainProject.setDesignCost(bigTotalCost);
 
         // 4.计算利润.利润 = 设计销售费用-设计成本费用
-        Long profit = dmsMainProject.getProfit();
+        Long profit = Optional.ofNullable(dmsMainProject.getProfit()).orElse(0l);
         profit = profit + bigTotalSalesPrice - bigTotalCost;
         dmsMainProject.setProfit(profit);
 
@@ -235,7 +236,7 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
         if(dmsChildProject == null) {
             throw new RuntimeException("未找到该子项目!");
         }
-        dmsChildProject.setConfirmStatus((byte) 3);
+        dmsChildProject.setConfirmStatus((byte) 0);
         dmsChildProjectMapper.updateStatusById(dmsChildProject);
     }
 
