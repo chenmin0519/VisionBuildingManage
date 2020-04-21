@@ -118,7 +118,7 @@
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">建筑面积<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
-                                                        <input type="text" name="constructionArea" id="constructionArea" placeholder="请输入建筑面积" value="${po.constructionArea}"
+                                                        <input type="text" id="constructionArea" placeholder="请输入建筑面积" value="${po.constructionArea/100}"
                                                                class="form-control required" onchange="getTotalCost()">
                                                     </div>
                                                 </div>
@@ -126,7 +126,7 @@
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">效果图张数<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
-                                                        <input type="text" name="constructionArea" id="renderingNum" placeholder="效果图张数" value="${po.renderingNum}"
+                                                        <input type="text" name="constructionArea" id="renderingNum" placeholder="效果图张数" value="${po.renderingNum/100}"
                                                                class="form-control required" onchange="getTotalCost()">
                                                     </div>
                                                 </div>
@@ -150,7 +150,7 @@
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">成本单价(元/㎡)<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
-                                                        <input type="text" name="costPrice" id="costPrice" placeholder="请输入成本单价" value="${po.costPrice}"
+                                                        <input type="text" <%--name="costPrice"--%> id="costPrice" placeholder="请输入成本单价" value="${po.costPrice/100}"
                                                                class="form-control required" onchange="getTotalCost()">
                                                     </div>
                                                 </div>
@@ -165,14 +165,14 @@
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">成本总价(元)<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
-                                                        <input type="text" readonly="readonly" name="totalCost" id="totalCost" value="${po.totalCost}" class="form-control required" >
+                                                        <input type="text" readonly="readonly" id="totalCost" value="${po.totalCost/100}" class="form-control required" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">设计师提成<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
-                                                        <input type="text" name="designerCommission" id="designerCommission" value="${po.designerCommission}" class="form-control required" >
+                                                        <input type="text" name="designerCommission" id="designerCommission" value="${po.designerCommission/100}" class="form-control required" >
                                                     </div>
                                                 </div>
                                                 <div class="panel-body">
@@ -253,6 +253,23 @@
             return false;
         }
         var par = $("#form").serialize();
+        var costPrice = $("#costPrice").val();
+        if(costPrice) {
+            costPrice = eval(costPrice) * 100;
+            par += "&costPrice="+costPrice;
+        }
+
+        var totalCost = $("#totalCost").val();
+        if(totalCost) {
+            totalCost = eval(totalCost) * 100;
+            par += "&totalCost="+totalCost;
+        }
+
+        var constructionArea = $("#constructionArea").val();
+        if(constructionArea) {
+            constructionArea = eval(constructionArea) * 100;
+            par += "&constructionArea="+constructionArea;
+        }
         baseCallBackAJAX("post","${base}/project/main-project/save-sub-project",par,"json","saveCallback(data)");
     });
     function saveCallback(data){

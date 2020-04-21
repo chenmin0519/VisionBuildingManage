@@ -88,25 +88,25 @@
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: center">销售面积(㎡)</th>
-                                                        <td><div >${po.salesArea}</div></td>
+                                                        <td><div >${po.salesArea/100}</div></td>
                                                         <th style="text-align: center">销售单价(元/㎡)</th>
-                                                        <td><div >${po.unitPrice}</div></td>
+                                                        <td><div >${po.unitPrice/100}</div></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: center">成本单价(元/㎡)</th>
-                                                        <td><div >${po.costPrice}</div></td>
+                                                        <td><div >${po.costPrice/100}</div></td>
                                                         <th style="text-align: center">已回款金额</th>
-                                                        <td><div >${po.amountReturned}</div></td>
+                                                        <td><div >${po.amountReturned/100}</div></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: center">应收金额</th>
-                                                        <td><div >${po.amountReceivable}</div></td>
+                                                        <td><div >${po.amountReceivable/100}</div></td>
                                                         <th style="text-align: center">已支出金额</th>
-                                                        <td><div >${po.amountSpent}</div></td>
+                                                        <td><div >${po.amountSpent/100}</div></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: center">应付金额</th>
-                                                        <td><div >${po.amountReceivable}</div></td>
+                                                        <td><div >${po.amountReceivable/100}</div></td>
                                                         <th style="text-align: center">合同号</th>
                                                         <td><div >${po.contractNo}</div></td>
                                                     </tr>
@@ -260,7 +260,7 @@
         window.location.href="${base}/project/main-project/addSub.html?id="+id+"&chirld=${chirld}&parent=${parent}";
     }
     function detail(id){
-        window.location.href="${base}/project/main-project/info.html?id="+id+"&chirld=${chirld}&parent=${parent}";
+        window.location.href="${base}/project/main-project/subInfo.html?id="+id+"&chirld=${chirld}&parent=${parent}";
     }
 </script>
 

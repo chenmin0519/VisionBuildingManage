@@ -71,13 +71,6 @@
                                                 <input id="id" name="id" type="hidden" value="${po.id}"/>
                                                 <input id="menuPid" name="menuPid" type="hidden" value="${menuPid}"/>
 
-<%--                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">--%>
-<%--                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">客户来源<span--%>
-<%--                                                            class="required" style="color: red"> * </span>：</label>--%>
-<%--                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">--%>
-<%--                                                        <input type="text" name="place" id="place" placeholder="请输入项目地点" value="${po.place}" class="form-control required" >--%>
-<%--                                                    </div>--%>
-<%--                                                </div>--%>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">项目地点<span
                                                             class="required" style="color: red"> * </span>：</label>
@@ -96,45 +89,45 @@
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售面积(㎡)<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" name="salesArea" id="salesArea" placeholder="请输入销售面积" value="${po.salesArea}" class="form-control required" >
+                                                        <input type="text" id="salesArea" placeholder="请输入销售面积" value="${po.salesArea/100}" class="form-control required" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售单价(元/㎡)<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" name="unitPrice" id="unitPrice" placeholder="请输入销售单价" value="${po.unitPrice}" class="form-control required" >
+                                                        <input type="text" id="unitPrice" placeholder="请输入销售单价" value="${po.unitPrice/100}" class="form-control required" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">成本单价(元/㎡)<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" name="costPrice" id="costPrice" placeholder="请输入成本单价" value="${po.costPrice}" class="form-control required" >
+                                                        <input type="text" id="costPrice" placeholder="请输入成本单价" value="${po.costPrice/100}" class="form-control required" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">已回款金额：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" name="amountReturned" id="amountReturned" placeholder="请输入已回款金额" value="${po.amountReturned}" class="form-control" >
+                                                        <input type="text" id="amountReturned" placeholder="请输入已回款金额" value="${po.amountReturned/100}" class="form-control" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">应收金额：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" name="amountReceivable" id="amountReceivable" placeholder="请输入应收金额" value="${po.amountReceivable}" class="form-control" >
+                                                        <input type="text" id="amountReceivable" placeholder="请输入应收金额" value="${po.amountReceivable/100}" class="form-control" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">已支出金额：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" name="amountSpent" id="amountSpent" placeholder="请输入已支出金额" value="${po.amountSpent}" class="form-control" >
+                                                        <input type="text" id="amountSpent" placeholder="请输入已支出金额" value="${po.amountSpent/100}" class="form-control" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">应付金额：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" name="amountsPayable" id="amountsPayable" placeholder="请输入应付金额" value="${po.amountsPayable}" class="form-control" >
+                                                        <input type="text" id="amountsPayable" placeholder="请输入应付金额" value="${po.amountsPayable/100}" class="form-control" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
@@ -220,9 +213,53 @@
             alert("操作失败,请检查各个输入项是否正确!");
             return false;
         }
-        // 把单价和面积都*100,总价除以100
+        var par = $("#form").serialize();
 
-        baseCallBackAJAX("post","${base}/project/main-project/save",$("#form").serialize(),"json","saveCallback(data)");
+        // 把单价和面积都*100,总价除以100
+        var salesArea = $("#salesArea").val();
+        if(salesArea){
+            salesArea = eval(salesArea) * 100;
+            par += "&salesArea="+salesArea;
+        }
+
+        var unitPrice = $("#unitPrice").val();
+        if(unitPrice) {
+            unitPrice = eval(unitPrice) * 100;
+            par += "&unitPrice="+unitPrice;
+        }
+
+
+        var costPrice = $("#costPrice").val();
+        if(costPrice) {
+            costPrice = eval(costPrice) * 100;
+            par += "&costPrice="+costPrice;
+        }
+
+        var amountReturned = $("#amountReturned").val();
+        if(amountReturned) {
+            amountReturned = eval(amountReturned) * 100;
+            par += "&amountReturned="+amountReturned;
+        }
+
+        var amountReceivable = $("#amountReceivable").val();
+        if(amountReceivable) {
+            amountReceivable = eval(amountReceivable) * 100;
+            par += "&amountReceivable="+amountReceivable;
+        }
+
+        var amountSpent = $("#amountSpent").val();
+        if(amountSpent) {
+            amountSpent = eval(amountSpent) * 100;
+            par += "&amountSpent="+amountSpent;
+        }
+
+        var amountsPayable = $("#amountsPayable").val();
+        if(amountsPayable) {
+            amountsPayable = eval(amountsPayable) * 100;
+            par += "&amountsPayable="+amountsPayable;
+        }
+
+        baseCallBackAJAX("post","${base}/project/main-project/save",par,"json","saveCallback(data)");
     });
     function saveCallback(data){
         if(data.status=="0"){

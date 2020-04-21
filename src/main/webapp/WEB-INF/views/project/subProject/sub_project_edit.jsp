@@ -93,20 +93,20 @@
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售面积(㎡)<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" readonly="readonly" <%--name="constructionArea"--%> id="constructionArea" placeholder="请输入销售面积" value="${po.salesArea}" class="form-control required" >
+                                                        <input type="text" readonly="readonly" <%--name="constructionArea"--%> id="constructionArea" placeholder="请输入销售面积" value="${po.salesArea/100}" class="form-control required" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售单价(元/㎡)<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" readonly="readonly" <%--name="unitPrice"--%> id="unitPrice" value="${po.unitPrice}" class="form-control required" >
+                                                        <input type="text" readonly="readonly" <%--name="unitPrice"--%> id="unitPrice" value="${po.unitPrice/100}" class="form-control required" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售总价(元)：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" readonly="readonly" name="totalSalesPrice" id="totalSalesPrice"  value="${po.totalSalesPrice}" class="form-control" >
+                                                        <input type="text" readonly="readonly" <%--name="totalSalesPrice"--%> id="totalSalesPrice"  value="${po.totalSalesPrice/100}" class="form-control" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
@@ -199,10 +199,15 @@
             return false;
         }
         var par = $("#form").serialize();
+        var totalSalesPrice = $("#totalSalesPrice").val();
         var projectTypeName = $('#projectTypeCode option:selected').text();
         console.log("projectTypeName:"+projectTypeName);
         if(projectTypeName != undefined && projectTypeName != null){
             par += "&projectTypeName="+projectTypeName;
+        }
+        if(totalSalesPrice) {
+            totalSalesPrice = eval(totalSalesPrice) * 100;
+            par += "&totalSalesPrice="+totalSalesPrice;
         }
         baseCallBackAJAX("post","${base}/project/main-project/save-sub-project",par,"json","saveCallback(data)");
     });

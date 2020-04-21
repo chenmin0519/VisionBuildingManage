@@ -90,13 +90,13 @@
                                                         <th style="text-align: center">客户电话</th>
                                                         <td><div >${parentPo.customerPhone}</div></td>
                                                         <th style="text-align: center">销售面积</th>
-                                                        <td><div >${parentPo.salesArea}</div></td>
+                                                        <td><div >${parentPo.salesArea/100}</div></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: center">销售单价</th>
-                                                        <td><div >${parentPo.unitPrice}</div></td>
+                                                        <td><div >${parentPo.unitPrice/100}</div></td>
                                                         <th style="text-align: center">销售总价</th>
-                                                        <td><div >${po.totalSalesPrice}</div></td>
+                                                        <td><div >${po.totalSalesPrice/100}</div></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: center">收单日期</th>
@@ -104,11 +104,11 @@
                                                         <!--建筑面积和效果图张数只显示一个-->
                                                         <c:if test="${po.projectTypeCode == '005'}">
                                                             <th style="text-align: center">效果图张数</th>
-                                                            <td><div >${po.renderingNum}</div></td>
+                                                            <td><div >${po.renderingNum/100}</div></td>
                                                         </c:if>
                                                         <c:if test="${po.projectTypeCode != '005'}">
                                                             <th style="text-align: center">建筑面积</th>
-                                                            <td><div >${po.constructionArea}</div></td>
+                                                            <td><div >${po.constructionArea/100}</div></td>
                                                         </c:if>
                                                     </tr>
                                                     <tr>
@@ -116,17 +116,17 @@
                                                         <td><div ><c:if test='${po.initialDeliveryDate != null}'>
                                                             <fmt:formatDate value='${po.initialDeliveryDate}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if></div></td>
                                                         <th style="text-align: center">成本单价(元/㎡)</th>
-                                                        <td><div >${po.costPrice}</div></td>
+                                                        <td><div >${po.costPrice/100}</div></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: center">制图单位</th>
                                                         <td><div >${po.draftingUnit}</div></td>
                                                         <th style="text-align: center">成本总价</th>
-                                                        <td><div >${po.totalCost}</div></td>
+                                                        <td><div >${po.totalCost/100}</div></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: center">设计师提成</th>
-                                                        <td><div >${po.designerCommission}</div></td>
+                                                        <td><div >${po.designerCommission/100}</div></td>
                                                         <th style="text-align: center">确认状态</th>
                                                         <td><div >
                                                             <c:if test="${po.confirmStatus == '1'}">待确认</c:if>
