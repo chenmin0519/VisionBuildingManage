@@ -26,4 +26,6 @@ public interface DmsChildProjectMapper {
     int updateStatusById(DmsChildProject dmsChildProject);
 
     List<DmsChildProject> queryAllSub(Long id);
+
+    List<DmsChildProject> querySubProjectList(DmsChildProject dmsChildProject);
 }

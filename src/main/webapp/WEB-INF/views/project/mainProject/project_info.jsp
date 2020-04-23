@@ -81,40 +81,53 @@
                                                     <thead>
                                                     <input type="hidden" id="resourcePid" value="${po.id}">
                                                     <tr>
-                                                        <th width="15%" style="text-align: center">项目地点</th>
-                                                        <td width="35%"><div >${po.place}</div></td>
-                                                        <th width="15%" style="text-align: center">客户电话</th>
-                                                        <td width="35%"><div >${po.customerPhone}</div></td>
+                                                        <th width="15%" style="text-align: center">项目建档时间</th>
+                                                        <td width="35%"><div >${po.projectCreationTime}</div></td>
+                                                        <th width="15%" style="text-align: center">客户来源</th>
+                                                        <td width="35%"><div >${po.customerSource}</div></td>
+<%--                                                        <td><div ><c:if test="${po.production == 0}">是</c:if><c:if test="${po.production == 1}">否</c:if></div></td>--%>
                                                     </tr>
                                                     <tr>
+                                                        <th style="text-align: center">客户编码</th>
+                                                        <td><div >${po.customerCode}</div></td>
+                                                        <th style="text-align: center">项目地点</th>
+                                                        <td><div >${po.place}</div></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center">客户电话</th>
+                                                        <td ><div >${po.customerPhone}</div></td>
                                                         <th style="text-align: center">销售面积(㎡)</th>
                                                         <td><div >${po.salesArea/100}</div></td>
+                                                    </tr>
+                                                    <tr>
                                                         <th style="text-align: center">销售单价(元/㎡)</th>
                                                         <td><div >${po.unitPrice/100}</div></td>
-                                                    </tr>
-                                                    <tr>
                                                         <th style="text-align: center">成本单价(元/㎡)</th>
                                                         <td><div >${po.costPrice/100}</div></td>
+                                                    </tr>
+                                                    <tr>
                                                         <th style="text-align: center">已回款金额</th>
                                                         <td><div >${po.amountReturned/100}</div></td>
-                                                    </tr>
-                                                    <tr>
                                                         <th style="text-align: center">应收金额</th>
                                                         <td><div >${po.amountReceivable/100}</div></td>
+                                                    </tr>
+                                                    <tr>
                                                         <th style="text-align: center">已支出金额</th>
                                                         <td><div >${po.amountSpent/100}</div></td>
-                                                    </tr>
-                                                    <tr>
                                                         <th style="text-align: center">应付金额</th>
                                                         <td><div >${po.amountReceivable/100}</div></td>
-                                                        <th style="text-align: center">合同号</th>
-                                                        <td><div >${po.contractNo}</div></td>
                                                     </tr>
                                                     <tr>
+                                                        <th style="text-align: center">合同号</th>
+                                                        <td><div >${po.contractNo}</div></td>
                                                         <th style="text-align: center">是否生产</th>
                                                         <td><div ><c:if test="${po.production == 0}">是</c:if><c:if test="${po.production == 1}">否</c:if></div></td>
+                                                    </tr>
+                                                    <tr>
                                                         <th style="text-align: center">备注</th>
                                                         <td><div >${po.remarks}</div></td>
+                                                        <th style="text-align: center"></th>
+                                                        <td><div ></div></td>
                                                     </tr>
                                                     </thead>
                                                 </table>
@@ -160,7 +173,7 @@
                                                     <th nowrap="nowrap">销售面积(㎡)</th>
                                                     <th nowrap="nowrap">销售单价(元/㎡)</th>
                                                     <th nowrap="nowrap">销售总价(元)</th>
-                                                    <th nowrap="nowrap">平面收单日期</th>
+                                                    <th nowrap="nowrap">收单日期</th>
                                                     <th nowrap="nowrap">备注</th>
                                                     <th nowrap="nowrap">操作</th>
                                                 </tr>

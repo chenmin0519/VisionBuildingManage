@@ -33,6 +33,9 @@ public class DmsMainProject  extends BaseEntity{
     private Long amountsPayable;
     private String contractNo;
     private String remarks;
+    /**
+     * 是否生产
+     */
     private String production;
 
 }

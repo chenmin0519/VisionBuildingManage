@@ -110,11 +110,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
-                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">平面收单日期：</label>
+                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">收单日期：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left" >
                                                         <div class="col-sm-6 col-lg-6 col-md-6 pull-left">
                                                             <div class='input-group date' id='datetimepicker4' >
-                                                                <input placeholder="平面收单日期" type='text' id="endTime2" value="${po.acquisitionDate}"  name="acquisitionDate" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
+                                                                <input placeholder="收单日期" type='text' id="endTime2" value="${po.acquisitionDate}"  name="acquisitionDate" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
                                                             </div>
                                                         </div>
 <%--                                                        <input type="text" name="initialDeliveryDate" id="initialDeliveryDate"  value="${po.initialDeliveryDate}" class="form-control" >--%>
@@ -265,7 +265,11 @@
                 var typeName = "";
                 if (projectType.typeCode) {typeCode = projectType.typeCode}
                 if (projectType.typeName) {typeName = projectType.typeName;}
-                $("#projectTypeCode").append("<option value='"+typeCode+"' >"+typeName+"</option>");
+                if("${po.projectTypeCode}" == typeCode) {
+                    $("#projectTypeCode").append("<option value='"+typeCode+"' selected >"+typeName+"</option>");
+                } else {
+                    $("#projectTypeCode").append("<option value='"+typeCode+"' >"+typeName+"</option>");
+                }
             }
         }
     }

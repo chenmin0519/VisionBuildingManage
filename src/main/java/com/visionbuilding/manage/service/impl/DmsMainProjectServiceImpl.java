@@ -150,18 +150,37 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
 
     @Override
     public void insertSelectiveChild(DmsChildProject dmsChildProject) {
-//        dmsMainProject.setCustomerSource("郑灿大傻逼");
-////        LocalDateTime.now().
-//        Date date = new Date();
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        String dateStr = sdf.format(date);
-//        dmsMainProject.setProjectCreationTime(date);
-//        dmsMainProject.setCustomerCode("ZC-202004-002");
+        // 1.获取parentId,根据获取parentId去查子项目表,所有parentId为该parentId的数据的list
+        List<DmsChildProject> list = dmsChildProjectMapper.querySubProjectList(dmsChildProject);
+
+        // 2.拿到当前数据的项目类型code,如果在前面查出来的list里面已经有了,就不能存
+        for(DmsChildProject dmsChildProject1 : list) {
+            if(dmsChildProject1.getProjectTypeCode() != null && dmsChildProject.getProjectTypeCode() != null
+                    && dmsChildProject.getProjectTypeCode().equals(dmsChildProject1.getProjectTypeCode())) {
+
+                throw new RuntimeException("子项目类型已存在,请勿重复添加!");
+            }
+        }
+
+        // 3.插入数据
         dmsChildProjectMapper.insertSelective(dmsChildProject);
     }
 
     @Override
     public void updateByPrimaryKeySelectiveChild(DmsChildProject dmsChildProject) {
+        // 1.获取parentId,根据获取parentId去查子项目表,所有parentId为该parentId的数据的list
+        List<DmsChildProject> list = dmsChildProjectMapper.querySubProjectList(dmsChildProject);
+
+        // 2.拿到当前数据的项目类型code,如果在前面查出来的list里面已经有了(并且不是当前修改的这条数据),就不能存
+        for(DmsChildProject dmsChildProject1 : list) {
+            if(dmsChildProject1.getProjectTypeCode() != null && dmsChildProject.getProjectTypeCode() != null
+                    && dmsChildProject.getProjectTypeCode().equals(dmsChildProject1.getProjectTypeCode())
+                    && !dmsChildProject.getId().equals(dmsChildProject1.getId())) {
+
+                throw new RuntimeException("子项目类型已存在,请勿重复添加!");
+            }
+        }
+
         dmsChildProjectMapper.updateByPrimaryKeySelective(dmsChildProject);
     }
 

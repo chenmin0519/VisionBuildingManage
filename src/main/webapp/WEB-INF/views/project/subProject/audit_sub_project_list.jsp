@@ -96,7 +96,7 @@
                                                     <th nowrap="nowrap">销售面积(㎡)</th>
                                                     <th nowrap="nowrap">销售单价(元/㎡)</th>
                                                     <th nowrap="nowrap">销售总价(元)</th>
-                                                    <th nowrap="nowrap">平面收单日期</th>
+                                                    <th nowrap="nowrap">收单日期</th>
                                                     <th nowrap="nowrap">备注</th>
                                                     <th nowrap="nowrap">操作</th>
                                                 </tr>
@@ -146,7 +146,6 @@
 <script type="text/javascript">
     var functionlist = [{targets:[3],
         mRender:function(data) {
-            debugger;
             var result = "";
             if(data.salesArea != null){
                 result = data.salesArea/100;

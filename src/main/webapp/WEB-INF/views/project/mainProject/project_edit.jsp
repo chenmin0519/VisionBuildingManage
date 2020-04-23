@@ -152,7 +152,7 @@
                                                     <label class="form-group  col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">是否生产：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
 <%--                                                        <input type="text" name="production" id="production" placeholder="请输入合同号" value="${po.production}" class="form-control" >--%>
-                                                        <select class="form-control" id="production">
+                                                        <select class="form-control" id="production" name="production">
                                                             <option value="" selected>请选择</option>
                                                             <option value="0" <c:if test="${po.production} == '0'">selected</c:if>>是</option>
                                                             <option value="1" <c:if test="${po.production} == '1'">selected</c:if>>否</option>

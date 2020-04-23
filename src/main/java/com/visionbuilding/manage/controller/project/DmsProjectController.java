@@ -96,7 +96,7 @@ public class DmsProjectController extends BaseController {
             resultBean.success();
         }catch (Exception e){
             e.printStackTrace();
-            resultBean.failure("系统异常");
+            resultBean.failure(e.getMessage());
         }
         return JSON.toJSONString(resultBean);
     }
@@ -108,8 +108,10 @@ public class DmsProjectController extends BaseController {
      */
     @RequestMapping("/addSub.html")
     public String addSubProject(HttpServletRequest request, Long id){
-        DmsMainProject dmsMainProject = dmsMainProjectService.selectByPrimaryKey(id);
-        DmsChildProject dmsChildProject = new DmsChildProject();
+        DmsChildProject dmsChildProject = dmsMainProjectService.selectSubByPrimaryKey(id);
+        Long parentId = dmsChildProject.getParentId();
+        DmsMainProject dmsMainProject = dmsMainProjectService.selectByPrimaryKey(parentId);
+//        DmsChildProject dmsChildProject = new DmsChildProject();
         dmsChildProject.setSalesArea(dmsMainProject.getSalesArea());
         dmsChildProject.setUnitPrice(dmsMainProject.getUnitPrice());
         dmsChildProject.setParentId(id);
@@ -134,7 +136,7 @@ public class DmsProjectController extends BaseController {
             resultBean.success();
         }catch (Exception e){
             e.printStackTrace();
-            resultBean.failure("系统异常");
+            resultBean.failure(e.getMessage());
         }
         return JSON.toJSONString(resultBean);
     }
