@@ -245,14 +245,6 @@
     }
 
     /**
-     * 添加子产品
-     * @param parentId
-     */
-    <%--$("#addSub").click(function(){--%>
-    <%--    window.location.href="${base}/project/main-project/addSub.html?chirld=${chirld}&parent=${parent}";--%>
-    <%--});--%>
-
-    /**
      * 初始化项目类型下拉框
      * @param date
      */

@@ -235,7 +235,7 @@
         }
     }
     function edit(id){
-        window.location.href="${base}/project/main-project/editSub.html?id="+id+"&chirld=${chirld}&parent=${parent}";
+        window.location.href="${base}/project/main-project/editSubProject.html?id="+id+"&chirld=${chirld}&parent=${parent}";
     }
     function detail(id){
         window.location.href="${base}/project/main-project/auditSub.html?id="+id+"&chirld=${chirld}&parent=${parent}";

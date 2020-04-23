@@ -103,15 +103,29 @@ public class DmsProjectController extends BaseController {
 
 
     /**
-     * 运营中心跳转到子项目新增或编辑页面
+     * 运营中心跳转到子项目新增页面
      * @return
      */
     @RequestMapping("/addSub.html")
     public String addSubProject(HttpServletRequest request, Long id){
+        DmsMainProject dmsMainProject = dmsMainProjectService.selectByPrimaryKey(id);
+        DmsChildProject dmsChildProject = new DmsChildProject();
+        dmsChildProject.setSalesArea(dmsMainProject.getSalesArea());
+        dmsChildProject.setUnitPrice(dmsMainProject.getUnitPrice());
+        dmsChildProject.setParentId(id);
+        request.setAttribute("po",dmsChildProject);
+        return "project/subProject/sub_project_edit";
+    }
+
+    /**
+     * 运营中心跳转到子项目编辑页面
+     * @return
+     */
+    @RequestMapping("/editSubProject.html")
+    public String editSubPro(HttpServletRequest request, Long id){
         DmsChildProject dmsChildProject = dmsMainProjectService.selectSubByPrimaryKey(id);
         Long parentId = dmsChildProject.getParentId();
         DmsMainProject dmsMainProject = dmsMainProjectService.selectByPrimaryKey(parentId);
-//        DmsChildProject dmsChildProject = new DmsChildProject();
         dmsChildProject.setSalesArea(dmsMainProject.getSalesArea());
         dmsChildProject.setUnitPrice(dmsMainProject.getUnitPrice());
         dmsChildProject.setParentId(id);
