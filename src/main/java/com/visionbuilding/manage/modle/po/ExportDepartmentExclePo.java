@@ -21,7 +21,7 @@ public class ExportDepartmentExclePo {
     private Long area1;
     @ExcelName("水电面积")
     private Long area2;
-    @ExcelName("效果图面积")
+    @ExcelName("效果图张数")
     private Long area3;
     @ExcelName("结构面积")
     private Long area4;

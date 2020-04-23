@@ -23,7 +23,7 @@ public class ExportExclePo {
     private Long area1;
     @ExcelName("水电面积")
     private Long area2;
-    @ExcelName("效果图面积")
+    @ExcelName("效果图张数")
     private Long area3;
     @ExcelName("结构面积")
     private Long area4;
@@ -40,6 +40,8 @@ public class ExportExclePo {
     @ExcelName("平面交付时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date initialDeliveryDate1;
+    @ExcelName("平面总价")
+    private Long totalSalesPrice1;
     @ExcelName("平面成本")
     private Long totalCost1;
     @ExcelName("平面设计师提成")
@@ -55,6 +57,8 @@ public class ExportExclePo {
     @ExcelName("水电交付时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date initialDeliveryDate2;
+    @ExcelName("水电总价")
+    private Long totalSalesPrice2;
     @ExcelName("水电成本")
     private Long totalCost2;
     @ExcelName("水电设计师提成")
@@ -70,6 +74,8 @@ public class ExportExclePo {
     @ExcelName("效果图交付时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date initialDeliveryDate3;
+    @ExcelName("效果图总价")
+    private Long totalSalesPrice3;
     @ExcelName("效果图成本")
     private Long totalCost3;
     @ExcelName("效果图设计师提成")
@@ -85,6 +91,8 @@ public class ExportExclePo {
     @ExcelName("结构交付时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date initialDeliveryDate4;
+    @ExcelName("结构总价")
+    private Long totalSalesPrice4;
     @ExcelName("结构成本")
     private Long totalCost4;
     @ExcelName("结构设计师提成")
@@ -100,6 +108,8 @@ public class ExportExclePo {
     @ExcelName("立面交付时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date initialDeliveryDate5;
+    @ExcelName("立面总价")
+    private Long totalSalesPrice5;
     @ExcelName("立面成本")
     private Long totalCost5;
     @ExcelName("立面设计师提成")
@@ -115,6 +125,8 @@ public class ExportExclePo {
     @ExcelName("基础交付时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date initialDeliveryDate6;
+    @ExcelName("基础总价")
+    private Long totalSalesPrice6;
     @ExcelName("基础成本")
     private Long totalCost6;
     @ExcelName("基础设计师提成")
@@ -130,6 +142,8 @@ public class ExportExclePo {
     @ExcelName("预算交付时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date initialDeliveryDate;
+    @ExcelName("预算总价")
+    private Long totalSalesPrice;
     @ExcelName("预算成本")
     private Long totalCost;
     @ExcelName("预算设计师提成")

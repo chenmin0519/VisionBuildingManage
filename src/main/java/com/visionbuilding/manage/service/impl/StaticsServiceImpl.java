@@ -1,9 +1,11 @@
 package com.visionbuilding.manage.service.impl;
 
 import com.visionbuilding.manage.dao.mapper.DmsDepartmentMapper;
+import com.visionbuilding.manage.dao.mapper.DmsMainProjectMapper;
 import com.visionbuilding.manage.dao.mapper.StaticsMapper;
 import com.visionbuilding.manage.modle.ResultPOListBean;
 import com.visionbuilding.manage.modle.entity.DmsDepartment;
+import com.visionbuilding.manage.modle.entity.DmsMainProject;
 import com.visionbuilding.manage.modle.po.DepartmentStaticsPo;
 import com.visionbuilding.manage.modle.po.ExportDepartmentExclePo;
 import com.visionbuilding.manage.modle.po.ExportExclePo;
@@ -23,6 +25,9 @@ public class StaticsServiceImpl implements StaticsService {
 
     @Autowired
     private DmsDepartmentMapper dmsDepartmentMapper;
+
+    @Autowired
+    private DmsMainProjectMapper dmsMainProjectMapper;
 
     @Override
     public ResultPOListBean<DepartmentStaticsPo> queryPage(StaticsQuery par) throws Exception {
@@ -198,11 +203,14 @@ public class StaticsServiceImpl implements StaticsService {
     }
 
     private void initAllData(ExportExclePo exclePo, DepartmentStaticsPo po, Map<Long, String> departmentMap) {
-        exclePo.setDesignSalesCost(Optional.ofNullable(exclePo.getDesignSalesCost()).orElse(0l)+po.getTotalSalesPrice());//销售费用
-        exclePo.setDesignCost(Optional.ofNullable(exclePo.getDesignCost()).orElse(0l)+po.getChildTotalCost());//成本
+        exclePo.setDesignSalesCost(Optional.ofNullable(exclePo.getDesignSalesCost()).orElse(0l)+
+                Optional.ofNullable(po.getTotalSalesPrice()).orElse(0l));//销售费用
+        exclePo.setDesignCost(Optional.ofNullable(exclePo.getDesignCost()).orElse(0l)+
+                Optional.ofNullable(po.getChildTotalCost()).orElse(0l));//成本
         exclePo.setProfit(exclePo.getDesignSalesCost() - exclePo.getDesignCost());//利润
         if("001".equals(po.getTypeCode())){
             //平面
+            exclePo.setTotalSalesPrice1(po.getTotalSalesPrice());
             exclePo.setArea1(po.getConstructionArea());
             exclePo.setAcquisitionDate1(po.getAcquisitionDate());
             exclePo.setInitialDeliveryDate1(po.getInitialDeliveryDate());
@@ -212,6 +220,7 @@ public class StaticsServiceImpl implements StaticsService {
             exclePo.setDesigner1(po.getDesigner());
         }else if("002".equals(po.getTypeCode())){
             //基础6
+            exclePo.setTotalSalesPrice6(po.getTotalSalesPrice());
             exclePo.setArea6(po.getConstructionArea());
             exclePo.setAcquisitionDate6(po.getAcquisitionDate());
             exclePo.setInitialDeliveryDate6(po.getInitialDeliveryDate());
@@ -221,6 +230,7 @@ public class StaticsServiceImpl implements StaticsService {
             exclePo.setDesigner6(po.getDesigner());
         }else if("003".equals(po.getTypeCode())){
             //立面5
+            exclePo.setTotalSalesPrice5(po.getTotalSalesPrice());
             exclePo.setArea5(po.getConstructionArea());
             exclePo.setAcquisitionDate5(po.getAcquisitionDate());
             exclePo.setInitialDeliveryDate5(po.getInitialDeliveryDate());
@@ -230,6 +240,7 @@ public class StaticsServiceImpl implements StaticsService {
             exclePo.setDesigner5(po.getDesigner());
         }else if("004".equals(po.getTypeCode())){
             //结构4
+            exclePo.setTotalSalesPrice4(po.getTotalSalesPrice());
             exclePo.setArea4(po.getConstructionArea());
             exclePo.setAcquisitionDate4(po.getAcquisitionDate());
             exclePo.setInitialDeliveryDate4(po.getInitialDeliveryDate());
@@ -239,6 +250,7 @@ public class StaticsServiceImpl implements StaticsService {
             exclePo.setDesigner4(po.getDesigner());
         }else if("005".equals(po.getTypeCode())){
             //效果图3
+            exclePo.setTotalSalesPrice3(po.getTotalSalesPrice());
             exclePo.setArea3(po.getConstructionArea());
             exclePo.setAcquisitionDate3(po.getAcquisitionDate());
             exclePo.setInitialDeliveryDate3(po.getInitialDeliveryDate());
@@ -248,6 +260,7 @@ public class StaticsServiceImpl implements StaticsService {
             exclePo.setDesigner3(po.getDesigner());
         }else if("006".equals(po.getTypeCode())){
             //水电2
+            exclePo.setTotalSalesPrice2(po.getTotalSalesPrice());
             exclePo.setArea2(po.getConstructionArea());
             exclePo.setAcquisitionDate2(po.getAcquisitionDate());
             exclePo.setInitialDeliveryDate2(po.getInitialDeliveryDate());
@@ -257,6 +270,7 @@ public class StaticsServiceImpl implements StaticsService {
             exclePo.setDesigner2(po.getDesigner());
         } else if("007".equals(po.getTypeCode())){
             //预算
+            exclePo.setTotalSalesPrice(po.getTotalSalesPrice());
             exclePo.setArea(po.getConstructionArea());
             exclePo.setAcquisitionDate(po.getAcquisitionDate());
             exclePo.setInitialDeliveryDate(po.getInitialDeliveryDate());

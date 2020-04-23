@@ -332,8 +332,11 @@
   </update>
 
   <sql id="where-all-condition">
-    <if test="f.customer_source != null and f.customer_source!= ''"  >
+    <if test="f.customerSource != null and f.customerSource!= ''"  >
       and customer_source = #{f.customerSource}
+    </if>
+    <if test="f.projectCreationTime != null and f.projectCreationTime!= ''"  >
+      and project_creation_time LIKE concat(#{f.projectCreationTime},"%")
     </if>
     <!--<if test="f.department != null  and f.department!= ''" >
       and  department like concat(concat('%', #{f.department}),'%')

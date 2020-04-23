@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.visionbuilding.manage.controller.BaseController;
 import com.visionbuilding.manage.modle.ResultPOListBean;
 import com.visionbuilding.manage.modle.entity.DmsDepartment;
+import com.visionbuilding.manage.modle.entity.DmsMainProject;
 import com.visionbuilding.manage.modle.po.DepartmentStaticsPo;
 import com.visionbuilding.manage.modle.po.ExportDepartmentExclePo;
 import com.visionbuilding.manage.modle.po.ExportExclePo;
 import com.visionbuilding.manage.modle.query.StaticsQuery;
+import com.visionbuilding.manage.service.DmsMainProjectService;
 import com.visionbuilding.manage.service.StaticsService;
 import com.visionbuilding.manage.utill.ExcelGenerateUtils;
 import com.visionbuilding.manage.utill.FormDataUtils;
@@ -29,6 +31,9 @@ public class StaticsController extends BaseController {
     @Autowired
     private StaticsService staticsService;
 
+    @Autowired
+    private DmsMainProjectService dmsMainProjectService;
+
     @RequestMapping("/department_statics.html")
     public String departmentStatics(HttpServletRequest request, Long parentId){
         return "statics/department_statics_list";
@@ -37,6 +42,20 @@ public class StaticsController extends BaseController {
     @RequestMapping("/all_statics.html")
     public String allStatics(HttpServletRequest request, Long parentId){
         return "statics/statics_list";
+    }
+
+    @RequestMapping("/department_statics_detail.html")
+    public String edit(HttpServletRequest request,Long id){
+        DmsMainProject dmsMainProject = dmsMainProjectService.selectByPrimaryKey(id);
+        request.setAttribute("po",dmsMainProject);
+        return "statics/department_statics_detail";
+    }
+
+    @RequestMapping("/statics_detail.html")
+    public String staticsDetail(HttpServletRequest request,Long id){
+        DmsMainProject dmsMainProject = dmsMainProjectService.selectByPrimaryKey(id);
+        request.setAttribute("po",dmsMainProject);
+        return "statics/statics_detail";
     }
 
     @ResponseBody
@@ -67,7 +86,7 @@ public class StaticsController extends BaseController {
         List<ExportExclePo> lists = staticsService.getAllData(department);
         ExcelGenerateUtils<ExportExclePo> excleGenerateUtils = new ExcelGenerateUtils<>();
         try {
-            String name = LocalDate.now().getDayOfYear()+"年设计费用汇总";
+            String name = LocalDate.now().getYear()+"年设计费用汇总";
             excleGenerateUtils.exportExcel(response,name,ExportExclePo.class,lists);
         }catch (Exception e){
             e.printStackTrace();

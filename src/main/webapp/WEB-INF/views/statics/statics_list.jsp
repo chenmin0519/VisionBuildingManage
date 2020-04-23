@@ -45,7 +45,7 @@
                         <div class="col-sm-12">
                             <h4 class="pull-left page-title">统计管理</h4>
                             <ol class="breadcrumb pull-right">
-                                <li><a href="#">运营中心统计管理</a></li>
+                                <li><a href="#">设计院统计管理</a></li>
                                 <li class="active">统计管理</li>
                             </ol>
                         </div>
@@ -65,30 +65,8 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="panel panel-default">
                                                 <form id="form">
-                                                    <div class="form-group col-sm-2 col-md-2 col-xs-2 pull-left">
-                                                        <input type="hidden" name="department" id="department" >
-                                                        <select class="form-control departmentSelect"> <option value="">--请选择部门--</option> </select>
-                                                    </div>
-                                                    <div class="form-group col-sm-2 col-md-2 col-xs-2 pull-left">
-                                                        <input type="hidden" name="type" id="type" >
-                                                        <select class="form-control typeSelect"> <option value="">--请选择类型--</option> </select>
-                                                    </div>
-
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="pull-left" style="line-height: 30px;">确认时间:</label>
-                                                            <div class="col-sm-5">
-                                                                <div class='input-group date pull-left' id='datetimepicker6'>
-                                                                    <input type='text' id="startTime" name="startTime" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
-                                                                </div>
-                                                            </div>
-                                                            <label class="pull-left" style="line-height: 30px;">到</label>
-                                                            <div class="col-sm-5">
-                                                                <div class='input-group date' id='datetimepicker7'>
-                                                                    <input type='text' id="endTime" name="endTime" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="form-group col-sm-3 col-md-3 col-xs-3 pull-left">
+                                                        <input type="text" placeholder="请输入建档时间" class="form-control" name="projectCreationTime">
                                                     </div>
 
                                                     <div class="form-group col-sm-1 col-md-1 col-xs-1 pull-left">
@@ -110,14 +88,15 @@
                                                 <thead>
                                                 <tr>
                                                     <th nowrap="nowrap">序号</th>
-                                                    <th nowrap="nowrap">编码</th>
-                                                    <th nowrap="nowrap">项目类型</th>
-                                                    <th nowrap="nowrap">销售总价</th>
-                                                    <th nowrap="nowrap">成本面积</th>
-                                                    <th nowrap="nowrap">成本单价</th>
-                                                    <th nowrap="nowrap">成本总价</th>
-                                                    <th nowrap="nowrap">提成单价</th>
-                                                    <th nowrap="nowrap">提成总价</th>
+                                                    <th nowrap="nowrap">建档时间</th>
+                                                    <th nowrap="nowrap">销售面积</th>
+                                                    <th nowrap="nowrap">销售费用</th>
+                                                    <th nowrap="nowrap">成本费用</th>
+                                                    <th nowrap="nowrap">已回款</th>
+                                                    <th nowrap="nowrap">应收款</th>
+                                                    <th nowrap="nowrap">支出</th>
+                                                    <th nowrap="nowrap">应付金额</th>
+                                                    <th nowrap="nowrap">操作</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -160,51 +139,58 @@
 <!-- jQuery  -->
 
 <script type="text/javascript">
-    var functionlist=[{targets:[3],
+    var functionlist=[{targets:[9],
         mRender:function(data) {
             var result = "";
-            if(data.totalSalesPrice != null){
-                result = data.totalSalesPrice/100;
+            result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
+                +data.id+"')><i class='ion-ios7-paper-outline'></i> 详情</button>";
+            return result;
+        }
+    },{targets:[2],
+        mRender:function(data) {
+            var result = "";
+            if(data != null){
+                result = data/100;
+            }
+            return result;
+        }
+    },{targets:[3],
+        mRender:function(data) {
+            var result = "";
+            if(data != null){
+                result = data/100;
             }
             return result;
         }
     },{targets:[4],
         mRender:function(data) {
             var result = "";
-            if(data.constructionArea != null){
-                result = data.constructionArea/100;
+            if(data != null){
+                result = data/100;
             }
             return result;
         }
     },{targets:[5],
         mRender:function(data) {
             var result = "";
-            if(data.childCostPrice != null){
-                result = data.childCostPrice/100;
+            if(data != null){
+                result = data/100;
             }
             return result;
         }
     },{targets:[6],
         mRender:function(data) {
             var result = "";
-            if(data.childTotalCost != null){
-                result = data.childTotalCost/100;
+            if(data != null){
+                result = data/100;
             }
             return result;
         }
     },{targets:[7],
         mRender:function(data) {
             var result = "";
-            if(data.designerCommission != null){
-                result = data.designerCommission/100;
-            }
-            return result;
-        }
-    },{targets:[8],
-        mRender:function(data) {
-            var result = "";
-            if(data.designerCommissionPrice != null){
-                result = data.designerCommissionPrice/100;
+            if(data != null){
+                result = data/100;
             }
             return result;
         }
@@ -212,13 +198,13 @@
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
-        initBaseTable($("form").serialize(),"datatable","${base}/statics/statics/getDates",",projectCode,typeName,,,,,,",functionlist);
+        initBaseTable($("form").serialize(),"datatable","${base}/project/main-project/getDates",",projectCreationTime,salesArea,designSalesCost,designCost,amountReturned,amountReceivable,amountSpent,amountspayable,",functionlist);
     }
     $(document).ready(function(){
         initTbale();
-        initDepartmentOption();
-        initTypeOption();
-        initBaseDateTimePicker("datetimepicker6", "datetimepicker7");
+        // initDepartmentOption();
+        // initTypeOption();
+        // initBaseDateTimePicker("datetimepicker6", "datetimepicker7");
     });
     function initDepartmentOption(){
         baseCallBackAJAX("post","${base}/data/department/getAll",null,"json","initDepartmentOptionCallback(data)");
@@ -255,6 +241,9 @@
     }
 
 
+    function detail(id){
+        window.location.href="${base}/statics/statics/statics_detail.html?chirld=${chirld}&parent=${parent}&id="+id;
+    }
     $("#query").click(function(){
         initTbale();
     });
