@@ -117,17 +117,14 @@
                                                     </thead>
                                                 </table>
 
+                                                <div class="panel-body">
+                                                        <button onclick="history.back();" type="button"
+                                                                class="btn btn-primary waves-effect waves-light m-b-5">
+                                                            <i class="ion-reply"></i>&nbsp;返回
+                                                        </button>
+                                                    </div>
 
-
-
-
-<%--                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">--%>
-<%--                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">项目建档时间<span--%>
-<%--                                                            class="required" style="color: red"> * </span>：</label>--%>
-<%--                                                    <div class='input-group date col-sm-6 col-md-6 col-xs-6' id='datetimepicker4' >--%>
-<%--                                                        <input type="text" id="endTime2" readonly="readonly" value="<c:if test='${parentPo.projectCreationTime != null}'><fmt:formatDate value='${parentPo.projectCreationTime}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if>" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>--%>
-<%--                                                    </div>--%>
-<%--                                                </div>--%>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
