@@ -212,7 +212,7 @@
             par += "&projectTypeName="+projectTypeName;
         }
         if(totalSalesPrice) {
-            totalSalesPrice = eval(totalSalesPrice) * 100;
+            totalSalesPrice = parseInt(eval(totalSalesPrice).toFixed(2) * 100);
             par += "&totalSalesPrice="+totalSalesPrice;
         }
         baseCallBackAJAX("post","${base}/project/main-project/save-sub-project",par,"json","saveCallback(data)");
@@ -279,7 +279,7 @@
        var unitPrice = $("#unitPrice").val();
        var constructionArea = $("#constructionArea").val();
        var totalPrice = unitPrice * 1 * constructionArea * 1;
-       $("#totalSalesPrice").val(totalPrice);
+       $("#totalSalesPrice").val(totalPrice.toFixed(2));
     });
 
     /**

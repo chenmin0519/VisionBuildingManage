@@ -87,15 +87,15 @@
                                                     <tr>
                                                         <th style="text-align: center">客户编码</th>
                                                         <td><div >${po.customerCode}</div></td>
-                                                        <th style="text-align: center">项目地点</th>
-                                                        <td><div >${po.place}</div></td>
-                                                    </tr>
+<%--                                                        <th style="text-align: center">项目地点</th>--%>
+<%--                                                        <td><div >${po.place}</div></td>--%>
+<%--                                                    </tr>--%>
 
-                                                    <tr>
-                                                        <th style="text-align: center">备注</th>
-                                                        <td><div >${po.remarks}</div></td>
-                                                        <th style="text-align: center"></th>
-                                                        <td><div ></div></td>
+<%--                                                    <tr>--%>
+<%--                                                        <th style="text-align: center">备注</th>--%>
+<%--                                                        <td><div >${po.remarks}</div></td>--%>
+<%--                                                        <th style="text-align: center"></th>--%>
+<%--                                                        <td><div ></div></td>--%>
                                                     </tr>
                                                     </thead>
                                                 </table>
@@ -267,7 +267,7 @@
         var par = $("#form_sub").serialize();
         var id = $("#id").val();
         par += "&parentId="+id;
-        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,,,,,,,remark",functionlist);
+        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,,,,,,,remarks",functionlist);
     }
 
     function edit(id){

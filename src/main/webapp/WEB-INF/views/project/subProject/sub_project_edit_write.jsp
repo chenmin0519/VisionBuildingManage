@@ -330,30 +330,30 @@
         var par = $("#form").serialize();
         var costPrice = $("#costPrice").val();
         if(costPrice) {
-            costPrice = eval(costPrice).toFixed(2) * 100;
+            costPrice = parseInt(eval(costPrice).toFixed(2) * 100);
             par += "&costPrice="+costPrice;
         }
 
         var totalCost = $("#totalCost").val();
         if(totalCost) {
-            totalCost = eval(totalCost).toFixed(2) * 100;
+            totalCost = parseInt(eval(totalCost).toFixed(2) * 100);
             par += "&totalCost="+totalCost;
         }
 
         var constructionArea = $("#constructionArea").val();
         if(constructionArea) {
-            constructionArea = eval(constructionArea).toFixed(2) * 100;
+            constructionArea = parseInt(eval(constructionArea).toFixed(2) * 100);
             par += "&constructionArea="+constructionArea;
         }
 
         var designerCommissionPrice = $("#designerCommissionPrice").val();
         if(designerCommissionPrice) {
-            designerCommissionPrice = eval(designerCommissionPrice).toFixed(2) * 100;
+            designerCommissionPrice = parseInt(eval(designerCommissionPrice).toFixed(2) * 100);
             par += "&designerCommissionPrice="+designerCommissionPrice;
         }
         var designerCommission = $("#designerCommission").val();
         if(designerCommission) {
-            designerCommission = eval(designerCommission).toFixed(2) * 100;
+            designerCommission = parseInt(eval(designerCommission).toFixed(2) * 100);
             par += "&designerCommission="+designerCommission;
         }
         baseCallBackAJAX("post","${base}/project/main-project/save-sub-project",par,"json","saveCallback(data)");

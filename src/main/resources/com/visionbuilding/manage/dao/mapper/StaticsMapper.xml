@@ -22,7 +22,7 @@
       a.department as department,
       a.designer as designer
       from dms_child_project a left join dms_main_project b on a.parent_id = b.id
-    where 1=1 and a.confirm_status = 2
+    where 1=1
       <if test="f.type != null and f.type != ''">
           and a.project_type_code = #{f.type}
       </if>
@@ -35,6 +35,10 @@
       <if test="f.endTime != null">
           and a.confirm_time &lt;= #{f.endTime}
       </if>
+      <if test="f.projectCreationTime != null and f.projectCreationTime != ''">
+          and a.project_creation_time like concat(#{f.projectCreationTime},"%")
+      </if>
+
     order by a.id desc
     limit #{startPage},${pageRows}
   </select>
@@ -54,6 +58,9 @@
     <if test="f.endTime != null">
       and a.confirm_time &lt;= #{f.endTime}
     </if>
+      <if test="f.projectCreationTime != null and f.projectCreationTime != ''">
+          and a.project_creation_time like concat(#{f.projectCreationTime},"%")
+      </if>
   </select>
 
     <select id="queryListByParam" resultType="com.visionbuilding.manage.modle.po.DepartmentStaticsPo">
@@ -77,14 +84,14 @@
         a.initial_delivery_date as initialDeliveryDate,
         a.construction_area as constructionArea,
         a.cost_price as childCostPrice,
-        a.total_cost as totalCost,
+        a.total_cost as childTotalCost,
         a.total_sales_price AS totalSalesPrice,
         a.designer_commission_price as designerCommissionPrice,
         a.designer_commission as designerCommission,
         a.department as department,
         a.designer as designer
         from dms_child_project a left join dms_main_project b on a.parent_id = b.id
-        where 1=1 and a.confirm_status = 2
+        where 1=1
         <if test="type != null and type != ''">
             and a.project_type_code = #{type}
         </if>
@@ -96,6 +103,9 @@
         </if>
         <if test="endTime != null">
             and a.confirm_time &lt;= #{endTime}
+        </if>
+        <if test="projectCreationTime != null and projectCreationTime != ''">
+            and a.project_creation_time like concat(#{projectCreationTime},"%")
         </if>
     </select>
 </mapper>

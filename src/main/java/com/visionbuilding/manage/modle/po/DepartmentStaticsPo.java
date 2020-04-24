@@ -16,7 +16,7 @@ public class DepartmentStaticsPo {
     private Long designSalesCost;//设计销售费用
     private Long totalSalesPrice;//设计销售zongjia
     private Long parentId;
-    private Long typeCode;//类型编码
+    private String typeCode;//类型编码
     private String typeName;
     private Long constructionArea;//面积
     private Long childCostPrice;//成本单价

@@ -191,7 +191,7 @@
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
         var par = $("#form").serialize();
-        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,,,,,remark,",functionlist);
+        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,,,,,remarks,",functionlist);
 
     }
     $(document).ready(function(){

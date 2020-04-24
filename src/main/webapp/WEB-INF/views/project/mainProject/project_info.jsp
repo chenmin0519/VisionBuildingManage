@@ -295,7 +295,7 @@
         var par = $("#form_sub").serialize();
         var id = $("#id").val();
         par += "&parentId="+id;
-        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,,,,acquisitionDate,remark,",functionlist);
+        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,,,,acquisitionDate,remarks,",functionlist);
     }
 
     function edit(id){

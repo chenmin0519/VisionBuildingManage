@@ -55,6 +55,7 @@ public class DmsProjectTypeController extends BaseController {
     @RequestMapping("/del")
     public String getDates(Long id)throws Exception{
         ResultBean resultBean = new ResultBean();
+        resultBean.failure("暂时不能删除请联系管理员");
         try {
             dmsProjectTypeService.deleteByPrimaryKey(id);
             resultBean.success();
@@ -68,6 +69,7 @@ public class DmsProjectTypeController extends BaseController {
     @RequestMapping("/save")
     public String save(DmsProjectType dmsProjectType)throws Exception{
         ResultBean resultBean = new ResultBean();
+        resultBean.failure("暂时不能操作请联系管理员");
         try {
             if(dmsProjectType.getId() == null){
                 dmsProjectTypeService.insertSelective(dmsProjectType);

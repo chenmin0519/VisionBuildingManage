@@ -13,4 +13,5 @@ public class StaticsQuery extends BaseQuery{
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
     private Long department;
+    private String projectCreationTime;
 }

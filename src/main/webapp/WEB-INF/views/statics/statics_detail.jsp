@@ -112,7 +112,7 @@
                                                         <th style="text-align: center">已支出金额</th>
                                                         <td><div >${po.amountSpent/100}</div></td>
                                                         <th style="text-align: center">应付金额</th>
-                                                        <td><div >${po.amountReceivable/100}</div></td>
+                                                        <td><div >${po.amountsPayable/100}</div></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: center">合同号</th>
@@ -147,12 +147,12 @@
                                                             <i class="ion-ios7-search"></i> 查询
                                                         </button>
                                                     </div>
-                                                    <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">
-                                                        <button id="addSub" type="button" style="position: absolute;right: -10px;"
-                                                                class="btn btn-primary waves-effect waves-light m-b-5">
-                                                            <i class="glyphicon glyphicon-plus"></i>新增
-                                                        </button>
-                                                    </div>
+<%--                                                    <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">--%>
+<%--                                                        <button id="addSub" type="button" style="position: absolute;right: -10px;"--%>
+<%--                                                                class="btn btn-primary waves-effect waves-light m-b-5">--%>
+<%--                                                            <i class="glyphicon glyphicon-plus"></i>新增--%>
+<%--                                                        </button>--%>
+<%--                                                    </div>--%>
                                                     <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">
                                                         <button onclick="history.back();" type="button" style="position: absolute;right: -10px;"
                                                                 class="btn btn-primary waves-effect waves-light m-b-5">
@@ -311,7 +311,7 @@
         var par = $("#form_sub").serialize();
         var id = $("#id").val();
         par += "&parentId="+id;
-        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,,,,,,,,remark",functionlist);
+        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectTypeName,,,,,,,,remarks",functionlist);
     }
 
     function edit(id){
