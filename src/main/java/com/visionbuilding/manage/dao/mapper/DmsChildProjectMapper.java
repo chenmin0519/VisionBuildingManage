@@ -3,6 +3,7 @@ package com.visionbuilding.manage.dao.mapper;
 import com.visionbuilding.manage.modle.entity.DmsChildProject;
 import com.visionbuilding.manage.modle.entity.DmsMainProject;
 import com.visionbuilding.manage.modle.query.QueryBean;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface DmsChildProjectMapper {
 
     int updateStatusById(DmsChildProject dmsChildProject);
 
-    List<DmsChildProject> queryAllSub(Long id);
+    List<DmsChildProject> queryAllSub(@Param(value="id")Long id);
 
     List<DmsChildProject> querySubProjectList(DmsChildProject dmsChildProject);
 }
