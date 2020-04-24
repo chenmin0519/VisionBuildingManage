@@ -345,7 +345,7 @@
       and dcp.project_type_name = #{f.projectTypeName}
     </if>
     <if test="f.confirmStatus != null">
-        <if test='f.confirmStatus == "0"'>
+        <if test='f.confirmStatus == "0" || f.confirmStatus == "1" || f.confirmStatus == "2" '>
             and dcp.confirm_status = #{f.confirmStatus}
         </if>
         <if test='f.confirmStatus == "123"'>

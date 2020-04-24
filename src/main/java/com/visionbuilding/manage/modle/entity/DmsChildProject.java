@@ -61,7 +61,7 @@ public class DmsChildProject extends BaseEntity {
      */
     private Long designerCommissionPrice;
     /**
-     * '确认状态 0 待提交(运营中心发布出来等待被设计院填写),1 待审核(设计院填写完子项目并保存,等待被运营中心审核),2 审核通过 3审核不通过'
+     * '确认状态 0 待提交(运营中心发布出来等待被设计院填写),1 待审核(设计院填写完子项目并保存,等待被运营中心审核),2 审核通过'
      */
     private Byte confirmStatus;
     /**

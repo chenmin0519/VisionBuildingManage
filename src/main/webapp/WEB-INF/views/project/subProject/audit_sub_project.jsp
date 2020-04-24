@@ -44,10 +44,14 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="col-sm-2">
-                                <h4 class="pull-left page-title">子项目详情</h4>
+                                <h4 class="pull-left page-title">子项目审核</h4>&nbsp;&nbsp;&nbsp;
+                                <button id="backTwo" onclick="history.back();" type="button"
+                                        class="btn btn-primary waves-effect waves-light m-b-5" style="display:none;">
+                                    <i class="ion-reply"></i>&nbsp;返回
+                                </button>
                             </div>
                             <ol class="breadcrumb pull-right">
-                                <li><a href="#">子项目详情</a></li>
+                                <li><a href="#">子项目审核</a></li>
                                 <li class="active">项目结算管理</li>
                             </ol>
                         </div>
@@ -154,7 +158,7 @@
                                                             <i class="ion-checkmark"></i>&nbsp;不通过
                                                         </button>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <button onclick="history.back();" type="button"
+                                                        <button id="back" onclick="history.back();" type="button"
                                                                 class="btn btn-primary waves-effect waves-light m-b-5">
                                                             <i class="ion-reply"></i>&nbsp;返回
                                                         </button>
@@ -203,6 +207,13 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
+        // 如果是已确认状态,就隐藏通过和不通过的按钮
+        if("${po.confirmStatus}" == '2') {
+            $("#pass").hide();
+            $("#fail").hide();
+            $("#back").hide();
+            $("#backTwo").show();
+        }
         // initBaseDateTimePicker("datetimepicker3", "datetimepicker4");
         $('#datetimepicker4').datetimepicker({
             format:"YYYY-MM-DD HH:mm:ss"
