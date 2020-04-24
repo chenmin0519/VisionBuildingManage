@@ -218,7 +218,8 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
         if(dmsChildProject == null) {
           throw new RuntimeException("未找到该子项目!");
         }
-
+        // 拿到要保存的时间(确认时间)
+        Date date = new Date();
         // 2.根据parentId查出大项目
         Long parentId = dmsChildProject.getParentId();
         DmsMainProject dmsMainProject = dmsMainProjectMapper.selectByPrimaryKey(parentId);
@@ -243,6 +244,7 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
         dmsMainProjectMapper.updateMoneyById(dmsMainProject);
         // 6.状态设为审核通过,存进子项目数据库
         dmsChildProject.setConfirmStatus((byte) 2);
+        dmsChildProject.setConfirmTime(date);
         dmsChildProjectMapper.updateStatusById(dmsChildProject);
         // 7.把统计到的数据存进统计表
         DmsSettlement dmsSettlement = new DmsSettlement();
@@ -251,7 +253,7 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
         dmsSettlement.setSaleAmount(smallTotalSalesPrice);
         dmsSettlement.setCostAmount(smallTotalCost);
         dmsSettlement.setCommissionAmount(dmsChildProject.getDesignerCommission());
-        Date date = new Date();
+
         dmsSettlement.setEventDate(date);
         dmsSettlementMapper.insertSelective(dmsSettlement);
     }
