@@ -142,8 +142,12 @@
                                             <div class="panel panel-default">
                                                 <form id="form_sub">
                                                     <div class="form-group col-sm-3 col-md-3 col-xs-3 pull-left">
-                                                        <input type="text" placeholder="请输入子项目类型" class="form-control" name="projectTypeName">
+<%--                                                        <input type="text" placeholder="请输入子项目类型" class="form-control" name="projectTypeName">--%>
+                                                        <select id="projectTypeCode" name="projectTypeCode" class="form-control">
+                                                            <option value="">--请选择子项目类型--</option>
+                                                        </select>
                                                     </div>
+
                                                     <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">
                                                         <button id="query" type="button" style="position: absolute;right: -10px;"
                                                                 class="btn btn-primary waves-effect waves-light m-b-5">
@@ -283,6 +287,7 @@
     });
     $(document).ready(function(){
         initTbale();
+        baseCallBackAJAX("post","${base}/data/projectType/getAll",null,"json","initProjectType(data)");
     })
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
@@ -332,6 +337,25 @@
                 closeOnConfirm : true, //关闭按钮
                 closeOnCancel : true
             });
+        }
+    }
+
+    /**
+     * 初始化项目类型下拉框
+     * @param date
+     */
+    function initProjectType(data) {
+        // console.log("aaa:"+data.aaData);
+        if(data) {
+            for(var i = 0; i < data.length; i++) {
+                var projectType = data[i];
+                var typeCode = "";
+                var typeName = "";
+                if (projectType.typeCode) {typeCode = projectType.typeCode}
+                if (projectType.typeName) {typeName = projectType.typeName;}
+
+                $("#projectTypeCode").append("<option value='"+typeCode+"' >"+typeName+"</option>");
+            }
         }
     }
 </script>

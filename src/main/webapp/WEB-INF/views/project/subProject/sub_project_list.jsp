@@ -73,7 +73,9 @@
                                             <div class="panel panel-default">
                                                 <form id="form">
                                                     <div class="form-group col-sm-3 col-md-3 col-xs-3 pull-left">
-                                                        <input type="text" placeholder="请输入子项目类型" class="form-control" name="projectTypeName">
+                                                        <select id="projectTypeCode" name="projectTypeCode" class="form-control">
+                                                            <option value="">--请选择子项目类型--</option>
+                                                        </select>
                                                         <input type="hidden" class="form-control" id="confirmStatus" name="confirmStatus" value="0">
                                                     </div>
 
@@ -196,6 +198,7 @@
         // 设定默认加载的tab,然后再加载页面表单
         changestatus('1');
         initTbale();
+        baseCallBackAJAX("post","${base}/data/projectType/getAll",null,"json","initProjectType(data)");
     });
     $("#query").click(function(){
         initTbale();
@@ -278,6 +281,25 @@
         // 每次重新选择tab,加载页面的表单
         initTbale();
 
+    }
+
+    /**
+     * 初始化项目类型下拉框
+     * @param date
+     */
+    function initProjectType(data) {
+        // console.log("aaa:"+data.aaData);
+        if(data) {
+            for(var i = 0; i < data.length; i++) {
+                var projectType = data[i];
+                var typeCode = "";
+                var typeName = "";
+                if (projectType.typeCode) {typeCode = projectType.typeCode}
+                if (projectType.typeName) {typeName = projectType.typeName;}
+
+                $("#projectTypeCode").append("<option value='"+typeCode+"' >"+typeName+"</option>");
+            }
+        }
     }
 </script>
 

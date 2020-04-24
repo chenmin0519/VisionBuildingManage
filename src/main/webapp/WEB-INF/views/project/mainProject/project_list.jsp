@@ -66,7 +66,7 @@
                                             <div class="panel panel-default">
                                                 <form id="form">
                                                     <div class="form-group col-sm-3 col-md-3 col-xs-3 pull-left">
-                                                        <input type="text" placeholder="请输入项目名" class="form-control" name="mainProject">
+                                                        <input type="text" placeholder="请输入项目建档时间" class="form-control" name="projectCreationTime">
                                                     </div>
 
                                                     <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">

@@ -352,6 +352,9 @@
             and dcp.confirm_status in ('1','2','3')
         </if>
     </if>
+    <if test="f.projectTypeCode != null and f.projectTypeCode!= ''"  >
+      and dcp.project_type_code = #{f.projectTypeCode}
+    </if>
     order by dcp.id desc
     limit #{startPage},${pageRows}
   </select>
@@ -363,6 +366,17 @@
     </if>
     <if test="f.projectTypeName != null and f.projectTypeName!= ''"  >
       and project_type_name = #{f.projectTypeName}
+    </if>
+    <if test="f.confirmStatus != null">
+      <if test='f.confirmStatus == "0" || f.confirmStatus == "1" || f.confirmStatus == "2" '>
+        and confirm_status = #{f.confirmStatus}
+      </if>
+      <if test='f.confirmStatus == "123"'>
+        and confirm_status in ('1','2','3')
+      </if>
+    </if>
+    <if test="f.projectTypeCode != null and f.projectTypeCode!= ''"  >
+      and project_type_code = #{f.projectTypeCode}
     </if>
 <!--    <include refid = "where-all-condition" />-->
   </select>

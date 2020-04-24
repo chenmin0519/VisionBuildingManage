@@ -336,7 +336,7 @@
       and customer_source = #{f.customerSource}
     </if>
     <if test="f.projectCreationTime != null and f.projectCreationTime!= ''"  >
-      and project_creation_time LIKE concat(#{f.projectCreationTime},"%")
+      and project_creation_time LIKE concat(concat(#{f.projectCreationTime}),'%')
     </if>
     <!--<if test="f.department != null  and f.department!= ''" >
       and  department like concat(concat('%', #{f.department}),'%')
