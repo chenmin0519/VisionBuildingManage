@@ -120,7 +120,7 @@
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left" >
                                                         <div class="col-sm-6 col-lg-6 col-md-6 pull-left">
                                                             <div class='input-group date' id='datetimepicker4' >
-                                                                <input placeholder="收单日期" type='text' id="endTime2" value="${po.acquisitionDate}"  name="acquisitionDate" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
+                                                                <input placeholder="收单日期" type='text' id="endTime2" value="<c:if test='${po.acquisitionDate != null}'><fmt:formatDate value='${po.acquisitionDate}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if>"  name="acquisitionDate" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
                                                             </div>
                                                         </div>
 <%--                                                        <input type="text" name="initialDeliveryDate" id="initialDeliveryDate"  value="${po.initialDeliveryDate}" class="form-control" >--%>
