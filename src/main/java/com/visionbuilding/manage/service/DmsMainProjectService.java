@@ -7,6 +7,11 @@ import com.visionbuilding.manage.modle.entity.DmsMainProject;
 public interface DmsMainProjectService {
     // 操作大项目
     DmsMainProject selectByPrimaryKey(Long id);
+
+    /**
+     * 删除主项目
+     * @param id
+     */
     void deleteByPrimaryKey(Long id);
     void insertSelective(DmsMainProject dmsMainProject);
     void updateByPrimaryKeySelective(DmsMainProject dmsMainProject);
@@ -37,5 +42,9 @@ public interface DmsMainProjectService {
      */
     void noAuditSubProject(Long id);
 
+    /**
+     * 删除子项目
+     * @param id
+     */
     void deleteSubByPrimaryKey(Long id);
 }

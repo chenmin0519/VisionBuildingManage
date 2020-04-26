@@ -64,7 +64,7 @@ public class DmsProjectController extends BaseController {
             resultBean.success();
         }catch (Exception e){
             e.printStackTrace();
-            resultBean.failure("系统异常");
+            resultBean.failure(e.getMessage());
         }
         return JSON.toJSONString(resultBean);
     }
@@ -78,7 +78,7 @@ public class DmsProjectController extends BaseController {
             resultBean.success();
         }catch (Exception e){
             e.printStackTrace();
-            resultBean.failure("系统异常");
+            resultBean.failure(e.getMessage());
         }
         return JSON.toJSONString(resultBean);
     }
@@ -119,6 +119,7 @@ public class DmsProjectController extends BaseController {
 
     /**
      * 运营中心跳转到子项目编辑页面
+     * 传过来的id是子项目的id
      * @return
      */
     @RequestMapping("/editSubProject.html")
@@ -128,7 +129,7 @@ public class DmsProjectController extends BaseController {
         DmsMainProject dmsMainProject = dmsMainProjectService.selectByPrimaryKey(parentId);
         dmsChildProject.setSalesArea(dmsMainProject.getSalesArea());
         dmsChildProject.setUnitPrice(dmsMainProject.getUnitPrice());
-        dmsChildProject.setParentId(id);
+//        dmsChildProject.setParentId(id);
         request.setAttribute("po",dmsChildProject);
         return "project/subProject/sub_project_edit";
     }
@@ -278,7 +279,7 @@ public class DmsProjectController extends BaseController {
             resultBean.success();
         }catch (Exception e){
             e.printStackTrace();
-            resultBean.failure("系统异常");
+            resultBean.failure(e.getMessage());
         }
         return JSON.toJSONString(resultBean);
     }

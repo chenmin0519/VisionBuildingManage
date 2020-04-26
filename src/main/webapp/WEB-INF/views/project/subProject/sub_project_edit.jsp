@@ -69,7 +69,7 @@
                                         <div class="panel panel-default">
                                             <form id="form">
                                                 <input id="parentId" name="parentId" type="hidden" value="${po.parentId}"/>
-
+                                                <input id="id" name="id" type="hidden" value="${po.id}"/>
 <%--                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">--%>
 <%--                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">客户来源<span--%>
 <%--                                                            class="required" style="color: red"> * </span>：</label>--%>

@@ -41,19 +41,25 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
     public void deleteByPrimaryKey(Long id) {
         // 1.查询该主项目包含的子项目
         List<DmsChildProject> list = dmsChildProjectMapper.queryAllSub(id);
-        // 1.判断如果里面有子项目的状态是审核已通过(2),就不能删除
+        // 2.判断如果里面有子项目的状态是审核已通过(2),就不能删除
         for(DmsChildProject dmsChildProject : list) {
             if(dmsChildProject.getConfirmStatus() != null && dmsChildProject.getConfirmStatus() == 2) {
                 throw new RuntimeException("有子项目审核已通过,该项目不能被删除!");
             }
         }
+        // 3.删除主项目
         dmsMainProjectMapper.deleteByPrimaryKey(id);
+        // 4.删除所有主项目包含的子项目
+        for(DmsChildProject dmsChildProject : list) {
+            if(dmsChildProject.getConfirmStatus() != null) {
+                dmsChildProjectMapper.deleteByPrimaryKey(dmsChildProject.getId());
+            }
+        }
     }
 
     @Override
     public void insertSelective(DmsMainProject dmsMainProject) {
         //1.获取客户来源的名称
-//        dmsMainProject.setCustomerSource("郑灿大傻逼");
         // 2.获取客户来源名称的简写
         String jx = dmsMainProject.getCustomerCode()+"-";
         // 3.获取当天(年月日.yyyyMMdd格式)
