@@ -76,9 +76,13 @@ public class StaticsServiceImpl implements StaticsService {
                 }
                 f.put(po.getParentId(),exclePo);
             }
-            f.forEach((key,value)->{
-                result.add(value);
-            });
+            int i = 1;
+            for(Long key : f.keySet()){
+                f.get(key).setXh(i);
+                i++;
+                result.add(f.get(key));
+            }
+
         }
         return result;
     }
@@ -195,9 +199,12 @@ public class StaticsServiceImpl implements StaticsService {
                 }
                 f.put(po.getParentId(),exclePo);
             }
-            f.forEach((key,value)->{
-                result.add(value);
-            });
+            int i = 1;
+            for(Long key : f.keySet()){
+                f.get(key).setXh(i);
+                i++;
+                result.add(f.get(key));
+            }
         }
         return result;
     }

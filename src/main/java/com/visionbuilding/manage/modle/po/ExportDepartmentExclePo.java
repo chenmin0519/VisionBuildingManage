@@ -8,6 +8,8 @@ import java.util.Date;
 
 @Data
 public class ExportDepartmentExclePo {
+    @ExcelName("序号")
+    private Integer xh;
     @ExcelName("业务初始建档时间")
     private String projectCode;
     @ExcelName("客户来源")
