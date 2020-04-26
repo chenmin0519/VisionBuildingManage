@@ -111,13 +111,13 @@
                                                         <input type="text" id="unitPrice" placeholder="请输入销售单价" value="${po.unitPrice/100}" class="form-control required" >
                                                     </div>
                                                 </div>
-                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
-                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">成本单价(元/㎡)<span
-                                                            class="required" style="color: red"> * </span>：</label>
-                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" id="costPrice" placeholder="请输入成本单价" value="${po.costPrice/100}" class="form-control required" >
-                                                    </div>
-                                                </div>
+<%--                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">--%>
+<%--                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">成本单价(元/㎡)<span--%>
+<%--                                                            class="required" style="color: red"> * </span>：</label>--%>
+<%--                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">--%>
+<%--                                                        <input type="text" id="costPrice" placeholder="请输入成本单价" value="${po.costPrice/100}" class="form-control required" >--%>
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">已回款金额：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
@@ -245,12 +245,11 @@
             par += "&unitPrice="+unitPrice;
         }
 
-
-        var costPrice = $("#costPrice").val();
-        if(costPrice) {
-            costPrice = eval(costPrice) * 100;
-            par += "&costPrice="+costPrice;
-        }
+        // var costPrice = $("#costPrice").val();
+        // if(costPrice) {
+        //     costPrice = eval(costPrice) * 100;
+        //     par += "&costPrice="+costPrice;
+        // }
 
         var amountReturned = $("#amountReturned").val();
         if(amountReturned) {
