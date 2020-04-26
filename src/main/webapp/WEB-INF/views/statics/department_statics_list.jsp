@@ -91,7 +91,7 @@
                                                     <th nowrap="nowrap">建档时间</th>
                                                     <th nowrap="nowrap">客户来源</th>
                                                     <th nowrap="nowrap">客户编码</th>
-                                                    <th nowrap="nowrap">成本费用</th>
+                                                    <th nowrap="nowrap">设计成本费用</th>
                                                     <th nowrap="nowrap">操作</th>
                                                 </tr>
                                                 </thead>

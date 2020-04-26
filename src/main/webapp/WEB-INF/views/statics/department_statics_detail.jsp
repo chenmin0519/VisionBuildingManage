@@ -87,6 +87,8 @@
                                                     <tr>
                                                         <th style="text-align: center">客户编码</th>
                                                         <td><div >${po.customerCode}</div></td>
+                                                        <th style="text-align: center"></th>--%>
+                                                        <td><div ></div></td>
 <%--                                                        <th style="text-align: center">项目地点</th>--%>
 <%--                                                        <td><div >${po.place}</div></td>--%>
 <%--                                                    </tr>--%>

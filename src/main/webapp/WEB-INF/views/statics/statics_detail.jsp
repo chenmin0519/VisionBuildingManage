@@ -99,8 +99,9 @@
                                                     <tr>
                                                         <th style="text-align: center">销售单价(元/㎡)</th>
                                                         <td><div >${po.unitPrice/100}</div></td>
-                                                        <th style="text-align: center">成本单价(元/㎡)</th>
-                                                        <td><div >${po.costPrice/100}</div></td>
+                                                        <th style="text-align: center">合同号</th>
+                                                        <td><div >${po.contractNo}</div></td>
+                                                        <th style="text-align: center">备注</th>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: center">已回款金额</th>
@@ -115,17 +116,17 @@
                                                         <td><div >${po.amountsPayable/100}</div></td>
                                                     </tr>
                                                     <tr>
-                                                        <th style="text-align: center">合同号</th>
-                                                        <td><div >${po.contractNo}</div></td>
+                                                        <th style="text-align: center">备注</th>
+                                                        <td><div >${po.remarks}</div></td>
                                                         <th style="text-align: center">是否生产</th>
                                                         <td><div ><c:if test="${po.production == 0}">是</c:if><c:if test="${po.production == 1}">否</c:if></div></td>
                                                     </tr>
-                                                    <tr>
-                                                        <th style="text-align: center">备注</th>
-                                                        <td><div >${po.remarks}</div></td>
-                                                        <th style="text-align: center"></th>
-                                                        <td><div ></div></td>
-                                                    </tr>
+<%--                                                    <tr>--%>
+<%--                                                        <th style="text-align: center">备注</th>--%>
+<%--                                                        <td><div >${po.remarks}</div></td>--%>
+<%--                                                        <th style="text-align: center"></th>--%>
+<%--                                                        <td><div ></div></td>--%>
+<%--                                                    </tr>--%>
                                                     </thead>
                                                 </table>
                                             </form>

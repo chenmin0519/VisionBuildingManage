@@ -91,7 +91,7 @@
                                                     <th nowrap="nowrap">建档时间</th>
                                                     <th nowrap="nowrap">销售面积</th>
                                                     <th nowrap="nowrap">销售费用</th>
-                                                    <th nowrap="nowrap">成本费用</th>
+                                                    <th nowrap="nowrap">设计成本费用</th>
                                                     <th nowrap="nowrap">已回款</th>
                                                     <th nowrap="nowrap">应收款</th>
                                                     <th nowrap="nowrap">支出</th>
