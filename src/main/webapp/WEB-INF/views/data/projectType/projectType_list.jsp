@@ -78,13 +78,13 @@
                                                         </button>
 
                                                     </div>
-                                                    <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">
-                                                        <button id="add" type="button" style="position: absolute;right: -10px;"
-                                                                class="btn btn-primary waves-effect waves-light m-b-5">
-                                                            <i class="glyphicon glyphicon-plus"></i> 新建
+<%--                                                    <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">--%>
+<%--                                                        <button id="add" type="button" style="position: absolute;right: -10px;"--%>
+<%--                                                                class="btn btn-primary waves-effect waves-light m-b-5">--%>
+<%--                                                            <i class="glyphicon glyphicon-plus"></i> 新建--%>
 
-                                                        </button>
-                                                    </div>
+<%--                                                        </button>--%>
+<%--                                                    </div>--%>
                                                 </form>
                                             </div>
                                             <table id="datatable"
@@ -94,7 +94,7 @@
                                                     <th nowrap="nowrap">序号</th>
                                                     <th nowrap="nowrap">编码</th>
                                                     <th nowrap="nowrap">名称</th>
-                                                    <th nowrap="nowrap">操作</th>
+<%--                                                    <th nowrap="nowrap">操作</th>--%>
                                                 </tr>
                                                 </thead>
 
@@ -140,25 +140,26 @@
 <!-- jQuery  -->
 
 <script type="text/javascript">
-    var functionlist=[{targets:[3],
-        mRender:function(data) {
-            var result = "";
-            if(data.status == 1){
-                result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>";
-            }else{
-                result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"
-                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>";
-            }
-            return result;
-        }
-    }];
+    var functionlist=[];
+    // {targets:[3],
+    //     mRender:function(data) {
+    //     var result = "";
+    //     if(data.status == 1){
+    //         result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
+    //             +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"
+    //             +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>";
+    //     }else{
+    //         result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=del('"
+    //             +data.id+"')><i class='ion-ios7-paper-outline'></i> 删除</button>&nbsp;&nbsp;&nbsp;<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"
+    //             +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>";
+    //     }
+    //     return result;
+    // }
+    // }
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
-        initBaseTable($("form").serialize(),"datatable","${base}/data/projectType/getDates",",typeCode,typeName,",functionlist);
+        initBaseTable($("form").serialize(),"datatable","${base}/data/projectType/getDates",",typeCode,typeName",functionlist);
     }
     $(document).ready(function(){
         initTbale();

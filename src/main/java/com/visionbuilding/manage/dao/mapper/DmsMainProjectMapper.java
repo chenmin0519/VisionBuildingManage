@@ -2,6 +2,7 @@ package com.visionbuilding.manage.dao.mapper;
 
 import com.visionbuilding.manage.modle.entity.DmsMainProject;
 import com.visionbuilding.manage.modle.query.QueryBean;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,4 +26,6 @@ public interface DmsMainProjectMapper {
     DmsMainProject getMaxCode(DmsMainProject dmsMainProject);
 
     int updateMoneyById(DmsMainProject dmsMainProject);
+
+    int countByBussiness(@Param("pinyin") String pinyin);
 }

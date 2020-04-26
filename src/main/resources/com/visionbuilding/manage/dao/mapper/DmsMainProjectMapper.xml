@@ -368,4 +368,8 @@
     </if>
     order by id desc limit 1
   </select>
+    <select id="countByBussiness" resultType="java.lang.Integer">
+      select count(1) from dms_main_project where
+      substring_index(project_creation_time, '-', 1) = #{pinyin}
+    </select>
 </mapper>

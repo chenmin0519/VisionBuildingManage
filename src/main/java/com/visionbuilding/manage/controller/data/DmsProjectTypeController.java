@@ -61,7 +61,7 @@ public class DmsProjectTypeController extends BaseController {
             resultBean.success();
         }catch (Exception e){
             e.printStackTrace();
-            resultBean.failure("系统异常");
+            resultBean.failure(e.getMessage());
         }
         return JSON.toJSONString(resultBean);
     }
@@ -79,7 +79,7 @@ public class DmsProjectTypeController extends BaseController {
             resultBean.success();
         }catch (Exception e){
             e.printStackTrace();
-            resultBean.failure("系统异常");
+            resultBean.failure(e.getMessage());
         }
         return JSON.toJSONString(resultBean);
     }

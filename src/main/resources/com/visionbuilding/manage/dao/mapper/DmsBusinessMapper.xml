@@ -48,6 +48,9 @@
       from dms_business where 1=1
       order by id desc
     </select>
+    <select id="countByPingying" resultType="java.lang.Integer">
+      select count(1) from dms_business where pinyin = #{pinyin}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from dms_business
     where id = #{id}

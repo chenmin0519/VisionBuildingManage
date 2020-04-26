@@ -339,7 +339,7 @@
 								"aoColumns" :columnList ,
 								"aoColumnDefs" :functionlist,
 								"fnDrawCallback": function(table) { 
-									 $("#"+datatableid+"_paginate .pagination").append("<li><a class='btn btn-default shiny' style='margin-bottom:5px' href='javascript:void(0);' id='dataTablebtn'>跳</a>到<input style='height:28px;line-height:28px;width:40px;' class='margin text-center' id='changePage' type='text'>页 </li>");  
+									 $("#"+datatableid+"_paginate .pagination").append("<li><a class='btn btn-default shiny' style='margin-bottom:5px' href='javascript:void(0);' id='dataTablebtn'>跳</a><span style='height: 35px;'>到&nbsp;<input class='btn btn-default shiny'  style='height:28px;line-height:28px;width:40px;margin-top: -5px;' class='margin text-center' id='changePage' type='text'>&nbsp;页&nbsp;</span></li>");
 				                     var pageno = '${pageno}';
 									 var oTable = $("#"+datatableid).dataTable();  
 				                        $('#dataTablebtn').click(function(e) {  

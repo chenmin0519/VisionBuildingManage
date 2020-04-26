@@ -25,4 +25,6 @@ public interface DmsBusinessMapper {
     List<DmsBusiness> queryPage(QueryBean queryBean);
 
     List<DmsBusiness> getAll();
+
+    int countByPingying(@Param("pinyin") String pinyin);
 }

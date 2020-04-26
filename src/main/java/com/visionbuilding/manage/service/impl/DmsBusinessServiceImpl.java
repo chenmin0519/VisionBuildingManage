@@ -1,8 +1,11 @@
 package com.visionbuilding.manage.service.impl;
 
 import com.visionbuilding.manage.dao.mapper.DmsBusinessMapper;
+import com.visionbuilding.manage.dao.mapper.DmsMainProjectMapper;
+import com.visionbuilding.manage.exception.LogicException;
 import com.visionbuilding.manage.modle.ResultPOListBean;
 import com.visionbuilding.manage.modle.entity.DmsBusiness;
+import com.visionbuilding.manage.modle.entity.DmsMainProject;
 import com.visionbuilding.manage.modle.entity.DmsProjectType;
 import com.visionbuilding.manage.modle.query.QueryBean;
 import com.visionbuilding.manage.service.DmsBusinessService;
@@ -19,6 +22,9 @@ public class DmsBusinessServiceImpl implements DmsBusinessService {
     @Autowired
     private DmsBusinessMapper dmsBusinessMapper;
 
+    @Autowired
+    private DmsMainProjectMapper dmsMainProjectMapper;
+
     @Override
     public DmsBusiness selectByPrimaryKey(Long id) {
         return dmsBusinessMapper.selectByPrimaryKey(id);
@@ -26,11 +32,20 @@ public class DmsBusinessServiceImpl implements DmsBusinessService {
 
     @Override
     public void deleteByPrimaryKey(Long id) {
+        DmsBusiness business = dmsBusinessMapper.selectByPrimaryKey(id);
+        int count = dmsMainProjectMapper.countByBussiness(business.getPinyin());
+        if(count > 0){
+            throw new LogicException("已关联项目不能删除");
+        }
         dmsBusinessMapper.deleteByPrimaryKey(id);
     }
 
     @Override
     public void insertSelective(DmsBusiness param) {
+        int count = dmsBusinessMapper.countByPingying(param.getPinyin());
+        if(count > 0){
+            throw new LogicException("拼音不能重复存在请从新填写");
+        }
         dmsBusinessMapper.insertSelective(param);
     }
 
