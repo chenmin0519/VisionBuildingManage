@@ -109,12 +109,12 @@
                                                         <input type="text" readonly="readonly" <%--name="totalSalesPrice"--%> id="totalSalesPrice"  value="${po.totalSalesPrice/100}" class="form-control" >
                                                     </div>
                                                 </div>
-                                                <div class="form-group col-sm-12 col-md-12 col-xs-12" id="budgetStaffDiv" style="display: none">
-                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售人员：</label>
-                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" readonly="readonly" name="budgetStaff" id="budgetStaff"  <%--value="${po.totalSalesPrice/100}" --%>class="form-control" >
-                                                    </div>
-                                                </div>
+<%--                                                <div class="form-group col-sm-12 col-md-12 col-xs-12" id="budgetStaffDiv" style="display: none">--%>
+<%--                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售人员：</label>--%>
+<%--                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">--%>
+<%--                                                        <input type="text" readonly="readonly" name="budgetStaff" id="budgetStaff"  &lt;%&ndash;value="${po.totalSalesPrice/100}" &ndash;%&gt;class="form-control" >--%>
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">收单日期：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left" >
