@@ -298,7 +298,18 @@
                       }
 					}]
 		--%>
+
+		/**
+		 * 基础
+		 * @param queryformdata
+		 * @param datatableid
+		 * @param getDataUrl
+		 * @param columnString
+		 * @param functionlist
+		 */
 		function initBaseTable(queryformdata,datatableid,getDataUrl,columnString,functionlist) {
+			var tableAutoWidth = $('#'+datatableid).width();
+			console.info("宽宽宽"+tableAutoWidth);
 			$.fn.dataTable.ext.errMode = function(s, h, m) {
 			};
 			if(columnString==null){
@@ -313,7 +324,11 @@
                 }else{
                 	obj['mDataProp'] = colArr[i];
                 }
-                
+                if(colArr.length > 8){
+					obj.sWidth = '130px';
+				}else{
+					obj.sWidth = 1300/colArr.length+'px';
+				}
                 columnList.push(obj);
             }
        
@@ -326,9 +341,9 @@
 								"ordering" : false,//去掉排序
 								"bAutoWidth" : false,
 								"bLengthChange" : false,//去掉每页显示多少条
-								//"bAutoWidth": true, //自适应宽度
-                                // "scrollX": true,
-                                // "autoWidth":true,
+								"bAutoWidth": true, //自适应宽度
+                                "scrollX": true,
+                                "autoWidth":true,
 								"sPaginationType" : "full_numbers",
 								//"sAjaxDataProp" : "aData",
 								"bDestroy" : true,

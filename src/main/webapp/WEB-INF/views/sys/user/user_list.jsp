@@ -96,6 +96,18 @@
                                                     <th nowrap="nowrap">姓名</th>
                                                     <th nowrap="nowrap">状态</th>
                                                     <th nowrap="nowrap">操作</th>
+                                                    <th nowrap="nowrap">序号</th>
+                                                    <th nowrap="nowrap">序号</th>
+                                                    <th nowrap="nowrap">序号</th>
+                                                    <th nowrap="nowrap">序号</th>
+                                                    <th nowrap="nowrap">序号</th>
+                                                    <th nowrap="nowrap">序号</th>
+                                                    <th nowrap="nowrap">序号</th>
+                                                    <th nowrap="nowrap">序号</th>
+                                                    <th nowrap="nowrap">序号</th>
+                                                    <th nowrap="nowrap">序号</th>
+                                                    <th nowrap="nowrap">序号</th>
+                                                    <th nowrap="nowrap">序号</th>
                                                 </tr>
                                                 </thead>
 
@@ -178,7 +190,7 @@
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
-        initBaseTable($("form").serialize(),"datatable","${base}/sys/user/getDates",",id,userName,,realName,,",functionlist);
+        initBaseTable($("form").serialize(),"datatable","${base}/sys/user/getDates",",id,userName,,realName,,,,,,,,,,,,,,",functionlist);
     }
     $(document).ready(function(){
         initTbale();
