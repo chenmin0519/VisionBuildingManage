@@ -67,7 +67,7 @@
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">编码：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" name="typeCode" id="typeCode" placeholder="请输入编码" value="${po.typeCode}" class="form-control" >
+                                                        <input type="text" name="typeCode"  readonly="readonly"   id="typeCode" placeholder="请输入编码" value="${po.typeCode}" class="form-control" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">

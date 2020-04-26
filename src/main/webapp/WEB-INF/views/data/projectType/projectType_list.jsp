@@ -78,13 +78,13 @@
                                                         </button>
 
                                                     </div>
-<%--                                                    <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">--%>
-<%--                                                        <button id="add" type="button" style="position: absolute;right: -10px;"--%>
-<%--                                                                class="btn btn-primary waves-effect waves-light m-b-5">--%>
-<%--                                                            <i class="glyphicon glyphicon-plus"></i> 新建--%>
+                                                    <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">
+                                                        <button id="add" type="button" style="position: absolute;right: -10px;"
+                                                                class="btn btn-primary waves-effect waves-light m-b-5">
+                                                            <i class="glyphicon glyphicon-plus"></i> 新建
 
-<%--                                                        </button>--%>
-<%--                                                    </div>--%>
+                                                        </button>
+                                                    </div>
                                                 </form>
                                             </div>
                                             <table id="datatable"
@@ -140,7 +140,19 @@
 <!-- jQuery  -->
 
 <script type="text/javascript">
-    var functionlist=[];
+    var functionlist=[{targets:[3],
+        mRender:function(data) {
+            var result = "";
+            if(data.status == 1){
+                result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"
+                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>";
+            }else{
+                result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detil('"
+                    +data.id+"')><i class='ion-ios7-paper-outline'></i> 编辑</button>";
+            }
+            return result;
+        }
+    }];
     // {targets:[3],
     //     mRender:function(data) {
     //     var result = "";

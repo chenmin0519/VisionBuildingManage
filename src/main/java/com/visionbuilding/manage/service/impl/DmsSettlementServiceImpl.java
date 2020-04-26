@@ -27,7 +27,7 @@ public class DmsSettlementServiceImpl implements DmsSettlementService {
         LocalDate endTime = LocalDate.now();
         LocalDate startTime = LocalDate.now().minusMonths(12);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM");
-        List<StaticsMouthsPo> dmsSettlements = dmsSettlementMapper.selectOnYearData(startTime.format(dtf),endTime.format(dtf));
+        List<StaticsMouthsPo> dmsSettlements = dmsSettlementMapper.selectOnYearData(startTime.format(dtf)+"-31",endTime.format(dtf)+"-31");
         //表数据变量
         List<String> dataStr = new ArrayList<>();
         List<Long> saleData = new ArrayList<>();
@@ -81,8 +81,8 @@ public class DmsSettlementServiceImpl implements DmsSettlementService {
         echartPo.setLeftMax(getUpInteger(leftMax));
         echartPo.setRigthMax(getUpInteger(rigthMax));
         echartPo.setRigthYMin(getDonwInteger(rigthYMin));
-        echartPo.setLeftInterval((leftMax-leftYMin)/5);
-        echartPo.setRightInterval((rigthMax-rigthYMin)/5);
+        echartPo.setLeftInterval((echartPo.getLeftMax()-echartPo.getLeftYMin())/5);
+        echartPo.setRightInterval((echartPo.getRigthMax()-echartPo.getRigthYMin())/5);
         return echartPo;
     }
 

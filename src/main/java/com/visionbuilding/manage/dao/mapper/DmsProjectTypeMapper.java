@@ -2,6 +2,7 @@ package com.visionbuilding.manage.dao.mapper;
 
 import com.visionbuilding.manage.modle.entity.DmsProjectType;
 import com.visionbuilding.manage.modle.query.QueryBean;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface DmsProjectTypeMapper {
     List<DmsProjectType> queryPage(QueryBean queryBean);
 
     List<DmsProjectType> getAll();
+
+    int countBysCode(@Param("typeCode") String typeCode);
 }

@@ -1,6 +1,7 @@
 package com.visionbuilding.manage.service.impl;
 
 import com.visionbuilding.manage.dao.mapper.DmsProjectTypeMapper;
+import com.visionbuilding.manage.exception.LogicException;
 import com.visionbuilding.manage.modle.ResultPOListBean;
 import com.visionbuilding.manage.modle.entity.DmsDepartment;
 import com.visionbuilding.manage.modle.entity.DmsProjectType;
@@ -31,6 +32,10 @@ public class DmsProjectTypeServiceImpl implements DmsProjectTypeService {
 
     @Override
     public void insertSelective(DmsProjectType param) {
+        int count = dmsProjectTypeMapper.countBysCode(param.getTypeCode());
+        if(count > 0){
+            throw new LogicException("编码不能重复存在请从新填写");
+        }
         dmsProjectTypeMapper.insertSelective(param);
     }
 
