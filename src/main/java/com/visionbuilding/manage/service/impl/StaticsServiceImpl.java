@@ -95,7 +95,7 @@ public class StaticsServiceImpl implements StaticsService {
                 names.add(type.getTypeName() + "交付时间");
                 names.add(type.getTypeName() + "成本");
                 names.add(type.getTypeName() + "设计师提成");
-                names.add(type.getTypeName() + "设计部门");
+                names.add(type.getTypeName() + "部门");
                 names.add(type.getTypeName() + "设计师");
             }
         }

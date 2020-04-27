@@ -164,7 +164,8 @@
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">设计师：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
-                                                        <input type="hidden" name="designer" id="designer" value="${po.department}">
+                                                        <input type="hidden" name="userId" id="userId" value="${po.userId}">
+                                                        <input type="hidden" name="designer" id="designer" value="${po.designer}">
                                                         <select class="form-control designerSelect"> <option value="">--请选择--</option> </select>
                                                     </div>
                                                 </div>
@@ -268,6 +269,7 @@
             $('#datetimepicker4').data("DateTimePicker").minDate(e.date);
         });
         initDepartmentOption();
+        initUserOption($("#department").val());
     });
     //初始化部门
     function initDepartmentOption(){
@@ -305,19 +307,26 @@
     function initUserOptionCallback(data){
         var optionStr = "";
         var datas = data;
-        var department = $("#designer").val();
+        var department = $("#userId").val();
         for(var i = 0;i < datas.length ; i++){
             if(department == datas[i].id){
-                optionStr += "<option value = "+datas[i].id+" selected = 'selected'>"+datas[i].realName+"</option>";
+                optionStr += "<option value = "+datas[i].id+"---"+datas[i].realName+" selected = 'selected'>"+datas[i].realName+"</option>";
             } else {
-                optionStr += "<option value = "+datas[i].realName+">"+datas[i].realName+"</option>";
+                optionStr += "<option value = "+datas[i].id+"---"+datas[i].realName+">"+datas[i].realName+"</option>";
             }
         }
         $(".designerSelect").append(optionStr);
     }
     $(".designerSelect").change(function(){
-        var department = $(".designerSelect").val();
-        $("#designer").val(department);
+        var designer = $(".designerSelect").val();
+        var id = "";
+        var name = "";
+        if(designer != '' && designer.split("---").length > 1){
+            id = designer.split("---")[0];
+            name = designer.split("---")[1];
+        }
+        $("#designer").val(name);
+        $("#userId").val(id);
     });
 
 

@@ -58,12 +58,12 @@ public class DmsSettlementServiceImpl implements DmsSettlementService {
         }
         //初始化表数据
         EchartImageDataPo echartImageDataPo = new EchartImageDataPo();
-        echartImageDataPo.setName("设计成本");
+        echartImageDataPo.setName("销售额");
         echartImageDataPo.setType("bar");
         echartImageDataPo.setData(saleData);
         echartImageDataPos.add(echartImageDataPo);
         echartImageDataPo = new EchartImageDataPo();
-        echartImageDataPo.setName("销售额");
+        echartImageDataPo.setName("设计成本");
         echartImageDataPo.setType("bar");
         echartImageDataPo.setData(costData);
         echartImageDataPos.add(echartImageDataPo);
