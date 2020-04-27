@@ -142,6 +142,14 @@
                 +data.id+"')><i class='ion-ios7-paper-outline'></i> 详情</button>";
             return result;
         }
+    },{targets:[4],
+        mRender:function(data) {
+            var result = "";
+            if(data != null){
+                result = data/100;
+            }
+            return result;
+        }
     }];
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
