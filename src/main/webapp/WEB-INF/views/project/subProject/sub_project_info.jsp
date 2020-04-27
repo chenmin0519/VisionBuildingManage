@@ -117,8 +117,8 @@
                                                     <tr>
                                                         <th style="text-align: center">设计师提成</th>
                                                         <td><div >${po.designerCommission/100}</div></td>
-                                                        <th style="text-align: center"></th>
-                                                        <td><div ></div></td>
+                                                        <th style="text-align: center">备注</th>
+                                                        <td><div >${po.remarks}</div></td>
                                                     </tr>
                                                     </thead>
                                                 </table>

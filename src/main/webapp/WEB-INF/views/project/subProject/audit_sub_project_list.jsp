@@ -73,11 +73,13 @@
                                             <div class="panel panel-default">
                                                 <form id="form">
                                                     <div class="form-group col-sm-3 col-md-3 col-xs-3 pull-left">
-<%--                                                        <input type="text" placeholder="请输入项目建档时间" class="form-control" name="projectCreationTime">--%>
+                                                        <input type="text" placeholder="请输入项目建档时间" class="form-control" name="projectCreationTime">
+                                                        <input type="hidden" class="form-control" id="confirmStatus" name="confirmStatus" value="0">
+                                                    </div>
+                                                    <div class="form-group col-sm-3 col-md-3 col-xs-3 pull-left">
                                                         <select id="projectTypeCode" name="projectTypeCode" class="form-control">
                                                             <option value="">--请选择子项目类型--</option>
                                                         </select>
-                                                        <input type="hidden" class="form-control" id="confirmStatus" name="confirmStatus" value="0">
                                                     </div>
 
                                                     <div class="form-group col-sm-1 col-md-1 col-xs-3 pull-left">
@@ -95,6 +97,7 @@
                                                 <tr>
                                                     <th nowrap="nowrap">序号</th>
                                                     <th nowrap="nowrap">项目建档时间</th>
+                                                    <th nowrap="nowrap">客户来源</th>
                                                     <th nowrap="nowrap">项目类型</th>
                                                     <th nowrap="nowrap">销售面积(㎡)</th>
                                                     <th nowrap="nowrap">销售单价(元/㎡)</th>
@@ -147,7 +150,7 @@
 <!-- jQuery  -->
 
 <script type="text/javascript">
-    var functionlist = [{targets:[3],
+    var functionlist = [{targets:[4],
         mRender:function(data) {
             var result = "";
             if(data.salesArea != null){
@@ -155,7 +158,7 @@
             }
             return result;
         }
-    },{targets:[4],
+    },{targets:[5],
         mRender:function(data) {
             var result = "";
             if(data.unitPrice != null){
@@ -163,7 +166,7 @@
             }
             return result;
         }
-    },{targets:[5],
+    },{targets:[6],
         mRender:function(data) {
         var result = "";
             if(data.totalSalesPrice != null){
@@ -171,7 +174,7 @@
             }
             return result;
         }
-    },{targets:[6],
+    },{targets:[7],
         mRender:function(data) {
             var result = "";
             if(data != null){
@@ -179,7 +182,7 @@
             }
             return result;
         }
-    },{targets:[8],
+    },{targets:[9],
         mRender:function(data) {
             var result = "";
             result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
@@ -191,7 +194,7 @@
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
         var par = $("#form").serialize();
-        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectCreationTime,projectTypeName,,,,acquisitionDate,remark,",functionlist);
+        initBaseTable(par,"datatable","${base}/project/main-project/getSubDatas",",projectCreationTime,customerSource,projectTypeName,,,,acquisitionDate,remarks,",functionlist);
 
     }
     $(document).ready(function(){

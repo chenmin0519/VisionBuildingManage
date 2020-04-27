@@ -259,8 +259,9 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
         dmsSettlement.setSaleAmount(smallTotalSalesPrice);
         dmsSettlement.setCostAmount(smallTotalCost);
         dmsSettlement.setCommissionAmount(dmsChildProject.getDesignerCommission());
-
+        dmsSettlement.setUserId(dmsChildProject.getUserId());
         dmsSettlement.setEventDate(date);
+
         dmsSettlementMapper.insertSelective(dmsSettlement);
     }
 

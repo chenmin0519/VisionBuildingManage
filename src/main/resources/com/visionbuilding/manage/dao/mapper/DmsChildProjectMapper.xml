@@ -337,6 +337,9 @@
       <if test="confirmStatus != null" >
         confirm_status = #{confirmStatus,jdbcType=TINYINT},
       </if>
+      <if test="confirmTime != null" >
+        confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id}
   </update>
@@ -345,7 +348,7 @@
 -- 1.根据前端传的父级code去大项目表查销售面积,销售单价. 同时根据父级code在自子项目表查到父级code是该父级code的
     select dcp.id, dcp.parent_id as parentId, dcp.project_type_code as projectTypeCode, dcp.project_type_name as projectTypeName,
      dcp.total_sales_price as totalSalesPrice, dcp.acquisition_date as acquisitionDate, dcp.remarks, dcp.confirm_status as confirmStatus,
-    dmp.sales_area as salesArea, dmp.project_creation_time as projectCreationTime,
+    dmp.sales_area as salesArea, dmp.project_creation_time as projectCreationTime, dmp.customer_source as customerSource,
     dcp.construction_area as constructionArea,dcp.cost_price as costPrice,dcp.total_cost as totalCost,
     dcp.designer_commission as designerCommission,dcp.designer_commission_price as designerCommissionPrice,
     dcp.remarks as remarks,dcp.unit_price as unitPrice, dcp.designer as designer, dcp.user_id as userId
@@ -367,6 +370,9 @@
     </if>
     <if test="f.projectTypeCode != null and f.projectTypeCode!= ''"  >
       and dcp.project_type_code = #{f.projectTypeCode}
+    </if>
+    <if test="f.projectCreationTime != null and f.projectCreationTime!= ''"  >
+      and dmp.project_creation_time LIKE concat(concat(#{f.projectCreationTime}),'%')
     </if>
     order by dcp.id desc
     limit #{startPage},${pageRows}
