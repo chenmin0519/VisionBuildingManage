@@ -14,4 +14,8 @@ public class DmsSettlement extends BaseEntity{
     private Long commissionAmount;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date eventDate;
+    /**
+     * 设计师id
+     */
+    private Long userId;
 }

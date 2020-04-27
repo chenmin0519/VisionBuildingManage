@@ -9,6 +9,8 @@
     <result column="cost_amount" property="costAmount" jdbcType="BIGINT" />
     <result column="commission_amount" property="commissionAmount" jdbcType="BIGINT" />
     <result column="event_date" property="eventDate" jdbcType="DATE" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+
   </resultMap>
   <sql id="Base_Column_List" >
     id, parent_project, child_project, sale_amount, cost_amount, commission_amount, event_date
@@ -41,10 +43,10 @@
   <insert id="insert" parameterType="com.visionbuilding.manage.modle.entity.DmsSettlement" >
     insert into dms_settlement (id, parent_project, child_project, 
       sale_amount, cost_amount, commission_amount, 
-      event_date)
+      event_date, user_id)
     values (#{id,jdbcType=BIGINT}, #{parentProject,jdbcType=BIGINT}, #{childProject,jdbcType=BIGINT}, 
       #{saleAmount,jdbcType=BIGINT}, #{costAmount,jdbcType=BIGINT}, #{commissionAmount,jdbcType=BIGINT}, 
-      #{eventDate,jdbcType=DATE})
+      #{eventDate,jdbcType=DATE}, #{userId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsSettlement" >
     insert into dms_settlement
@@ -70,6 +72,9 @@
       <if test="eventDate != null" >
         event_date,
       </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -92,6 +97,9 @@
       </if>
       <if test="eventDate != null" >
         #{eventDate,jdbcType=DATE},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -116,6 +124,9 @@
       <if test="eventDate != null" >
         event_date = #{eventDate,jdbcType=DATE},
       </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -126,7 +137,8 @@
       sale_amount = #{saleAmount,jdbcType=BIGINT},
       cost_amount = #{costAmount,jdbcType=BIGINT},
       commission_amount = #{commissionAmount,jdbcType=BIGINT},
-      event_date = #{eventDate,jdbcType=DATE}
+      event_date = #{eventDate,jdbcType=DATE},
+      user_id = #{userId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

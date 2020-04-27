@@ -24,7 +24,8 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="department" property="department" jdbcType="BIGINT" />
     <result column="total_sales_price" property="totalSalesPrice" jdbcType="BIGINT" />
-
+    <result column="designer" property="designer" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, parent_id, project_type_code, project_type_name, acquisition_date, construction_area, 
@@ -138,6 +139,9 @@
       <if test="designer != null" >
         designer,
       </if>
+      <if test="userId != null" >
+        #{user_id},
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -208,6 +212,9 @@
       </if>
       <if test="designer != null" >
         #{designer},
+      </if>
+      <if test="userId != null" >
+        #{userId},
       </if>
     </trim>
   </insert>
@@ -280,6 +287,9 @@
       <if test="designer != null and designer != ''" >
         designer = #{designer},
       </if>
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
     </set>
     where id = #{id}
   </update>
@@ -305,7 +315,9 @@
       add_time = #{addTime},
       update_user = #{updateUser},
       update_time = #{updateTime},
-      department = #{department}
+      department = #{department},
+      designer = #{designer},
+      user_id = #{userId}
     where id = #{id}
   </update>
   <update id="updateStatusById" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject">
@@ -325,7 +337,7 @@
     dmp.sales_area as salesArea, dmp.unit_price as unitPrice, dmp.project_creation_time as projectCreationTime,
     dcp.construction_area as constructionArea,dcp.cost_price as costPrice,dcp.total_cost as totalCost,
     dcp.designer_commission as designerCommission,dcp.designer_commission_price as designerCommissionPrice,
-    dcp.remarks as remarks
+    dcp.remarks as remarks, dcp.designer as designer, dcp.user_id as userId
     from dms_child_project dcp, dms_main_project dmp
     where dcp.parent_id = dmp.id
     <if test="f.parentId != null and f.parentId!= ''"  >
@@ -377,7 +389,7 @@
     dmp.sales_area as salesArea, dmp.unit_price as unitPrice, dmp.project_creation_time as projectCreationTime,
     dcp.construction_area as constructionArea,dcp.cost_price as costPrice,dcp.total_cost as totalCost,
     dcp.designer_commission as designerCommission,dcp.designer_commission_price as designerCommissionPrice,
-    dcp.remarks as remarks
+    dcp.remarks as remarks, dcp.designer as designer, dcp.user_id as userId
     from dms_child_project dcp, dms_main_project dmp
     where dcp.parent_id = dmp.id
     <if test="id != null">

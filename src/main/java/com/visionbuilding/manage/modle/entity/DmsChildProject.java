@@ -89,5 +89,12 @@ public class DmsChildProject extends BaseEntity {
     private Long unitPrice; //销售单价
     // 项目编号(前端用作 业务初始建档时间显示)
     private String projectCreationTime;
+    /**
+     * 设计师名称
+     */
     private String designer;
+    /**
+     * 设计师id
+     */
+    private Long userId;
 }
