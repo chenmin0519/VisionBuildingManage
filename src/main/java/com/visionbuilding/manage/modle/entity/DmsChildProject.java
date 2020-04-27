@@ -86,9 +86,13 @@ public class DmsChildProject extends BaseEntity {
     // 以下字段仅在modle类用
 
     private Long salesArea; //销售面积
-    private Long unitPrice; //销售单价
     // 项目编号(前端用作 业务初始建档时间显示)
     private String projectCreationTime;
+
+    /**
+     * 销售单价
+     */
+    private Long unitPrice;
     /**
      * 设计师名称
      */

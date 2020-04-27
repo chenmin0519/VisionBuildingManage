@@ -83,6 +83,12 @@
                                                         <th style="text-align: center">项目类型</th>
                                                         <td><div >${po.projectTypeName}</div></td>
                                                     </tr>
+<%--                                                    <tr>--%>
+<%--                                                        <th style="text-align: center">销售面积</th>--%>
+<%--                                                        <td><div >${parentPo.salesArea/100}</div></td>--%>
+<%--                                                        <th style="text-align: center">销售单价</th>--%>
+<%--                                                        <td><div >${po.unitPrice/100}</div></td>--%>
+<%--                                                    </tr>--%>
                                                     <tr>
                                                         <th style="text-align: center">收单日期</th>
                                                         <td><div ><c:if test='${po.acquisitionDate != null}'><fmt:formatDate value='${po.acquisitionDate}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if></div></td>
