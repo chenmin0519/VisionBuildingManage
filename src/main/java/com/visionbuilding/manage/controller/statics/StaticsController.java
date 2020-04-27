@@ -72,10 +72,12 @@ public class StaticsController extends BaseController {
 
     @RequestMapping("/export_department_statics.html")
     public void exportDepartmentStatics(StaticsQuery department, HttpServletRequest request, HttpServletResponse response){
-        List<ExportDepartmentExclePo> lists = staticsService.getData(department);
+        Map<String,Object> map = staticsService.getData(department,2);
         ExcelGenerateUtils<ExportDepartmentExclePo> excleGenerateUtils = new ExcelGenerateUtils<>();
         try {
-            excleGenerateUtils.exportExcel(response,"设计院统计结果",ExportDepartmentExclePo.class,lists);
+            List<String> names = (List<String>) map.get("names");
+            List<Map<String,String>> datas = (List<Map<String, String>>) map.get("resultList");
+            excleGenerateUtils.exportExcelByMap(response,"设计院统计结果",names,datas);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -83,11 +85,14 @@ public class StaticsController extends BaseController {
 
     @RequestMapping("/export_statics.html")
     public void exportStatics(StaticsQuery department, HttpServletRequest request, HttpServletResponse response){
-        List<ExportExclePo> lists = staticsService.getAllData(department);
+//        List<ExportExclePo> lists = staticsService.getAllData(department);
+        Map<String,Object> map = staticsService.getData(department,1);
         ExcelGenerateUtils<ExportExclePo> excleGenerateUtils = new ExcelGenerateUtils<>();
         try {
             String name = LocalDate.now().getYear()+"年设计费用汇总";
-            excleGenerateUtils.exportExcel(response,name,ExportExclePo.class,lists);
+            List<String> names = (List<String>) map.get("names");
+            List<Map<String,String>> datas = (List<Map<String, String>>) map.get("resultList");
+            excleGenerateUtils.exportExcelByMap(response,name,names,datas);
         }catch (Exception e){
             e.printStackTrace();
         }

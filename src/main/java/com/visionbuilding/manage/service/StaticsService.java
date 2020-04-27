@@ -7,6 +7,7 @@ import com.visionbuilding.manage.modle.po.ExportExclePo;
 import com.visionbuilding.manage.modle.query.StaticsQuery;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StaticsService {
     ResultPOListBean<DepartmentStaticsPo> queryPage(StaticsQuery par) throws Exception;
@@ -14,14 +15,10 @@ public interface StaticsService {
     /**
      * 获取设计院excle数据
      * @param department
+     * @param role  1运营中心 2设计院
      * @return
      */
-    List<ExportDepartmentExclePo> getData(StaticsQuery department);
+    Map<String,Object> getData(StaticsQuery department,Integer role);
 
-    /**
-     * 获取运营中心excle数据
-     * @param department
-     * @return
-     */
-    List<ExportExclePo> getAllData(StaticsQuery department);
+
 }

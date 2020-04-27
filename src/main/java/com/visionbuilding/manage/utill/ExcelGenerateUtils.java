@@ -18,6 +18,73 @@ import java.util.*;
 public class ExcelGenerateUtils<T> {
 
     /**
+     * 导出
+     * @param response
+     * @param excelName
+     * @param names
+     * @param datas
+     * @throws Exception
+     */
+    public void exportExcelByMap(HttpServletResponse response,String excelName, List<String> names, List<Map<String,String>> datas) throws Exception {
+        response = HttpServletUtils.getResponse(response,"xls",excelName);
+        OutputStream out=response.getOutputStream();
+        ResultBean resultBean = new ResultBean();
+        HSSFWorkbook workbook = null;
+        try {
+            workbook = this.generateWorkbookByMap(names, datas);
+            try {
+                workbook.write(out);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new LogicException("导出失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new LogicException("生成失败");
+        }finally {
+            try {
+                workbook.close();
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private HSSFWorkbook generateWorkbookByMap(List<String> names, List<Map<String, String>> datas) {
+        // 第一步，创建一个workbook，对应一个Excel文件
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        // 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet
+        HSSFSheet hssfSheet = workbook.createSheet("sheet1");
+        // 第三步，在sheet中添加表头第0行,注意老版本poi对Excel的行数列数有限制short
+        HSSFRow hssfRow = hssfSheet.createRow(0);
+        // 第四步，创建单元格，并设置值表头 设置表头居中
+        HSSFCellStyle hssfCellStyle = workbook.createCellStyle();
+        //居中样式
+        hssfCellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        HSSFCell hssfCell = null;
+        for (int i = 0; i < names.size(); i++) {
+            hssfCell = hssfRow.createCell(i);//列索引从0开始
+            hssfCell.setCellValue(names.get(i));//列名1
+            hssfCell.setCellStyle(hssfCellStyle);//列居中显示
+        }
+        if(datas != null && !datas.isEmpty()){
+            for (int i = 0; i < datas.size(); i++) {
+                hssfRow = hssfSheet.createRow(i+1);
+                for(int j = 0;j<names.size();j++){
+                    try {
+                        String value = Optional.ofNullable(datas.get(i).get(names.get(j))).orElse("").toString();
+                        hssfRow.createCell(j).setCellValue(value);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return workbook;
+    }
+
+    /**
      * 导出excel
      * @param response 响应
      * @param excelName 导出文件名
