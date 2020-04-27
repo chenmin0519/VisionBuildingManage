@@ -196,7 +196,20 @@
     }
 
     function del(id){
-        baseCallBackAJAX("get","${base}/sys/user/deluser",{'id':id},"json","callback(data)");
+        swal({
+            title: "一经删除无法恢复,确定执行操作吗?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            closeOnConfirm : false, //关闭按钮
+            closeOnCancel : true
+        },function(isConfirm) {
+            if(isConfirm==true){
+                baseCallBackAJAX("get","${base}/sys/user/deluser",{'id':id},"json","callback(data)");
+            }
+        });
     }
 
     function resetPassCallback(data){

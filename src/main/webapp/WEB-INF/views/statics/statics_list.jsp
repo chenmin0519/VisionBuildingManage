@@ -89,6 +89,7 @@
                                                 <tr>
                                                     <th nowrap="nowrap">序号</th>
                                                     <th nowrap="nowrap">建档时间</th>
+                                                    <th nowrap="nowrap">客户来源</th>
                                                     <th nowrap="nowrap">销售面积</th>
                                                     <th nowrap="nowrap">销售费用</th>
                                                     <th nowrap="nowrap">设计成本费用</th>
@@ -139,19 +140,11 @@
 <!-- jQuery  -->
 
 <script type="text/javascript">
-    var functionlist=[{targets:[9],
+    var functionlist=[{targets:[10],
         mRender:function(data) {
             var result = "";
             result = "<button type=button style='padding: 1px 8px !important;' class='btn btn-primary waves-effect waves-light m-b-5' onclick=detail('"
                 +data.id+"')><i class='ion-ios7-paper-outline'></i> 详情</button>";
-            return result;
-        }
-    },{targets:[2],
-        mRender:function(data) {
-            var result = "";
-            if(data != null){
-                result = data/100;
-            }
             return result;
         }
     },{targets:[3],
@@ -202,11 +195,19 @@
             }
             return result;
         }
+    },{targets:[9],
+        mRender:function(data) {
+            var result = "";
+            if(data != null){
+                result = data/100;
+            }
+            return result;
+        }
     }];
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
-        initBaseTable($("form").serialize(),"datatable","${base}/project/main-project/getDates",",projectCreationTime,salesArea,designSalesCost,designCost,amountReturned,amountReceivable,amountSpent,amountsPayable,",functionlist);
+        initBaseTable($("form").serialize(),"datatable","${base}/project/main-project/getDates",",projectCreationTime,customerSource,salesArea,designSalesCost,designCost,amountReturned,amountReceivable,amountSpent,amountsPayable,",functionlist);
     }
     $(document).ready(function(){
         initTbale();
