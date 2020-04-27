@@ -23,6 +23,7 @@
     <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="department" property="department" jdbcType="BIGINT" />
+    <result column="unit_price" property="unitPrice" jdbcType="BIGINT" />
     <result column="total_sales_price" property="totalSalesPrice" jdbcType="BIGINT" />
     <result column="designer" property="designer" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
@@ -31,7 +32,7 @@
     id, parent_id, project_type_code, project_type_name, acquisition_date, construction_area, 
     initial_delivery_date, cost_price, total_cost, total_sales_price, drafting_unit, designer_commission,
     designer_commission_price, confirm_status, confirm_time, remarks, status, add_user, 
-    add_time, update_user, update_time, department, designer, user_id
+    add_time, update_user, update_time, department, unit_price, designer, user_id
   </sql>
   <sql id="where-all-condition">
     <if test="customer_source != null and customer_source!= ''"  >
@@ -58,14 +59,14 @@
       drafting_unit, designer_commission, designer_commission_price, 
       confirm_status, confirm_time, remarks, 
       status, add_user, add_time, 
-      update_user, update_time, department)
+      update_user, update_time, department, unit_price, designer, user_id)
     values (#{id}, #{parentId}, #{projectTypeCode}, 
       #{projectTypeName}, #{acquisitionDate}, #{constructionArea}, 
       #{initialDeliveryDate}, #{costPrice}, #{totalCost}, #{totalSalesPrice},
       #{draftingUnit}, #{designerCommission}, #{designerCommissionPrice}, 
       #{confirmStatus,jdbcType=TINYINT}, #{confirmTime}, #{remarks}, 
       #{status,jdbcType=TINYINT}, #{addUser}, #{addTime}, 
-      #{updateUser}, #{updateTime}, #{department})
+      #{updateUser}, #{updateTime}, #{department}, #{unitPrice}, #{designer}, #{userId})
   </insert>
   <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject" >
     insert into dms_child_project
@@ -136,11 +137,14 @@
       <if test="department != null" >
         department,
       </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
       <if test="designer != null" >
         designer,
       </if>
       <if test="userId != null" >
-        #{user_id},
+        user_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -209,6 +213,9 @@
       </if>
       <if test="department != null" >
         #{department},
+      </if>
+      <if test="unitPrice != null" >
+        #{unitPrice},
       </if>
       <if test="designer != null" >
         #{designer},
@@ -284,6 +291,9 @@
       <if test="department != null" >
         department = #{department},
       </if>
+      <if test="unitPrice != null" >
+        unit_price = #{unitPrice},
+      </if>
       <if test="designer != null and designer != ''" >
         designer = #{designer},
       </if>
@@ -316,6 +326,7 @@
       update_user = #{updateUser},
       update_time = #{updateTime},
       department = #{department},
+      unit_price = #{unitPrice},
       designer = #{designer},
       user_id = #{userId}
     where id = #{id}
@@ -334,10 +345,10 @@
 -- 1.根据前端传的父级code去大项目表查销售面积,销售单价. 同时根据父级code在自子项目表查到父级code是该父级code的
     select dcp.id, dcp.parent_id as parentId, dcp.project_type_code as projectTypeCode, dcp.project_type_name as projectTypeName,
      dcp.total_sales_price as totalSalesPrice, dcp.acquisition_date as acquisitionDate, dcp.remarks, dcp.confirm_status as confirmStatus,
-    dmp.sales_area as salesArea, dmp.unit_price as unitPrice, dmp.project_creation_time as projectCreationTime,
+    dmp.sales_area as salesArea, dmp.project_creation_time as projectCreationTime,
     dcp.construction_area as constructionArea,dcp.cost_price as costPrice,dcp.total_cost as totalCost,
     dcp.designer_commission as designerCommission,dcp.designer_commission_price as designerCommissionPrice,
-    dcp.remarks as remarks, dcp.designer as designer, dcp.user_id as userId
+    dcp.remarks as remarks,dcp.unit_price as unitPrice, dcp.designer as designer, dcp.user_id as userId
     from dms_child_project dcp, dms_main_project dmp
     where dcp.parent_id = dmp.id
     <if test="f.parentId != null and f.parentId!= ''"  >
@@ -386,10 +397,10 @@
     -- 1.根据前端传的父级code去大项目表查销售面积,销售单价. 同时根据父级code在自子项目表查到父级code是该父级code的
     select dcp.id, dcp.parent_id as parentId, dcp.project_type_code as projectTypeCode, dcp.project_type_name as projectTypeName,
     dcp.total_sales_price as totalSalesPrice, dcp.acquisition_date as acquisitionDate, dcp.remarks, dcp.confirm_status as confirmStatus,
-    dmp.sales_area as salesArea, dmp.unit_price as unitPrice, dmp.project_creation_time as projectCreationTime,
+    dmp.sales_area as salesArea, dmp.project_creation_time as projectCreationTime,
     dcp.construction_area as constructionArea,dcp.cost_price as costPrice,dcp.total_cost as totalCost,
     dcp.designer_commission as designerCommission,dcp.designer_commission_price as designerCommissionPrice,
-    dcp.remarks as remarks, dcp.designer as designer, dcp.user_id as userId
+    dcp.remarks as remarks, dcp.unit_price as unitPrice, dcp.designer as designer, dcp.user_id as userId
     from dms_child_project dcp, dms_main_project dmp
     where dcp.parent_id = dmp.id
     <if test="id != null">

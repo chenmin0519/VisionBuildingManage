@@ -108,6 +108,7 @@ public class DmsProjectController extends BaseController {
 
     /**
      * 运营中心跳转到子项目新增页面
+     * 传过来的id是主项目的id
      * @return
      */
     @RequestMapping("/addSub.html")
@@ -132,7 +133,7 @@ public class DmsProjectController extends BaseController {
         Long parentId = dmsChildProject.getParentId();
         DmsMainProject dmsMainProject = dmsMainProjectService.selectByPrimaryKey(parentId);
         dmsChildProject.setSalesArea(dmsMainProject.getSalesArea());
-        dmsChildProject.setUnitPrice(dmsMainProject.getUnitPrice());
+//        dmsChildProject.setUnitPrice(dmsMainProject.getUnitPrice());
 //        dmsChildProject.setParentId(id);
         request.setAttribute("po",dmsChildProject);
         return "project/subProject/sub_project_edit";

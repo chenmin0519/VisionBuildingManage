@@ -100,7 +100,7 @@
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售单价(元/㎡)<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" name="unitPrice" id="unitPrice" value="${po.unitPrice/100}" class="form-control required" onchange="changeTotalSalePrice()">
+                                                        <input type="text" id="unitPrice" value="${po.unitPrice/100}" class="form-control required" onchange="changeTotalSalePrice()">
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
@@ -205,11 +205,16 @@
             return false;
         }
         var par = $("#form").serialize();
+        var unitPrice = $("#unitPrice").val();
         var totalSalesPrice = $("#totalSalesPrice").val();
         var projectTypeName = $('#projectTypeCode option:selected').text();
         console.log("projectTypeName:"+projectTypeName);
         if(projectTypeName != undefined && projectTypeName != null){
             par += "&projectTypeName="+projectTypeName;
+        }
+        if(unitPrice){
+            unitPrice = parseInt(eval(unitPrice).toFixed(2) * 100);
+            par += "&unitPrice="+unitPrice;
         }
         if(totalSalesPrice) {
             totalSalesPrice = parseInt(eval(totalSalesPrice).toFixed(2) * 100);
