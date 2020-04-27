@@ -88,6 +88,10 @@ public class DmsProjectController extends BaseController {
     public String save(DmsMainProject dmsMainProject)throws Exception{
         ResultBean resultBean = new ResultBean();
         try {
+            if(dmsMainProject.getProduction() != null && "".equals(dmsMainProject.getProduction())) {
+                // 是否生产在数据库是tinyint类型的,如果未选择传过来的值是"",会报错,手动置为null
+                dmsMainProject.setProduction(null);
+            }
             if(dmsMainProject.getId() == null){
                 dmsMainProjectService.insertSelective(dmsMainProject);
             }else{

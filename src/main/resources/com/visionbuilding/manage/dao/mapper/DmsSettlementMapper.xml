@@ -13,7 +13,7 @@
 
   </resultMap>
   <sql id="Base_Column_List" >
-    id, parent_project, child_project, sale_amount, cost_amount, commission_amount, event_date
+    id, parent_project, child_project, sale_amount, cost_amount, commission_amount, event_date, user_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 

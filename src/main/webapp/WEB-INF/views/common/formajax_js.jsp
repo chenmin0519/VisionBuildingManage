@@ -309,7 +309,7 @@
 		 */
 		function initBaseTable(queryformdata,datatableid,getDataUrl,columnString,functionlist) {
 			var tableAutoWidth = $('#'+datatableid).width();
-			console.info("宽宽宽"+tableAutoWidth);
+			// console.info("宽宽宽"+tableAutoWidth);
 			$.fn.dataTable.ext.errMode = function(s, h, m) {
 			};
 			if(columnString==null){

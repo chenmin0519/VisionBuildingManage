@@ -31,7 +31,7 @@
     id, parent_id, project_type_code, project_type_name, acquisition_date, construction_area, 
     initial_delivery_date, cost_price, total_cost, total_sales_price, drafting_unit, designer_commission,
     designer_commission_price, confirm_status, confirm_time, remarks, status, add_user, 
-    add_time, update_user, update_time, department
+    add_time, update_user, update_time, department, designer, user_id
   </sql>
   <sql id="where-all-condition">
     <if test="customer_source != null and customer_source!= ''"  >

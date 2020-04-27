@@ -133,7 +133,7 @@
       <if test="updateTime != null" >
         update_time,
       </if>
-      <if test="production != null" >
+      <if test="production != null and production != ''" >
         production,
       </if>
     </trim>
@@ -207,7 +207,7 @@
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="production != null" >
+      <if test="production != null and production != ''" >
         #{production,jdbcType=VARCHAR},
       </if>
     </trim>
@@ -281,7 +281,7 @@
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="production != null" >
+      <if test="production != null and production != ''" >
         production = #{production,jdbcType=VARCHAR},
       </if>
     </set>
