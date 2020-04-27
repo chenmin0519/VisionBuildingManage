@@ -114,22 +114,22 @@
                                                         <input type="text" id="endTime" readonly="readonly" value="<c:if test='${po.acquisitionDate != null}'><fmt:formatDate value='${po.acquisitionDate}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if>" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span> </span>
                                                     </div>
                                                 </div>
-                                                <div class="form-group col-sm-12 col-md-12 col-xs-12" id="constructionAreaDiv">
-                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">建筑面积<span
+                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
+                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">建筑面积/效果图张数<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
-                                                        <input type="text" id="constructionArea" placeholder="请输入建筑面积" value="${po.constructionArea/100}"
+                                                        <input type="text" id="constructionArea" placeholder="请输入建筑面积/效果图张数" value="${po.constructionArea/100}"
                                                                class="form-control required" onchange="getTotalCost()">
                                                     </div>
                                                 </div>
-                                                <div class="form-group col-sm-12 col-md-12 col-xs-12" id="renderingNumDiv">
-                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">效果图张数<span
-                                                            class="required" style="color: red"> * </span>：</label>
-                                                    <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
-                                                        <input type="text" id="renderingNum" placeholder="效果图张数" value="${po.renderingNum/100}"
-                                                               class="form-control required" onchange="getTotalCost()">
-                                                    </div>
-                                                </div>
+<%--                                                <div class="form-group col-sm-12 col-md-12 col-xs-12" id="renderingNumDiv">--%>
+<%--                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">效果图张数<span--%>
+<%--                                                            class="required" style="color: red"> * </span>：</label>--%>
+<%--                                                    <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">--%>
+<%--                                                        <input type="text" id="renderingNum" placeholder="效果图张数" value="${po.renderingNum/100}"--%>
+<%--                                                               class="form-control required" onchange="getTotalCost()">--%>
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">初次交付日期<span
                                                             class="required" style="color: red"> * </span>：</label>
@@ -397,21 +397,21 @@
     });
     //自动计算设计师提成
     function getDesignerCommission(){
-        var projectTypeCode = $("#projectTypeCode").val();
+        // var projectTypeCode = $("#projectTypeCode").val();
         var price =$("#designerCommissionPrice").val();
         var total = '0';
-        if(projectTypeCode && projectTypeCode == '005') { //按效果图张数算
-            var renderingNum = $("#renderingNum").val();
-            if(renderingNum && price) {
-                total = eval(renderingNum * price).toFixed(2);;
-            }
-        } else { //按建筑面积算
+        // if(projectTypeCode && projectTypeCode == '005') { //按效果图张数算
+        //     var renderingNum = $("#renderingNum").val();
+        //     if(renderingNum && price) {
+        //         total = eval(renderingNum * price).toFixed(2);;
+        //     }
+        // } else { //按建筑面积算
             // 成本总价=成本单价*建筑面积(制图张数)
             var constructionArea = $("#constructionArea").val();
             if(constructionArea && price) {
                 total = eval(constructionArea * price).toFixed(2);;
             }
-        }
+        // }
         $("#designerCommission").val(total);
     }
     /**
@@ -421,18 +421,18 @@
         var projectTypeCode = $("#projectTypeCode").val();
         var costPrice = $("#costPrice").val(); //成本单价
         var totalCost = '0';
-        if(projectTypeCode && projectTypeCode == '005') { //按效果图张数算
-            var renderingNum = $("#renderingNum").val();
-            if(renderingNum && costPrice) {
-                totalCost = eval(renderingNum * costPrice).toFixed(2);;
-            }
-        } else { //按建筑面积算
-            // 成本总价=成本单价*建筑面积(制图张数)
-            var constructionArea = $("#constructionArea").val();
-            if(constructionArea && costPrice) {
-                totalCost = eval(constructionArea * costPrice).toFixed(2);;
-            }
+        // if(projectTypeCode && projectTypeCode == '005') { //按效果图张数算
+        //     var renderingNum = $("#renderingNum").val();
+        //     if(renderingNum && costPrice) {
+        //         totalCost = eval(renderingNum * costPrice).toFixed(2);;
+        //     }
+        // } else { //按建筑面积算
+        // 成本总价=成本单价*建筑面积(制图张数)
+        var constructionArea = $("#constructionArea").val();
+        if(constructionArea && costPrice) {
+            totalCost = eval(constructionArea * costPrice).toFixed(2);;
         }
+        // }
         $("#totalCost").val(totalCost);
         // var constructionArea = $("#constructionArea").val(); // 建筑面积
         // var costPrice = $("#costPrice").val(); //成本单价
@@ -448,29 +448,27 @@
     /**
      * 初始化成本总价
      */
-    function initTotalCost() {
+    function initTotalCost() { 
         // 获取项目类型
-        var projectTypeCode = $("#projectTypeCode").val();
+        // var projectTypeCode = $("#projectTypeCode").val();
         var costPrice = $("#costPrice").val(); //成本单价
         var totalCost = '0';
-        if(projectTypeCode && projectTypeCode == '005') { //按效果图张数算
-            // 隐藏建筑面积,显示效果图张数
-            $("#constructionAreaDiv").hide();
-            $("#renderingNumDiv").show();
-            var renderingNum = $("#renderingNum").val();
-            if(renderingNum && costPrice) {
-                totalCost = eval(renderingNum * costPrice).toFixed(2);;
-            }
-        } else { //按建筑面积算
-            // 显示建筑面积,隐藏效果图张数
-            $("#constructionAreaDiv").show();
-            $("#renderingNumDiv").hide();
-            // 成本总价=成本单价*建筑面积(制图张数)
-            var constructionArea = $("#constructionArea").val();
-            if(constructionArea && costPrice) {
-                totalCost = eval(constructionArea * costPrice).toFixed(2);;
-            }
+        // if(projectTypeCode && projectTypeCode == '005') { //按效果图张数算
+        //     // 隐藏建筑面积,显示效果图张数
+        //     $("#constructionAreaDiv").hide();
+        //     $("#renderingNumDiv").show();
+        //     var renderingNum = $("#renderingNum").val();
+        //     if(renderingNum && costPrice) {
+        //         totalCost = eval(renderingNum * costPrice).toFixed(2);;
+        //     }
+        // } else { //按建筑面积算
+        // 建筑面积,效果图张数用同一个字段
+        // 成本总价=成本单价*建筑面积(制图张数)
+        var constructionArea = $("#constructionArea").val();
+        if(constructionArea && costPrice) {
+            totalCost = eval(constructionArea * costPrice).toFixed(2);;
         }
+        // }
         $("#totalCost").val(totalCost);
     }
 </script>

@@ -86,14 +86,14 @@
                                                     <tr>
                                                         <th style="text-align: center">收单日期</th>
                                                         <td><div ><c:if test='${po.acquisitionDate != null}'><fmt:formatDate value='${po.acquisitionDate}' pattern='yyyy-MM-dd　HH:mm:ss'/></c:if></div></td>
-                                                       <c:if test="${po.projectTypeCode != '005'}">
-                                                           <th style="text-align: center">建筑面积</th>
-                                                           <td><div >${po.constructionArea/100}</div></td>
-                                                       </c:if>
-                                                        <c:if test="${po.projectTypeCode == '005'}">
-                                                            <th style="text-align: center">效果图张数</th>
-                                                            <td><div >${po.renderingNum/100}</div></td>
-                                                        </c:if>
+<%--                                                       <c:if test="${po.projectTypeCode != '005'}">--%>
+                                                       <th style="text-align: center">建筑面积/效果图张数</th>
+                                                       <td><div >${po.constructionArea/100}</div></td>
+<%--                                                       </c:if>--%>
+<%--                                                        <c:if test="${po.projectTypeCode == '005'}">--%>
+<%--                                                            <th style="text-align: center">效果图张数</th>--%>
+<%--                                                            <td><div >${po.renderingNum/100}</div></td>--%>
+<%--                                                        </c:if>--%>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: center">初次交付日期</th>

@@ -97,7 +97,6 @@
                                                     <th nowrap="nowrap">客户电话</th>
                                                     <th nowrap="nowrap">销售面积(㎡)</th>
                                                     <th nowrap="nowrap">销售单价(元/㎡)</th>
-                                                    <th nowrap="nowrap">成本单价(元/㎡)</th>
                                                     <th nowrap="nowrap">操作</th>
                                                 </tr>
                                                 </thead>

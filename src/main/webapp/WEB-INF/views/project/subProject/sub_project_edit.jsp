@@ -100,7 +100,7 @@
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">销售单价(元/㎡)<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
-                                                        <input type="text" readonly="readonly" <%--name="unitPrice"--%> id="unitPrice" value="${po.unitPrice/100}" class="form-control required" >
+                                                        <input type="text" name="unitPrice" id="unitPrice" value="${po.unitPrice/100}" class="form-control required" onchange="changeTotalSalePrice()">
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
@@ -274,18 +274,27 @@
 
     $(function () {
         baseCallBackAJAX("post","${base}/data/projectType/getAll",null,"json","initProjectType(data)");
+        changeTotalSalePrice();
 
-        // 销售总价=销售单价*销售面积
-       var unitPrice = $("#unitPrice").val();
-       var constructionArea = $("#constructionArea").val();
-       var totalPrice = unitPrice * 1 * constructionArea * 1;
-       $("#totalSalesPrice").val(totalPrice.toFixed(2));
     });
+
+    /**
+     * 销售总价改变(页面初始化)时,销售总价 = 销售单价 * 销售面积
+     */
+    function changeTotalSalePrice() {
+        // 销售总价=销售单价*销售面积
+        var unitPrice = $("#unitPrice").val();
+        var constructionArea = $("#constructionArea").val();
+        if(unitPrice && constructionArea) {
+            var totalPrice = unitPrice * 1 * constructionArea * 1;
+            $("#totalSalesPrice").val(totalPrice.toFixed(2));
+        }
+    }
 
     /**
      * 根据选中的项目类型,如选的是效果图,就显示效果图张数. 如果是预算,就多显示一个预算人员
      */
-    function changeInputByCode() {
+    /*function changeInputByCode() {
         var projectTypeCode = $("#projectTypeCode").val();
         if(projectTypeCode && projectTypeCode == '007') { //预算
             //显示预算的div, 否则隐藏
@@ -294,7 +303,7 @@
         } else {
             $("#budgetStaffDiv").hide();
         }
-    }
+    }*/
 </script>
 
 

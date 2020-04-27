@@ -28,7 +28,7 @@ public class DmsChildProject extends BaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date acquisitionDate;
     /**
-     * 建筑面积
+     * 建筑面积/效果图张数
      */
     private Long constructionArea;
     /**
@@ -81,7 +81,7 @@ public class DmsChildProject extends BaseEntity {
     /**
      * 效果图张数
      */
-    private Long renderingNum;
+//    private Long renderingNum;
 
     // 以下字段仅在modle类用
 

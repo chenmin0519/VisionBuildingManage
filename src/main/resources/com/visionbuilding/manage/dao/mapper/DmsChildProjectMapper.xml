@@ -23,7 +23,6 @@
     <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="department" property="department" jdbcType="BIGINT" />
-    <result column="rendering_num" property="renderingNum" jdbcType="BIGINT" />
     <result column="total_sales_price" property="totalSalesPrice" jdbcType="BIGINT" />
 
   </resultMap>
@@ -31,7 +30,7 @@
     id, parent_id, project_type_code, project_type_name, acquisition_date, construction_area, 
     initial_delivery_date, cost_price, total_cost, total_sales_price, drafting_unit, designer_commission,
     designer_commission_price, confirm_status, confirm_time, remarks, status, add_user, 
-    add_time, update_user, update_time, department, rendering_num
+    add_time, update_user, update_time, department
   </sql>
   <sql id="where-all-condition">
     <if test="customer_source != null and customer_source!= ''"  >
@@ -58,16 +57,14 @@
       drafting_unit, designer_commission, designer_commission_price, 
       confirm_status, confirm_time, remarks, 
       status, add_user, add_time, 
-      update_user, update_time, department, 
-      rendering_num)
+      update_user, update_time, department)
     values (#{id}, #{parentId}, #{projectTypeCode}, 
       #{projectTypeName}, #{acquisitionDate}, #{constructionArea}, 
       #{initialDeliveryDate}, #{costPrice}, #{totalCost}, #{totalSalesPrice},
       #{draftingUnit}, #{designerCommission}, #{designerCommissionPrice}, 
       #{confirmStatus,jdbcType=TINYINT}, #{confirmTime}, #{remarks}, 
       #{status,jdbcType=TINYINT}, #{addUser}, #{addTime}, 
-      #{updateUser}, #{updateTime}, #{department}, 
-      #{renderingNum})
+      #{updateUser}, #{updateTime}, #{department})
   </insert>
   <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject" >
     insert into dms_child_project
@@ -137,9 +134,6 @@
       </if>
       <if test="department != null" >
         department,
-      </if>
-      <if test="renderingNum != null" >
-        rendering_num,
       </if>
       <if test="designer != null" >
         designer,
@@ -212,9 +206,6 @@
       <if test="department != null" >
         #{department},
       </if>
-      <if test="renderingNum != null" >
-        #{renderingNum},
-      </if>
       <if test="designer != null" >
         #{designer},
       </if>
@@ -286,9 +277,6 @@
       <if test="department != null" >
         department = #{department},
       </if>
-      <if test="renderingNum != null" >
-        rendering_num = #{renderingNum},
-      </if>
       <if test="designer != null and designer != ''" >
         designer = #{designer},
       </if>
@@ -317,8 +305,7 @@
       add_time = #{addTime},
       update_user = #{updateUser},
       update_time = #{updateTime},
-      department = #{department},
-      rendering_num = #{renderingNum}
+      department = #{department}
     where id = #{id}
   </update>
   <update id="updateStatusById" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject">
