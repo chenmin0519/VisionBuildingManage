@@ -5,6 +5,7 @@ import com.visionbuilding.manage.modle.entity.DmsMainProject;
 import com.visionbuilding.manage.modle.query.QueryBean;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface DmsChildProjectMapper {
@@ -29,4 +30,7 @@ public interface DmsChildProjectMapper {
     List<DmsChildProject> queryAllSub(@Param(value="id")Long id);
 
     List<DmsChildProject> querySubProjectList(DmsChildProject dmsChildProject);
+
+    Long sumAreaByUserTime(@Param(value="uid")Long uid, @Param(value="projectCode")String projectCode,
+                           @Param(value="startTime")Date startTime, @Param(value="endTime")Date endTime);
 }

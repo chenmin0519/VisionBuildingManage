@@ -2,13 +2,17 @@ package com.visionbuilding.manage.controller.project;
 
 import com.alibaba.fastjson.JSON;
 import com.visionbuilding.manage.controller.BaseController;
+import com.visionbuilding.manage.dao.mapper.DmsAmountLogMapper;
 import com.visionbuilding.manage.modle.ResultBean;
 import com.visionbuilding.manage.modle.ResultPOListBean;
+import com.visionbuilding.manage.modle.entity.DmsAmountLog;
 import com.visionbuilding.manage.modle.entity.DmsChildProject;
 import com.visionbuilding.manage.modle.entity.DmsDepartment;
 import com.visionbuilding.manage.modle.entity.DmsMainProject;
+import com.visionbuilding.manage.modle.po.DmsMainProjectPo;
 import com.visionbuilding.manage.service.DmsMainProjectService;
 import com.visionbuilding.manage.utill.FormDataUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -17,6 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Map;
 
 @Controller
@@ -26,6 +35,8 @@ public class DmsProjectController extends BaseController {
     @Autowired
     private DmsMainProjectService dmsMainProjectService;
 
+    @Autowired
+    private DmsAmountLogMapper dmsAmountLogMapper;
 
     @RequestMapping("/project.html")
     public String user(HttpServletRequest request, Long parentId){
@@ -33,9 +44,25 @@ public class DmsProjectController extends BaseController {
     }
 
     @RequestMapping("/edit.html")
-    public String edit(HttpServletRequest request,Long id){
+    public String edit(HttpServletRequest request,Long id) throws ParseException {
         DmsMainProject dmsMainProject = dmsMainProjectService.selectByPrimaryKey(id);
-        request.setAttribute("po",dmsMainProject);
+        DmsMainProjectPo dmsMainProjectPo = new DmsMainProjectPo();
+        BeanUtils.copyProperties(dmsMainProject,dmsMainProjectPo);
+        DmsAmountLog dmsAmountLog = new DmsAmountLog();
+        dmsAmountLog.setProjectId(dmsMainProject.getId());
+        LocalDate today = LocalDate.now();
+        LocalDate kssj = today.minusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        SimpleDateFormat sdfs = new SimpleDateFormat("yyyy-MM-dd");
+        dmsAmountLog.setEventDate(sdfs.parse(kssj.format(dtf)));
+        dmsAmountLog = dmsAmountLogMapper.selectOne(dmsAmountLog);
+        if(dmsAmountLog != null){
+            dmsMainProjectPo.setAmountReceivableOld(dmsAmountLog.getAmountReceivable());
+            dmsMainProjectPo.setAmountReturnedOld(dmsAmountLog.getAmountReturned());
+            dmsMainProjectPo.setAmountsPayableOld(dmsAmountLog.getAmountsPayable());
+            dmsMainProjectPo.setAmountSpentOld(dmsAmountLog.getAmountSpent());
+        }
+        request.setAttribute("po",dmsMainProjectPo);
         return "project/mainProject/project_edit";
     }
 

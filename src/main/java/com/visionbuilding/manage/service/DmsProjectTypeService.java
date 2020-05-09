@@ -14,4 +14,6 @@ public interface DmsProjectTypeService {
     ResultPOListBean<DmsProjectType> queryPage(DmsProjectType department);
 
     List<DmsProjectType> getAll();
+
+    DmsProjectType selectByCode(String projectCode);
 }

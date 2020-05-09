@@ -12,4 +12,8 @@ public class DmsProjectType extends BaseEntity{
 
     private String typeCode;
 
+    private Integer commissionType;
+
+    private String commission;
+
 }

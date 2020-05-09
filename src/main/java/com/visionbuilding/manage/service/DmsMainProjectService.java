@@ -4,6 +4,9 @@ import com.visionbuilding.manage.modle.ResultPOListBean;
 import com.visionbuilding.manage.modle.entity.DmsChildProject;
 import com.visionbuilding.manage.modle.entity.DmsMainProject;
 
+import java.text.ParseException;
+import java.util.Date;
+
 public interface DmsMainProjectService {
     // 操作大项目
     DmsMainProject selectByPrimaryKey(Long id);
@@ -13,8 +16,8 @@ public interface DmsMainProjectService {
      * @param id
      */
     void deleteByPrimaryKey(Long id);
-    void insertSelective(DmsMainProject dmsMainProject);
-    void updateByPrimaryKeySelective(DmsMainProject dmsMainProject);
+    void insertSelective(DmsMainProject dmsMainProject) throws ParseException;
+    void updateByPrimaryKeySelective(DmsMainProject dmsMainProject) throws ParseException;
     ResultPOListBean<DmsMainProject> queryPage(DmsMainProject dmsMainProject);
 
     void insertSelectiveChild(DmsChildProject dmsChildProject);
@@ -47,4 +50,13 @@ public interface DmsMainProjectService {
      * @param id
      */
     void deleteSubByPrimaryKey(Long id);
+
+    /**
+     *
+     * @param uid
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    Long sumAreaByUserTime(Long uid, Date startTime, Date endTime,String projectCode);
 }

@@ -94,7 +94,9 @@
                                                     <th nowrap="nowrap">序号</th>
                                                     <th nowrap="nowrap">编码</th>
                                                     <th nowrap="nowrap">名称</th>
-<%--                                                    <th nowrap="nowrap">操作</th>--%>
+                                                    <th nowrap="nowrap">提成类型</th>
+                                                    <th nowrap="nowrap">提成单价配置</th>
+                                                    <th nowrap="nowrap">操作</th>
                                                 </tr>
                                                 </thead>
 
@@ -140,7 +142,7 @@
 <!-- jQuery  -->
 
 <script type="text/javascript">
-    var functionlist=[{targets:[3],
+    var functionlist=[{targets:[5],
         mRender:function(data) {
             var result = "";
             if(data.status == 1){
@@ -152,6 +154,18 @@
             }
             return result;
         }
+    },{targets:[3],
+        mRender:function(data) {
+        var result = "";
+        if(data == 1){
+            result = "固定提成";
+        }else if(data == 2){
+            result = "梯队式提成";
+        }else if(data == 3){
+            result = "手动输入";
+        }
+        return result;
+    }
     }];
     // {targets:[3],
     //     mRender:function(data) {
@@ -171,7 +185,7 @@
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
-        initBaseTable($("form").serialize(),"datatable","${base}/data/projectType/getDates",",typeCode,typeName",functionlist);
+        initBaseTable($("form").serialize(),"datatable","${base}/data/projectType/getDates",",typeCode,typeName,commissionType,commission,",functionlist);
     }
     $(document).ready(function(){
         initTbale();

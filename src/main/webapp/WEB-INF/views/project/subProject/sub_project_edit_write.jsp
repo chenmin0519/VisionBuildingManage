@@ -187,7 +187,7 @@
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">设计师提成单价<span
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
-                                                        <input type="text" onchange="getDesignerCommission()" id="designerCommissionPrice" value="${po.designerCommissionPrice/100}" class="form-control required" >
+                                                        <input type="text" onchange="getDesignerCommission(0)" id="designerCommissionPrice" value="${po.designerCommissionPrice/100}" class="form-control required" >
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
@@ -195,6 +195,24 @@
                                                             class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
                                                         <input type="text" readonly="readonly" id="designerCommission" value="${po.designerCommission/100}" class="form-control required" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
+                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">奖金：</label>
+                                                    <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
+                                                        <input type="text" id="bonus" value="${po.bonus/100}" class="form-control required" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
+                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">罚款：</label>
+                                                    <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
+                                                        <input type="text" id="fine" value="${po.fine/100}" class="form-control required" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
+                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">基本工资：</label>
+                                                    <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
+                                                        <input type="text" id="wages" value="${po.wages/100}" class="form-control required" >
                                                     </div>
                                                 </div>
                                                 <div class="panel-body">
@@ -317,6 +335,7 @@
         }
         $(".designerSelect").append(optionStr);
     }
+
     $(".designerSelect").change(function(){
         var designer = $(".designerSelect").val();
         var id = "";
@@ -327,8 +346,26 @@
         }
         $("#designer").val(name);
         $("#userId").val(id);
+        //获取他的提成
+        var projectTypeCode = $("#projectTypeCode").val();
+        var constructionArea = $("#constructionArea").val();
+        if(constructionArea) {
+            constructionArea = parseInt(eval(constructionArea).toFixed(2) * 100);
+        }else{
+            constructionArea = 0;
+        }
+        baseCallBackAJAX("post","${base}/data/projectType/getUserCommission",{'uid':id,'projectCode':projectTypeCode,'constructionArea':constructionArea},"json","commissionCallback(data)");
     });
 
+    function commissionCallback(data){
+        var commission = data.value;
+        if(commission > 0){
+            commission = eval(commission/100).toFixed(2);
+            $("#designerCommissionPrice").attr("readonly","readonly")
+        }
+        $("#designerCommissionPrice").val(commission);
+        getDesignerCommission(commission);
+    }
 
     $("#save").click(function(){
         // 非空校验
@@ -364,6 +401,22 @@
         if(designerCommission) {
             designerCommission = parseInt(eval(designerCommission).toFixed(2) * 100);
             par += "&designerCommission="+designerCommission;
+        }
+
+        var bonus = $("#bonus").val();
+        if(bonus) {
+            bonus = parseInt(eval(bonus).toFixed(2) * 100);
+            par += "&bonus="+bonus;
+        }
+        var fine = $("#fine").val();
+        if(fine) {
+            fine = parseInt(eval(fine).toFixed(2) * 100);
+            par += "&fine="+fine;
+        }
+        var wages = $("#wages").val();
+        if(wages) {
+            wages = parseInt(eval(wages).toFixed(2) * 100);
+            par += "&wages="+wages;
         }
         baseCallBackAJAX("post","${base}/project/main-project/save-sub-project",par,"json","saveCallback(data)");
     });
@@ -405,9 +458,11 @@
 
     });
     //自动计算设计师提成
-    function getDesignerCommission(){
+    function getDesignerCommission(price){
         // var projectTypeCode = $("#projectTypeCode").val();
-        var price =$("#designerCommissionPrice").val();
+        if(price == 0){
+            price =$("#designerCommissionPrice").val();
+        }
         var total = '0';
         // if(projectTypeCode && projectTypeCode == '005') { //按效果图张数算
         //     var renderingNum = $("#renderingNum").val();

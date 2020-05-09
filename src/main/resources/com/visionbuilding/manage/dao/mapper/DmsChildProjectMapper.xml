@@ -27,12 +27,15 @@
     <result column="total_sales_price" property="totalSalesPrice" jdbcType="BIGINT" />
     <result column="designer" property="designer" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="wages" property="wages" jdbcType="BIGINT" />
+    <result column="fine" property="fine" jdbcType="BIGINT" />
+    <result column="bonus" property="bonus" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, parent_id, project_type_code, project_type_name, acquisition_date, construction_area, 
     initial_delivery_date, cost_price, total_cost, total_sales_price, drafting_unit, designer_commission,
     designer_commission_price, confirm_status, confirm_time, remarks, status, add_user, 
-    add_time, update_user, update_time, department, unit_price, designer, user_id
+    add_time, update_user, update_time, department, unit_price, designer, user_id,wages,fine,bonus
   </sql>
   <sql id="where-all-condition">
     <if test="customer_source != null and customer_source!= ''"  >
@@ -59,14 +62,14 @@
       drafting_unit, designer_commission, designer_commission_price, 
       confirm_status, confirm_time, remarks, 
       status, add_user, add_time, 
-      update_user, update_time, department, unit_price, designer, user_id)
+      update_user, update_time, department, unit_price, designer, user_id,wages,fine,bonus)
     values (#{id}, #{parentId}, #{projectTypeCode}, 
       #{projectTypeName}, #{acquisitionDate}, #{constructionArea}, 
       #{initialDeliveryDate}, #{costPrice}, #{totalCost}, #{totalSalesPrice},
       #{draftingUnit}, #{designerCommission}, #{designerCommissionPrice}, 
       #{confirmStatus,jdbcType=TINYINT}, #{confirmTime}, #{remarks}, 
       #{status,jdbcType=TINYINT}, #{addUser}, #{addTime}, 
-      #{updateUser}, #{updateTime}, #{department}, #{unitPrice}, #{designer}, #{userId})
+      #{updateUser}, #{updateTime}, #{department}, #{unitPrice}, #{designer}, #{userId}, #{wages}, #{fine}, #{bonus})
   </insert>
   <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject" >
     insert into dms_child_project
@@ -146,6 +149,16 @@
       <if test="userId != null" >
         user_id,
       </if>
+      <if test="wages != null" >
+        wages,
+      </if>
+      <if test="fine != null" >
+        fine,
+      </if>
+      <if test="bonus != null" >
+        bonus,
+      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -222,6 +235,16 @@
       </if>
       <if test="userId != null" >
         #{userId},
+      </if>
+
+      <if test="wages != null" >
+        #{wages},
+      </if>
+      <if test="fine != null" >
+        #{fine},
+      </if>
+      <if test="bonus != null" >
+        #{bonus},
       </if>
     </trim>
   </insert>
@@ -300,6 +323,16 @@
       <if test="userId != null" >
         user_id = #{userId},
       </if>
+
+      <if test="wages != null" >
+        wages = #{wages},
+      </if>
+      <if test="fine != null" >
+        fine = #{fine},
+      </if>
+      <if test="bonus != null" >
+        bonus = #{bonus},
+      </if>
     </set>
     where id = #{id}
   </update>
@@ -328,7 +361,10 @@
       department = #{department},
       unit_price = #{unitPrice},
       designer = #{designer},
-      user_id = #{userId}
+      user_id = #{userId},
+      wages = #{wages},
+      fine = #{fine},
+      bonus = #{bonus}
     where id = #{id}
   </update>
   <update id="updateStatusById" parameterType="com.visionbuilding.manage.modle.entity.DmsChildProject">
@@ -351,7 +387,8 @@
     dmp.sales_area as salesArea, dmp.project_creation_time as projectCreationTime, dmp.customer_source as customerSource,
     dcp.construction_area as constructionArea,dcp.cost_price as costPrice,dcp.total_cost as totalCost,
     dcp.designer_commission as designerCommission,dcp.designer_commission_price as designerCommissionPrice,
-    dcp.remarks as remarks,dcp.unit_price as unitPrice, dcp.designer as designer, dcp.user_id as userId
+    dcp.remarks as remarks,dcp.unit_price as unitPrice, dcp.designer as designer, dcp.user_id as userId,dcp.wages as wages
+    ,dcp.fine as fine,dcp.bonus as bonus
     from dms_child_project dcp, dms_main_project dmp
     where dcp.parent_id = dmp.id
     <if test="f.parentId != null and f.parentId!= ''"  >
@@ -406,7 +443,8 @@
     dmp.sales_area as salesArea, dmp.project_creation_time as projectCreationTime,
     dcp.construction_area as constructionArea,dcp.cost_price as costPrice,dcp.total_cost as totalCost,
     dcp.designer_commission as designerCommission,dcp.designer_commission_price as designerCommissionPrice,
-    dcp.remarks as remarks, dcp.unit_price as unitPrice, dcp.designer as designer, dcp.user_id as userId
+    dcp.remarks as remarks, dcp.unit_price as unitPrice, dcp.designer as designer, dcp.user_id as userId,
+    dcp.wages as wages,dcp.fine as fine,dcp.bonus as bonus
     from dms_child_project dcp, dms_main_project dmp
     where dcp.parent_id = dmp.id
     <if test="id != null">
@@ -420,4 +458,21 @@
       and parent_id = #{parentId}
     </if>
   </select>
+    <select id="sumAreaByUserTime" resultType="java.lang.Long">
+        SELECT
+            sum(construction_area)
+        FROM
+            dms_child_project
+        WHERE
+            1 = 1
+        <if test="uid != null">
+            and user_id = #{uid}
+        </if>
+        <if test="projectCode != null">
+          and project_type_code = #{projectCode}
+        </if>
+        <if test="startTime != null and endTime != null">
+          and initial_delivery_date &gt;= #{startTime} and initial_delivery_date &lt;= #{endTime}
+        </if>
+    </select>
 </mapper>

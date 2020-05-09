@@ -109,6 +109,13 @@
                                                         <input type="text" id="unitPrice" placeholder="请输入销售单价" value="${po.unitPrice/100}" class="form-control required" >
                                                     </div>
                                                 </div>
+                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
+                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">设计院总成本(元)<span
+                                                            class="required" style="color: red"> * </span>：</label>
+                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
+                                                        <input type="text" id="allCost" placeholder="设计院总成本" value="${po.allCost/100}" class="form-control required" >
+                                                    </div>
+                                                </div>
 <%--                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">--%>
 <%--                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">成本单价(元/㎡)<span--%>
 <%--                                                            class="required" style="color: red"> * </span>：</label>--%>
@@ -118,26 +125,50 @@
 <%--                                                </div>--%>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">已回款金额：</label>
-                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
+                                                    <div class="form-group col-sm-4 col-md-4 col-xs-4 pull-left">
                                                         <input type="text" id="amountReturned" placeholder="请输入已回款金额" value="${po.amountReturned/100}" class="form-control" >
+                                                    </div>
+                                                    <div class="form-group col-sm-4 col-md-4 col-xs-4 pull-left">
+                                                        <label class="form-group col-sm-8 col-md-8 col-xs-8 pull-left" style="line-height: 40px">上月已回款金额：</label>
+                                                        <div class="form-group col-sm-4 col-md-4 col-xs-4 pull-left">
+                                                            <input type="text"   readonly="readonly"  value="${po.amountReturnedOld/100}" class="form-control" >
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">应收金额：</label>
-                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
+                                                    <div class="form-group col-sm-4 col-md-4 col-xs-4 pull-left">
                                                         <input type="text" id="amountReceivable" placeholder="请输入应收金额" value="${po.amountReceivable/100}" class="form-control" >
+                                                    </div>
+                                                    <div class="form-group col-sm-4 col-md-4 col-xs-4 pull-left">
+                                                        <label class="form-group col-sm-8 col-md-8 col-xs-8 pull-left" style="line-height: 40px">上月应收金额：</label>
+                                                        <div class="form-group col-sm-4 col-md-4 col-xs-4 pull-left">
+                                                            <input type="text"   readonly="readonly"  value="${po.amountReceivableOld/100}" class="form-control" >
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">已支出金额：</label>
-                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
+                                                    <div class="form-group col-sm-4 col-md-4 col-xs-4 pull-left">
                                                         <input type="text" id="amountSpent" placeholder="请输入已支出金额" value="${po.amountSpent/100}" class="form-control" >
+                                                    </div>
+                                                    <div class="form-group col-sm-4 col-md-4 col-xs-4 pull-left">
+                                                        <label class="form-group col-sm-8 col-md-8 col-xs-8 pull-left" style="line-height: 40px">上月已支出金额：</label>
+                                                        <div class="form-group col-sm-4 col-md-4 col-xs-4 pull-left">
+                                                            <input type="text"   readonly="readonly"  value="${po.amountSpentOld/100}" class="form-control" >
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">应付金额：</label>
-                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
+                                                    <div class="form-group col-sm-4 col-md-4 col-xs-4 pull-left">
                                                         <input type="text" id="amountsPayable" placeholder="请输入应付金额" value="${po.amountsPayable/100}" class="form-control" >
+                                                    </div>
+                                                    <div class="form-group col-sm-4 col-md-4 col-xs-4 pull-left">
+                                                        <label class="form-group col-sm-8 col-md-8 col-xs-8 pull-left" style="line-height: 40px">上月应付金额：</label>
+                                                        <div class="form-group col-sm-4 col-md-4 col-xs-4 pull-left">
+                                                            <input type="text"   readonly="readonly"  value="${po.amountsPayableOld/100}" class="form-control" >
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
@@ -233,13 +264,13 @@
         // 把单价和面积都*100,总价除以100
         var salesArea = $("#salesArea").val();
         if(salesArea){
-            salesArea = eval(salesArea) * 100;
+            salesArea = parseInt(eval(salesArea).toFixed(2) * 100);
             par += "&salesArea="+salesArea;
         }
 
         var unitPrice = $("#unitPrice").val();
         if(unitPrice) {
-            unitPrice = eval(unitPrice) * 100;
+            unitPrice = parseInt(eval(unitPrice).toFixed(2) * 100);
             par += "&unitPrice="+unitPrice;
         }
 
@@ -251,26 +282,32 @@
 
         var amountReturned = $("#amountReturned").val();
         if(amountReturned) {
-            amountReturned = eval(amountReturned) * 100;
+            amountReturned = parseInt(eval(amountReturned).toFixed(2) * 100);
             par += "&amountReturned="+amountReturned;
         }
 
         var amountReceivable = $("#amountReceivable").val();
         if(amountReceivable) {
-            amountReceivable = eval(amountReceivable) * 100;
+            amountReceivable = parseInt(eval(amountReceivable).toFixed(2) * 100);
             par += "&amountReceivable="+amountReceivable;
         }
 
         var amountSpent = $("#amountSpent").val();
         if(amountSpent) {
-            amountSpent = eval(amountSpent) * 100;
+            amountSpent = parseInt(eval(amountSpent).toFixed(2) * 100);
             par += "&amountSpent="+amountSpent;
         }
 
         var amountsPayable = $("#amountsPayable").val();
         if(amountsPayable) {
-            amountsPayable = eval(amountsPayable) * 100;
+            amountsPayable = parseInt(eval(amountsPayable).toFixed(2) * 100);
             par += "&amountsPayable="+amountsPayable;
+        }
+
+        var allCost = $("#allCost").val();
+        if(allCost) {
+            allCost = parseInt(eval(allCost).toFixed(2) * 100);
+            par += "&allCost="+allCost;
         }
 
         var customerSource = $('#customerCode option:selected').text();

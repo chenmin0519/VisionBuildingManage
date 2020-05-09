@@ -101,4 +101,7 @@ public class DmsChildProject extends BaseEntity {
      * 设计师id
      */
     private Long userId;
+    private Long bonus;
+    private Long fine;
+    private Long wages;
 }

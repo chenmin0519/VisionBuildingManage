@@ -26,4 +26,6 @@ public interface DmsProjectTypeMapper {
     List<DmsProjectType> getAll();
 
     int countBysCode(@Param("typeCode") String typeCode);
+
+    DmsProjectType selectByCode(@Param("projectCode")String projectCode);
 }

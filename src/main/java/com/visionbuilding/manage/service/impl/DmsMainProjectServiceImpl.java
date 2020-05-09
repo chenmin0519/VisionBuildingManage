@@ -1,9 +1,11 @@
 package com.visionbuilding.manage.service.impl;
 
+import com.visionbuilding.manage.dao.mapper.DmsAmountLogMapper;
 import com.visionbuilding.manage.dao.mapper.DmsChildProjectMapper;
 import com.visionbuilding.manage.dao.mapper.DmsMainProjectMapper;
 import com.visionbuilding.manage.dao.mapper.DmsSettlementMapper;
 import com.visionbuilding.manage.modle.ResultPOListBean;
+import com.visionbuilding.manage.modle.entity.DmsAmountLog;
 import com.visionbuilding.manage.modle.entity.DmsChildProject;
 import com.visionbuilding.manage.modle.entity.DmsMainProject;
 import com.visionbuilding.manage.modle.entity.DmsSettlement;
@@ -13,8 +15,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +37,9 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
 
     @Autowired
     private DmsSettlementMapper dmsSettlementMapper;
+
+    @Autowired
+    private DmsAmountLogMapper dmsAmountLogMapper;
 
     @Override
     public DmsMainProject selectByPrimaryKey(Long id) {
@@ -58,7 +67,7 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
     }
 
     @Override
-    public void insertSelective(DmsMainProject dmsMainProject) {
+    public void insertSelective(DmsMainProject dmsMainProject) throws ParseException {
         //1.获取客户来源的名称
         // 2.获取客户来源名称的简写
         String jx = dmsMainProject.getCustomerCode()+"-";
@@ -125,11 +134,36 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
 
         dmsMainProject.setCustomerCode(newCustomerCode);
         dmsMainProjectMapper.insertSelective(dmsMainProject);
+
+        DmsAmountLog dmsAmountLog = new DmsAmountLog();
+        dmsAmountLog.setProjectId(dmsMainProject.getId());
+        dmsAmountLog.setAmountReceivable(dmsMainProject.getAmountReceivable());
+        dmsAmountLog.setAmountReturned(dmsMainProject.getAmountReturned());
+        dmsAmountLog.setAmountsPayable(dmsMainProject.getAmountsPayable());
+        dmsAmountLog.setAmountSpent(dmsMainProject.getAmountSpent());
+        LocalDate today = LocalDate.now();
+        LocalDate kssj = today.with(TemporalAdjusters.firstDayOfMonth());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        SimpleDateFormat sdfs = new SimpleDateFormat("yyyy-MM-dd");
+        dmsAmountLog.setEventDate(sdfs.parse(kssj.format(dtf)));
+        dmsAmountLogMapper.insertOrUpdata(dmsAmountLog);
     }
 
     @Override
-    public void updateByPrimaryKeySelective(DmsMainProject dmsMainProject) {
+    public void updateByPrimaryKeySelective(DmsMainProject dmsMainProject) throws ParseException {
         dmsMainProjectMapper.updateByPrimaryKeySelective(dmsMainProject);
+        DmsAmountLog dmsAmountLog = new DmsAmountLog();
+        dmsAmountLog.setProjectId(dmsMainProject.getId());
+        dmsAmountLog.setAmountReceivable(dmsMainProject.getAmountReceivable());
+        dmsAmountLog.setAmountReturned(dmsMainProject.getAmountReturned());
+        dmsAmountLog.setAmountsPayable(dmsMainProject.getAmountsPayable());
+        dmsAmountLog.setAmountSpent(dmsMainProject.getAmountSpent());
+        LocalDate today = LocalDate.now();
+        LocalDate kssj = today.with(TemporalAdjusters.firstDayOfMonth());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        SimpleDateFormat sdfs = new SimpleDateFormat("yyyy-MM-dd");
+        dmsAmountLog.setEventDate(sdfs.parse(kssj.format(dtf)));
+        dmsAmountLogMapper.insertOrUpdata(dmsAmountLog);
     }
 
     @Override
@@ -288,6 +322,11 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
             throw new RuntimeException("该子项目已审核通过,不能删除!");
         }
         dmsChildProjectMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public Long sumAreaByUserTime(Long uid, Date startTime, Date endTime,String projectCode) {
+        return dmsChildProjectMapper.sumAreaByUserTime(uid,projectCode,startTime,endTime);
     }
 
 }

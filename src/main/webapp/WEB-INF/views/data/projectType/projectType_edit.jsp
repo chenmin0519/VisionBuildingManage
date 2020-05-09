@@ -76,6 +76,22 @@
                                                         <input type="text" name="typeName" id="typeName" placeholder="请输入名称" value="${po.typeName}" class="form-control" >
                                                     </div>
                                                 </div>
+                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
+                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">提成单价配置：</label>
+                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
+                                                        <select class="form-control" name="commissionType">
+                                                            <option value="1">固定提成</option>
+                                                            <option value="2">梯队式提成</option>
+                                                            <option value="3">手动输入</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
+                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">提成单价配置：</label>
+                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
+                                                        <input type="text" name="commission" id="commission" placeholder="请输入" value="<c:out value='${po.commission}' escapeXml='true'></c:out>" class="form-control" >
+                                                    </div>
+                                                </div>
                                                 <div class="panel-body">
                                                     <div class="col-sm-10 pull-right">
                                                         <button id="save" type="button"

@@ -37,5 +37,9 @@ public class DmsMainProject  extends BaseEntity{
      * 是否生产
      */
     private String production;
+    /**
+     * 设计院成本
+     */
+    private Long allCost;
 
 }

@@ -13,6 +13,7 @@
     <result column="cost_price" property="costPrice" jdbcType="BIGINT" />
     <result column="design_sales_cost" property="designSalesCost" jdbcType="BIGINT" />
     <result column="design_cost" property="designCost" jdbcType="BIGINT" />
+    <result column="all_cost" property="allCost" jdbcType="BIGINT" />
     <result column="profit" property="profit" jdbcType="BIGINT" />
     <result column="amount_returned" property="amountReturned" jdbcType="BIGINT" />
     <result column="amount_receivable" property="amountReceivable" jdbcType="BIGINT" />
@@ -29,7 +30,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, project_creation_time, customer_source, customer_code, place, customer_phone, sales_area,
-    unit_price, cost_price, design_sales_cost, design_cost, profit, amount_returned, 
+    unit_price, cost_price, design_sales_cost, design_cost,all_cost, profit, amount_returned,
     amount_receivable, amount_spent, amounts_payable, contract_no, remarks, status, add_time, 
     add_user, update_user, update_time, production
   </sql>
@@ -47,7 +48,7 @@
     insert into dms_main_project (id, project_creation_time, customer_source, 
       customer_code, place, customer_phone, sales_area,
       unit_price, cost_price, design_sales_cost, 
-      design_cost, profit, amount_returned, 
+      design_cost,all_cost, profit, amount_returned,
       amount_receivable, amount_spent, amounts_payable, 
       contract_no, remarks, status, 
       add_time, add_user, update_user, 
@@ -55,13 +56,13 @@
     values (#{id,jdbcType=BIGINT}, #{projectCreationTime,jdbcType=VARCHAR}, #{customerSource,jdbcType=VARCHAR},
       #{customerCode,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{customerPhone,jdbcType=VARCHAR}, #{salesArea,jdbcType=BIGINT},
       #{unitPrice,jdbcType=BIGINT}, #{costPrice,jdbcType=BIGINT}, #{designSalesCost,jdbcType=BIGINT}, 
-      #{designCost,jdbcType=BIGINT}, #{profit,jdbcType=BIGINT}, #{amountReturned,jdbcType=BIGINT}, 
+      #{designCost,jdbcType=BIGINT}, #{allCost,jdbcType=BIGINT}, #{profit,jdbcType=BIGINT}, #{amountReturned,jdbcType=BIGINT},
       #{amountReceivable,jdbcType=BIGINT}, #{amountSpent,jdbcType=BIGINT}, #{amountsPayable,jdbcType=BIGINT}, 
       #{contractNo,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
       #{addTime,jdbcType=TIMESTAMP}, #{addUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{production,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsMainProject" >
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.visionbuilding.manage.modle.entity.DmsMainProject" >
     insert into dms_main_project
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -96,6 +97,9 @@
       </if>
       <if test="designCost != null" >
         design_cost,
+      </if>
+      <if test="allCost != null" >
+        all_cost,
       </if>
       <if test="profit != null" >
         profit,
@@ -171,6 +175,9 @@
       <if test="designCost != null" >
         #{designCost,jdbcType=BIGINT},
       </if>
+      <if test="allCost != null" >
+        #{allCost,jdbcType=BIGINT},
+      </if>
       <if test="profit != null" >
         #{profit,jdbcType=BIGINT},
       </if>
@@ -245,6 +252,9 @@
       <if test="designCost != null" >
         design_cost = #{designCost,jdbcType=BIGINT},
       </if>
+      <if test="allCost != null" >
+        all_cost = #{allCost,jdbcType=BIGINT},
+      </if>
       <if test="profit != null" >
         profit = #{profit,jdbcType=BIGINT},
       </if>
@@ -299,6 +309,7 @@
       cost_price = #{costPrice,jdbcType=BIGINT},
       design_sales_cost = #{designSalesCost,jdbcType=BIGINT},
       design_cost = #{designCost,jdbcType=BIGINT},
+      all_cost = #{allCost,jdbcType=BIGINT},
       profit = #{profit,jdbcType=BIGINT},
       amount_returned = #{amountReturned,jdbcType=BIGINT},
       amount_receivable = #{amountReceivable,jdbcType=BIGINT},
@@ -322,6 +333,9 @@
       </if>
       <if test="designCost != null" >
         design_cost = #{designCost,jdbcType=BIGINT},
+      </if>
+      <if test="allCost != null" >
+        all_cost = #{allCost,jdbcType=BIGINT},
       </if>
       <if test="profit != null" >
         profit = #{profit,jdbcType=BIGINT},

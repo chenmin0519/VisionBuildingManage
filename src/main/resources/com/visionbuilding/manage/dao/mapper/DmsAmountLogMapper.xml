@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.visionbuilding.manage.dao.mapper.DmsAmountLogMapper" >
+  <resultMap id="BaseResultMap" type="com.visionbuilding.manage.modle.entity.DmsAmountLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="amount_returned" property="amountReturned" jdbcType="BIGINT" />
+    <result column="amount_receivable" property="amountReceivable" jdbcType="BIGINT" />
+    <result column="amount_spent" property="amountSpent" jdbcType="BIGINT" />
+    <result column="amounts_payable" property="amountsPayable" jdbcType="BIGINT" />
+    <result column="event_date" property="eventDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, project_id, amount_returned, amount_receivable, amount_spent, amounts_payable, 
+    event_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dms_amount_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectOne" resultMap="BaseResultMap" parameterType="com.visionbuilding.manage.modle.entity.DmsAmountLog" >
+    select
+    <include refid="Base_Column_List" />
+    from dms_amount_log
+    where 1=1
+    <if test="projectId != null">
+        and project_id = #{projectId}
+    </if>
+    <if test="eventDate != null">
+      and event_date = #{eventDate}
+    </if>
+
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dms_amount_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.visionbuilding.manage.modle.entity.DmsAmountLog" >
+    insert into dms_amount_log (id, project_id, amount_returned, 
+      amount_receivable, amount_spent, amounts_payable, 
+      event_date)
+    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{amountReturned,jdbcType=BIGINT}, 
+      #{amountReceivable,jdbcType=BIGINT}, #{amountSpent,jdbcType=BIGINT}, #{amountsPayable,jdbcType=BIGINT}, 
+      #{eventDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.visionbuilding.manage.modle.entity.DmsAmountLog" >
+    insert into dms_amount_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="amountReturned != null" >
+        amount_returned,
+      </if>
+      <if test="amountReceivable != null" >
+        amount_receivable,
+      </if>
+      <if test="amountSpent != null" >
+        amount_spent,
+      </if>
+      <if test="amountsPayable != null" >
+        amounts_payable,
+      </if>
+      <if test="eventDate != null" >
+        event_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="amountReturned != null" >
+        #{amountReturned,jdbcType=BIGINT},
+      </if>
+      <if test="amountReceivable != null" >
+        #{amountReceivable,jdbcType=BIGINT},
+      </if>
+      <if test="amountSpent != null" >
+        #{amountSpent,jdbcType=BIGINT},
+      </if>
+      <if test="amountsPayable != null" >
+        #{amountsPayable,jdbcType=BIGINT},
+      </if>
+      <if test="eventDate != null" >
+        #{eventDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+
+    <insert id="insertOrUpdata"  parameterType="com.visionbuilding.manage.modle.entity.DmsAmountLog">
+      insert into dms_amount_log (id, project_id, amount_returned,
+        amount_receivable, amount_spent, amounts_payable,
+        event_date)
+      values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{amountReturned,jdbcType=BIGINT},
+        #{amountReceivable,jdbcType=BIGINT}, #{amountSpent,jdbcType=BIGINT}, #{amountsPayable,jdbcType=BIGINT},
+        #{eventDate,jdbcType=DATE})
+      on duplicate key update
+          amount_spent=values(amount_spent),
+          amounts_payable=values(amounts_payable),
+          amount_returned=values(amount_returned),
+          amount_receivable=values(amount_receivable)
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.visionbuilding.manage.modle.entity.DmsAmountLog" >
+    update dms_amount_log
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="amountReturned != null" >
+        amount_returned = #{amountReturned,jdbcType=BIGINT},
+      </if>
+      <if test="amountReceivable != null" >
+        amount_receivable = #{amountReceivable,jdbcType=BIGINT},
+      </if>
+      <if test="amountSpent != null" >
+        amount_spent = #{amountSpent,jdbcType=BIGINT},
+      </if>
+      <if test="amountsPayable != null" >
+        amounts_payable = #{amountsPayable,jdbcType=BIGINT},
+      </if>
+      <if test="eventDate != null" >
+        event_date = #{eventDate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.visionbuilding.manage.modle.entity.DmsAmountLog" >
+    update dms_amount_log
+    set project_id = #{projectId,jdbcType=BIGINT},
+      amount_returned = #{amountReturned,jdbcType=BIGINT},
+      amount_receivable = #{amountReceivable,jdbcType=BIGINT},
+      amount_spent = #{amountSpent,jdbcType=BIGINT},
+      amounts_payable = #{amountsPayable,jdbcType=BIGINT},
+      event_date = #{eventDate,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

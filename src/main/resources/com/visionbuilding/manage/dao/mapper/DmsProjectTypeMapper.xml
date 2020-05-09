@@ -5,6 +5,8 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="type_name" property="typeName" jdbcType="VARCHAR" />
     <result column="type_code" property="typeCode" jdbcType="VARCHAR" />
+    <result column="commission" property="commission" jdbcType="VARCHAR" />
+    <result column="commission_type" property="commissionType"/>
   </resultMap>
 
   <select id="queryPage" resultMap="BaseResultMap">
@@ -32,7 +34,7 @@
 
 
   <sql id="Base_Column_List" >
-    id, type_name, type_code
+    id, type_name, type_code,commission_Type,commission
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -62,6 +64,12 @@
       <if test="typeCode != null" >
         type_code,
       </if>
+      <if test="commission != null" >
+        commission,
+      </if>
+      <if test="commissionType != null" >
+        commission_type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -72,6 +80,12 @@
       </if>
       <if test="typeCode != null" >
         #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="commission != null" >
+        #{commission},
+      </if>
+      <if test="commissionType != null" >
+        #{commissionType},
       </if>
     </trim>
   </insert>
@@ -84,13 +98,21 @@
       <if test="typeCode != null" >
         type_code = #{typeCode,jdbcType=VARCHAR},
       </if>
+      <if test="commission != null" >
+        commission = #{commission},
+      </if>
+      <if test="commissionType != null" >
+        commission_type = #{commissionType},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.visionbuilding.manage.modle.entity.DmsProjectType" >
     update dms_project_type
     set type_name = #{typeName,jdbcType=VARCHAR},
-      type_code = #{typeCode,jdbcType=VARCHAR}
+      type_code = #{typeCode,jdbcType=VARCHAR},
+      commission = #{commission},
+      commission_type = #{commissionType}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="getAll" resultMap="BaseResultMap">
@@ -100,5 +122,11 @@
   </select>
     <select id="countBysCode" resultType="java.lang.Integer">
       select count(1) from dms_project_type where type_code = #{typeCode}
+    </select>
+    <select id="selectByCode" resultType="com.visionbuilding.manage.modle.entity.DmsProjectType">
+      select
+      <include refid="Base_Column_List" />
+      from dms_project_type
+      where type_code = #{projectCode}
     </select>
 </mapper>

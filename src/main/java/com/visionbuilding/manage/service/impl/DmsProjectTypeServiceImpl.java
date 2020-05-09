@@ -26,6 +26,11 @@ public class DmsProjectTypeServiceImpl implements DmsProjectTypeService {
     }
 
     @Override
+    public DmsProjectType selectByCode(String projectCode) {
+        return dmsProjectTypeMapper.selectByCode(projectCode);
+    }
+
+    @Override
     public void deleteByPrimaryKey(Long id) {
         dmsProjectTypeMapper.deleteByPrimaryKey(id);
     }
