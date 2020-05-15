@@ -94,6 +94,7 @@
                                                     <th nowrap="nowrap">用户名</th>
                                                     <th nowrap="nowrap">密码</th>
                                                     <th nowrap="nowrap">姓名</th>
+                                                    <th nowrap="nowrap">基本工资</th>
                                                     <th nowrap="nowrap">状态</th>
                                                     <th nowrap="nowrap">操作</th>
                                                 </tr>
@@ -141,7 +142,7 @@
 <!-- jQuery  -->
 
 <script type="text/javascript">
-    var functionlist=[{targets:[6],
+    var functionlist=[{targets:[7],
         mRender:function(data) {
             var result = "";
             if(data.status == 1){
@@ -159,7 +160,7 @@
             }
             return result;
         }
-    },{targets:[5],
+    },{targets:[6],
         mRender:function(data) {
             var result = "";
             if(data.status == '1'){
@@ -178,7 +179,7 @@
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径
         //,produceName,price, 需要显示的列   functionlist显示的列的格式
-        initBaseTable($("form").serialize(),"datatable","${base}/sys/user/getDates",",id,userName,,realName,,",functionlist);
+        initBaseTable($("form").serialize(),"datatable","${base}/sys/user/getDates",",id,userName,,realName,wages,,",functionlist);
     }
     $(document).ready(function(){
         initTbale();

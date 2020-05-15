@@ -90,7 +90,12 @@
                                                         <select class="form-control departmentSelect"> <option value="">--请选择--</option> </select>
                                                     </div>
                                                 </div>
-
+                                                <div class="form-group col-sm-12 col-md-12 col-xs-12">
+                                                    <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">基本工资：</label>
+                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
+                                                        <input type="text" id="wages" placeholder="请输入基本工资" value="${userpo.wages/100}" class="form-control" >
+                                                    </div>
+                                                </div>
                                                 <div id="role_ids" class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">角色：</label>
                                                     <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
@@ -208,7 +213,11 @@
         var realName = $("#realName").val();
         var department = $("#department").val();
         var id = $("#id").val();
-        baseCallBackAJAX("post","${base}/sys/user/saveuser",{'department':department,'userName':userName,'password':password,'tel':tel,'realName':realName,'id':id,'roles':roleIds},"json","saveCallback(data)");
+        var wages = $("#wages").val();
+        if(wages) {
+            wages = parseInt(eval(wages).toFixed(2) * 100);
+        }
+        baseCallBackAJAX("post","${base}/sys/user/saveuser",{'wages':wages,'department':department,'userName':userName,'password':password,'tel':tel,'realName':realName,'id':id,'roles':roleIds},"json","saveCallback(data)");
     });
     function saveCallback(data){
         if(data.status=="0"){

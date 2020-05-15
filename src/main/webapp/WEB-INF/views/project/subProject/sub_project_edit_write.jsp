@@ -155,14 +155,16 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
-                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">制图单位：</label>
+                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">制图单位<span
+                                                            class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
                                                         <input type="hidden" name="department" id="department" value="${po.department}">
                                                         <select class="form-control departmentSelect"> <option value="">--请选择--</option> </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
-                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">设计师：</label>
+                                                    <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">设计师<span
+                                                            class="required" style="color: red"> * </span>：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
                                                         <input type="hidden" name="userId" id="userId" value="${po.userId}">
                                                         <input type="hidden" name="designer" id="designer" value="${po.designer}">
@@ -212,7 +214,7 @@
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-4 col-md-4 col-xs-4 pull-left" style="line-height: 40px">基本工资：</label>
                                                     <div class="form-group col-sm-6 col-md-6 col-xs-6 pull-left">
-                                                        <input type="text" id="wages" value="${po.wages/100}" class="form-control required" >
+                                                        <input type="text" id="wages" readonly="readonly" value="${po.wages/100}" class="form-control required" >
                                                     </div>
                                                 </div>
                                                 <div class="panel-body">
@@ -323,29 +325,32 @@
         baseCallBackAJAX("post","${base}/sys/user/getUserByDepartment",{'department':id},"json","initUserOptionCallback(data)");
     }
     function initUserOptionCallback(data){
-        var optionStr = "";
+        var optionStr = "<option value = ''>" + "--请选择--" + "</option>";
         var datas = data;
         var department = $("#userId").val();
         for(var i = 0;i < datas.length ; i++){
             if(department == datas[i].id){
-                optionStr += "<option value = "+datas[i].id+"---"+datas[i].realName+" selected = 'selected'>"+datas[i].realName+"</option>";
+                optionStr += "<option value = "+datas[i].id+"---"+datas[i].realName+"---"+datas[i].wages+" selected = 'selected'>"+datas[i].realName+"</option>";
             } else {
-                optionStr += "<option value = "+datas[i].id+"---"+datas[i].realName+">"+datas[i].realName+"</option>";
+                optionStr += "<option value = "+datas[i].id+"---"+datas[i].realName+"---"+datas[i].wages+">"+datas[i].realName+"</option>";
             }
         }
-        $(".designerSelect").append(optionStr);
+        $(".designerSelect").html(optionStr);
     }
 
     $(".designerSelect").change(function(){
         var designer = $(".designerSelect").val();
         var id = "";
         var name = "";
-        if(designer != '' && designer.split("---").length > 1){
+        var wages = "";
+        if(designer != '' && designer.split("---").length > 2){
             id = designer.split("---")[0];
             name = designer.split("---")[1];
+            wages = designer.split("---")[2];
         }
         $("#designer").val(name);
         $("#userId").val(id);
+        $("#wages").val(wages);
         //获取他的提成
         var projectTypeCode = $("#projectTypeCode").val();
         var constructionArea = $("#constructionArea").val();
@@ -371,6 +376,34 @@
         // 非空校验
         if($("#form").valid() == false){
             alert("操作失败,请检查各个输入项是否正确!");
+            return false;
+        }
+        if($("#department").val().trim() == ''){
+            swal({
+                title: "操作失败",
+                text:"请选择部门",
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm : true, //关闭按钮
+                closeOnCancel : true
+            });
+            return false;
+        }
+        if($("#userId").val().trim() == ''){
+            swal({
+                title: "操作失败",
+                text:"请选择设计师",
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm : true, //关闭按钮
+                closeOnCancel : true
+            });
             return false;
         }
         var par = $("#form").serialize();

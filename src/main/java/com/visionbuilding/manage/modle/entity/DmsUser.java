@@ -16,4 +16,5 @@ public class DmsUser extends BaseEntity{
     private Integer loginCount;
     private String roleType;
     private Long department;
+    private Long wages;
 }

@@ -11,6 +11,7 @@
     <%@ include file="../../common/common_tag.jsp" %>
 
     <script src="${domain}/blue/assets/js/modernizr.min.js"></script>
+    <link href="${cssjs}/blue/select2/css/select2.css" rel="stylesheet" />
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -74,10 +75,10 @@
                                                 <div class="form-group col-sm-12 col-md-12 col-xs-12">
                                                     <label class="form-group col-sm-2 col-md-2 col-xs-2 pull-left" style="line-height: 40px">客户来源<span
                                                             class="required" style="color: red"> * </span>：</label>
-                                                    <div class="form-group col-sm-8 col-md-8 col-xs-8 pull-left">
+                                                    <div class="form-group col-sm-3 col-md-3 col-xs-3 pull-left" style="text-align: center!important;">
 
-                                                        <select id="customerCode" name="customerCode"
-                                                                class="form-control">
+                                                        <select id="customerCode" name="customerCode"   style="display: inline;"
+                                                                class="form-control valid required js-example-tags">
                                                             <option value="">--请选择--</option>
                                                         </select>
 
@@ -245,12 +246,20 @@
 </script>
 <%@ include file="../../common/common_js.jsp"%>
 <%@ include file="../../common/formajax_js.jsp"%>
+<script src="${cssjs}/blue/select2/js/select2.min.js"></script>
+<script src="${cssjs}/blue/select2/js/i18n/zh-CN.js"></script>
+<script src="${cssjs}/blue/layui/layui.all.js"></script>
 <!-- jQuery  -->
 <script type="text/javascript">
     $(function () {
+        $(".js-example-tags").select2({
+            tags: true,
+            language: 'zh-CN',
+            placeholder: '--请选择--',
+        });
         baseCallBackAJAX("post","${base}/data/business/getAll",null,"json","initBusiness(data)");
-
     })
+
 
 
     $("#save").click(function(){

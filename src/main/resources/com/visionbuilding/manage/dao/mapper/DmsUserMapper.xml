@@ -11,6 +11,7 @@
         <result column="department" property="department"></result>
         <result column="real_name" property="realName"></result>
         <result column="status" property="status"></result>
+        <result column="wages" property="wages"></result>
         <result column="login_time" property="loginTime"></result>
         <result column="login_count" property="loginCount"></result>
         <result column="role_Type" property="roleType"></result>
@@ -27,6 +28,7 @@
 		password,
 		real_name,
 		status,
+		wages,
 		login_time,
 		login_count,
 		role_type,
@@ -43,6 +45,7 @@
 		password,
 		real_name,
 		status,
+		wages,
 		login_time,
 		login_count,
 		role_type,
@@ -72,6 +75,9 @@
         </if>
         <if test="f.status != null">
             AND status = #{f.status}
+        </if>
+        <if test="f.wages != null">
+            AND wages = #{f.wages}
         </if>
         <if test="f.loginTime != null">
             AND login_time = #{f.loginTime}
@@ -112,6 +118,9 @@
         </if>
         <if test="status != null">
             , status = #{status}
+        </if>
+        <if test="wages != null">
+            , wages = #{wages}
         </if>
         <if test="loginTime != null">
             , login_time = #{loginTime}
@@ -203,6 +212,7 @@
         #{password},
         #{realName},
         #{status},
+        #{wages},
         #{loginTime},
         #{loginCount},
         #{roleType},
@@ -220,7 +230,9 @@
         select
         <include refid="select-all-column" />
         from dms_user where 1=1
-        AND department = #{department}
+        <if test="department != null">
+            AND department = #{department}
+        </if>
         order by add_time desc
     </select>
 

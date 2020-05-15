@@ -150,7 +150,7 @@ public class DmsUserController extends BaseController {
     public String getUserByDepartment(Long department){
         List<DmsUser> users = new ArrayList<>();
         try{
-            users = dmsUserService.getUserByDepartment(department);
+            users = dmsUserService.getUserByDepartment(null);
         }catch (Exception e){
             e.printStackTrace();
         }
