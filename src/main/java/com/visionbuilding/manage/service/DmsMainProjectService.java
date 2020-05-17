@@ -3,6 +3,7 @@ package com.visionbuilding.manage.service;
 import com.visionbuilding.manage.modle.ResultPOListBean;
 import com.visionbuilding.manage.modle.entity.DmsChildProject;
 import com.visionbuilding.manage.modle.entity.DmsMainProject;
+import com.visionbuilding.manage.modle.query.DepartmentEchartQuery;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -59,4 +60,13 @@ public interface DmsMainProjectService {
      * @return
      */
     Long sumAreaByUserTime(Long uid, Date startTime, Date endTime,String projectCode);
+
+    /**
+     * 获取今天要审核子项目列表
+     * @param dmsChildProject
+     * @return
+     */
+    ResultPOListBean<DmsChildProject> gettodaySubDates(DepartmentEchartQuery dmsChildProject);
+
+    Integer counttodaySubDates();
 }

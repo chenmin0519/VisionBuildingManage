@@ -15,4 +15,7 @@ public class EchartPo {
     private Long leftInterval;
     private Long rightInterval;
     private List<EchartImageDataPo> series;
+    private Long allSale;
+    private Long allCost;
+    private Long allPrifx;
 }

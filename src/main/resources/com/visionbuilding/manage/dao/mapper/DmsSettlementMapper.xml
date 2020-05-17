@@ -35,6 +35,139 @@
       GROUP BY DATE_FORMAT(event_date,'%Y-%M')
       ORDER BY event_date ASC
     </select>
+    <select id="getdepartmentEchartInfo" resultType="com.visionbuilding.manage.modle.po.StaticsBusinessPo">
+      SELECT
+          a.department as department,
+          sum(total_cost) as totalCost,
+          c.department as departmentName,
+          b.all_cost as allCost
+      FROM
+          dms_child_project a left join dms_main_project b on a.parent_id = b.id
+      left join dms_department c on c.id = a.department
+      where a.confirm_status = 2
+      <if test="startTime != null">
+        AND a.initial_delivery_date &gt; #{startTime}
+      </if>
+      <if test="endTime != null">
+        AND a.initial_delivery_date &lt;= #{endTime}
+      </if>
+      GROUP BY a.department
+    </select>
+  <select id="getdepartmentEchartInfoPageCount" resultType="java.lang.Integer">
+    select count(1) from (
+      SELECT
+      a.department as department,
+      sum(total_cost) as totalCost,
+      c.department as departmentName,
+      b.all_cost as allCost
+      FROM
+      dms_child_project a left join dms_main_project b on a.parent_id = b.id
+      left join dms_department c on c.id = a.department
+      where a.confirm_status = 2
+      <if test="f.startTime != null">
+        AND a.initial_delivery_date &gt; #{f.startTime}
+      </if>
+      <if test="f.endTime != null">
+        AND a.initial_delivery_date &lt;= #{f.endTime}
+      </if>
+      GROUP BY a.department
+    ) as g
+  </select>
+  <select id="getdepartmentEchartInfoPage" resultType="com.visionbuilding.manage.modle.po.StaticsBusinessPo">
+    SELECT
+      a.department as department,
+      sum(total_cost) as totalCost,
+      c.department as departmentName,
+      b.all_cost as allCost
+    FROM
+      dms_child_project a left join dms_main_project b on a.parent_id = b.id
+      left join dms_department c on c.id = a.department
+    where a.confirm_status = 2
+    <if test="f.startTime != null">
+      AND a.initial_delivery_date &gt; #{f.startTime}
+    </if>
+    <if test="f.endTime != null">
+      AND a.initial_delivery_date &lt;= #{f.endTime}
+    </if>
+    GROUP BY a.department
+    limit #{startPage},${pageRows}
+  </select>
+    <select id="getUserEchartInfo" resultType="com.visionbuilding.manage.modle.po.StaticsUserPo">
+      SELECT
+      a.user_id AS userId,
+      a.designer AS designer,
+      sum(a.total_cost) AS totalCost,
+      sum(a.bonus) AS bonus,
+      sum(a.fine) AS fine,
+      sum(a.wages) AS wages,
+      sum(a.designer_commission) AS designerCommission,
+      sum(a.bonus) - sum(a.fine) + sum(a.wages) + sum(a.designer_commission) as payWages,
+      sum(a.total_cost) - sum(a.bonus) + sum(a.fine) - sum(a.wages) - sum(a.designer_commission) AS profit
+      FROM
+      dms_child_project a
+      WHERE
+      a.confirm_status = 2
+      <if test="startTime != null">
+        AND a.initial_delivery_date &gt; #{startTime}
+      </if>
+      <if test="endTime != null">
+        AND a.initial_delivery_date &lt;= #{endTime}
+      </if>
+      <if test="department != null">
+        AND a.department &lt;= #{department}
+      </if>
+      GROUP BY
+      a.user_id
+    </select>
+  <select id="getUserEchartInfoPageCount" resultType="java.lang.Integer">
+    select count(1) from (
+    SELECT
+    a.user_id AS userId
+    FROM
+    dms_child_project a
+    WHERE
+    a.confirm_status = 2
+    <if test="f.startTime != null">
+      AND a.initial_delivery_date &gt; #{f.startTime}
+    </if>
+    <if test="f.endTime != null">
+      AND a.initial_delivery_date &lt;= #{f.endTime}
+    </if>
+    <if test="f.department != null">
+      AND a.department &lt;= #{f.department}
+    </if>
+    GROUP BY
+    a.user_id
+    ) as c
+  </select>
+  <select id="getUserEchartInfoPage" resultType="com.visionbuilding.manage.modle.po.StaticsUserPo">
+    SELECT
+      a.user_id AS userId,
+      a.designer AS designer,
+      sum(a.total_cost) AS totalCost,
+      sum(a.bonus) AS bonus,
+      sum(a.fine) AS fine,
+      sum(a.wages) AS wages,
+      sum(a.designer_commission) AS designerCommission,
+      sum(a.bonus) - sum(a.fine) + sum(a.wages) + sum(a.designer_commission) as payWages,
+      sum(a.total_cost) - sum(a.bonus) + sum(a.fine) - sum(a.wages) - sum(a.designer_commission) AS profit
+    FROM
+        dms_child_project a
+    WHERE
+      a.confirm_status = 2
+      <if test="f.startTime != null">
+        AND a.initial_delivery_date &gt; #{f.startTime}
+      </if>
+      <if test="f.endTime != null">
+        AND a.initial_delivery_date &lt;= #{f.endTime}
+      </if>
+      <if test="f.department != null">
+        AND a.department &lt;= #{f.department}
+      </if>
+    GROUP BY
+    a.user_id
+    limit #{startPage},${pageRows}
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from dms_settlement

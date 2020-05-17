@@ -350,7 +350,7 @@
         }
         $("#designer").val(name);
         $("#userId").val(id);
-        $("#wages").val(wages);
+        $("#wages").val(parseInt(eval(wages/100).toFixed(2) ));
         //获取他的提成
         var projectTypeCode = $("#projectTypeCode").val();
         var constructionArea = $("#constructionArea").val();

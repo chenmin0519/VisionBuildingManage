@@ -386,4 +386,70 @@
       select count(1) from dms_main_project where
       substring_index(project_creation_time, '-', 1) = #{pinyin}
     </select>
+    <select id="selectOnYearData" resultType="com.visionbuilding.manage.modle.po.StaticsMouthsPo">
+     SELECT
+        sum(A.design_sales_cost) AS saleAmount,
+        sum(A.all_cost) AS costAmount,
+        0 AS commissionAmount,
+        sum(B.amount_receivable) AS amountReceivable,
+        sum(B.amount_returned) AS amountReturned,
+        DATE_FORMAT(A.add_time, '%Y-%m') eventDate
+    FROM
+        dms_main_project A
+    LEFT JOIN dms_amount_log B ON A.id = B.project_id
+    AND DATE_FORMAT(A.add_time, '%Y-%m') = DATE_FORMAT(B.event_date, '%Y-%m')
+     WHERE 1=1
+          AND add_time &gt; #{startTime}
+          AND add_time &lt;= #{endTime}
+          GROUP BY DATE_FORMAT(add_time,'%Y-%m')
+          ORDER BY add_time ASC
+    </select>
+  <select id="getBusinessEchartInfo" resultType="com.visionbuilding.manage.modle.po.StaticsMouthsPo">
+    SELECT
+        sum(A.design_sales_cost) AS saleAmount,
+        sum(A.all_cost) AS costAmount,
+        0 AS commissionAmount,
+				sum(amount_returned) as amountReturned,
+				sum(amount_receivable) as amountReceivable,
+				A.customer_source as eventDate
+    FROM
+        dms_main_project A
+     WHERE 1=1
+        <if test="code != null and code != ''">
+            and A.project_creation_time like concat(#{code},"%")
+        </if>
+          GROUP BY A.customer_source
+          ORDER BY A.add_time ASC
+  </select>
+
+  <select id="getBusinessEchartInfoPageCount" resultType="java.lang.Integer">
+      select count(1) from  (SELECT
+    count(1)
+    FROM
+    dms_main_project A
+    WHERE 1=1
+    <if test="f.projectCreationTime != null and f.projectCreationTime != ''">
+      and A.project_creation_time like concat(#{f.projectCreationTime},"%")
+    </if>
+    GROUP BY A.customer_source
+    ORDER BY A.add_time ASC) as b
+  </select>
+  <select id="getBusinessEchartInfoPage" resultType="com.visionbuilding.manage.modle.po.StaticsMouthsPo">
+    SELECT
+      sum(A.design_sales_cost) AS saleAmount,
+      sum(A.all_cost) AS costAmount,
+      0 AS commissionAmount,
+      sum(amount_returned) as amountReturned,
+      sum(amount_receivable) as amountReceivable,
+      A.customer_source as eventDate
+    FROM
+     dms_main_project A
+    WHERE 1=1
+    <if test="f.projectCreationTime != null and f.projectCreationTime != ''">
+      and A.project_creation_time like concat(#{f.projectCreationTime},"%")
+    </if>
+    GROUP BY A.customer_source
+    ORDER BY A.add_time ASC
+        limit #{startPage},${pageRows}
+  </select>
 </mapper>

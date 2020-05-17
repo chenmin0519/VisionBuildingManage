@@ -9,10 +9,12 @@ import com.visionbuilding.manage.modle.entity.DmsAmountLog;
 import com.visionbuilding.manage.modle.entity.DmsChildProject;
 import com.visionbuilding.manage.modle.entity.DmsMainProject;
 import com.visionbuilding.manage.modle.entity.DmsSettlement;
+import com.visionbuilding.manage.modle.query.DepartmentEchartQuery;
 import com.visionbuilding.manage.modle.query.QueryBean;
 import com.visionbuilding.manage.service.DmsMainProjectService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -21,10 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class DmsMainProjectServiceImpl implements DmsMainProjectService {
@@ -329,4 +328,65 @@ public class DmsMainProjectServiceImpl implements DmsMainProjectService {
         return dmsChildProjectMapper.sumAreaByUserTime(uid,projectCode,startTime,endTime);
     }
 
+    @Override
+    public ResultPOListBean<DmsChildProject> gettodaySubDates(DepartmentEchartQuery dmsChildProject) {
+        dmsChildProject.setStartTime(getStartTime());
+        dmsChildProject.setEndTime(getEndTime());
+        ResultPOListBean<DmsChildProject> result = new ResultPOListBean<>();
+        //分页参数
+        QueryBean queryBean = new QueryBean();
+        queryBean.setPageNo(dmsChildProject.getPageNo());
+        queryBean.setPageRows(dmsChildProject.getPageRows());
+        queryBean.setF(dmsChildProject.getPagingMap());
+        int count = 0;
+        count = dmsChildProjectMapper.gettodaySubDatesCount(queryBean);
+        queryBean.resetTotalCount(count);
+        List<DmsChildProject> dmsChildProjects = new ArrayList<>();
+        if(count > 0){
+            dmsChildProjects = dmsChildProjectMapper.qgettodaySubDatesPage(queryBean);
+        }
+        result.success(dmsChildProjects,count);
+        //分页信息
+        BeanUtils.copyProperties(queryBean, result);
+        return result;
+    }
+
+    @Override
+    public Integer counttodaySubDates() {
+        DepartmentEchartQuery dmsChildProject = new DepartmentEchartQuery();
+        dmsChildProject.setStartTime(getStartTime());
+        dmsChildProject.setEndTime(getEndTime());
+        ResultPOListBean<DmsChildProject> result = new ResultPOListBean<>();
+        //分页参数
+        QueryBean queryBean = new QueryBean();
+        queryBean.setPageNo(dmsChildProject.getPageNo());
+        queryBean.setPageRows(dmsChildProject.getPageRows());
+        queryBean.setF(dmsChildProject.getPagingMap());
+        int count = 0;
+        count = dmsChildProjectMapper.gettodaySubDatesCount(queryBean);
+        return count;
+    }
+
+    /**
+    2      * 获取今天开始时间
+    3      */
+    private Date getStartTime() {
+        Calendar cal = new GregorianCalendar();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
+
+    /**
+    * 获取今天结束时间
+    */
+    private Date getEndTime() {
+        Calendar cal = new GregorianCalendar();
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        return cal.getTime();
+    }
 }

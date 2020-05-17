@@ -175,6 +175,11 @@
             var result = "******";
             return result;
         }
+    },{targets:[5],
+        mRender:function(data) {
+            var result = data/100;
+            return result;
+        }
     }];
     function initTbale(){
         //参数  $("form").serialize() 获取form表单的输入参数并且序列化成json    datatable 需要渲染的table id  ${base}/admin/producelistinfo.html 其请求数据的路径

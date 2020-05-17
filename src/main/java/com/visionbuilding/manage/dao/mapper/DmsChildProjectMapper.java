@@ -33,4 +33,8 @@ public interface DmsChildProjectMapper {
 
     Long sumAreaByUserTime(@Param(value="uid")Long uid, @Param(value="projectCode")String projectCode,
                            @Param(value="startTime")Date startTime, @Param(value="endTime")Date endTime);
+
+    int gettodaySubDatesCount(QueryBean queryBean);
+
+    List<DmsChildProject> qgettodaySubDatesPage(QueryBean queryBean);
 }

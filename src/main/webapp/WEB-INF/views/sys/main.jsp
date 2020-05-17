@@ -37,8 +37,23 @@
             <!-- Start content -->
             <div class="content">
                 <div class="container">
-                    <div id="echarts_imge" style="height:600px; margin: 0"></div>
+                    <div class="row">
+                        <div class="pull-left col-md-6 col-sm-6 col-lg-3" style="margin-left: 80px">
+                            <div class="mini-stat clearfix bx-shadow bg-info">
+                                <span class="mini-stat-icon"><i class="ion-eye" id="chakan"></i></span>
+<%--                                <div class="mini-stat-info text-right">--%>
+<%--                                    <div style="background-color: #29b6f6 !important" class="">点击查看</div>--%>
+<%--                                </div>--%>
+                                <div class="tiles-progress">
+                                    <div class="m-t-20">
+                                        <h5 class="text-uppercase text-white m-0">今日待审核<span class="pull-right" id = "countVal">0</span></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-left col-md-12 col-sm-12 col-lg-12" id="echarts_imge" style="height:600px; margin: 0"></div>
 <%--                    <div style="text-align: center; vertical-align:middle; margin-top: 120px;height: 380px;font-size: 38px; font-family: 'Arial Negreta', 'Arial Normal', 'Arial'; font-weight: 700; font-style: normal;">欢迎使用愿景建筑OA系统</div>--%>
+                    </div>
                 </div>
             </div>
         </div>
@@ -64,10 +79,17 @@
         <%@ include file="../common/formajax_js.jsp"%>
         <script type="text/javascript">
 
-            $(document).ready(function(){
-                baseCallBackAJAX("post","${base}/data/settlement/getEchartInfo",null,"json","getData(data)");
+            $("#chakan").click(function(){
+                window.location.href="${base}/project/main-project/audit_project_list.html?chirld=${chirld}&parent=${parent}";
             });
 
+            $(document).ready(function(){
+                baseCallBackAJAX("post","${base}/data/settlement/getEchartInfo",null,"json","getData(data)");
+                baseCallBackAJAX("post","${base}/project/main-project/counttodaySubDates",null,"json","countCallBack(data)");
+            });
+            function countCallBack(data){
+                $("#countVal").text(data.value);
+            }
             function getData(res){
                 var app = {};
                 var option = {

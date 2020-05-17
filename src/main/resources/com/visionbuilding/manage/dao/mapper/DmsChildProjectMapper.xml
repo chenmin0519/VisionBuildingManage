@@ -475,4 +475,38 @@
           and initial_delivery_date &gt;= #{startTime} and initial_delivery_date &lt;= #{endTime}
         </if>
     </select>
+
+    <select id="gettodaySubDatesCount" resultType="java.lang.Integer">
+      select count(1)
+      from dms_child_project dcp, dms_main_project dmp
+      where dcp.parent_id = dmp.id
+      and confirm_status in ('1','3')
+      <if test="f.startTime != null">
+        AND dcp.acquisition_date &gt; #{f.startTime}
+      </if>
+      <if test="f.endTime != null">
+        AND dcp.acquisition_date &lt;= #{f.endTime}
+      </if>
+      order by dcp.id desc
+    </select>
+    <select id="qgettodaySubDatesPage" resultType="com.visionbuilding.manage.modle.entity.DmsChildProject">
+      select dcp.id, dcp.parent_id as parentId, dcp.project_type_code as projectTypeCode, dcp.project_type_name as projectTypeName,
+      dcp.total_sales_price as totalSalesPrice, dcp.acquisition_date as acquisitionDate, dcp.remarks, dcp.confirm_status as confirmStatus,
+      dmp.sales_area as salesArea, dmp.project_creation_time as projectCreationTime, dmp.customer_source as customerSource,
+      dcp.construction_area as constructionArea,dcp.cost_price as costPrice,dcp.total_cost as totalCost,
+      dcp.designer_commission as designerCommission,dcp.designer_commission_price as designerCommissionPrice,
+      dcp.remarks as remarks,dcp.unit_price as unitPrice, dcp.designer as designer, dcp.user_id as userId,dcp.wages as wages
+      ,dcp.fine as fine,dcp.bonus as bonus
+      from dms_child_project dcp, dms_main_project dmp
+      where dcp.parent_id = dmp.id
+      and confirm_status in ('1','3')
+      <if test="f.startTime != null">
+        AND dcp.acquisition_date &gt; #{f.startTime}
+      </if>
+      <if test="f.endTime != null">
+        AND dcp.acquisition_date &lt;= #{f.endTime}
+      </if>
+      order by dcp.id desc
+      limit #{startPage},${pageRows}
+    </select>
 </mapper>

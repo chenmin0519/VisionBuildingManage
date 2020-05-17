@@ -1,6 +1,8 @@
 package com.visionbuilding.manage.dao.mapper;
 
 import com.visionbuilding.manage.modle.entity.DmsMainProject;
+import com.visionbuilding.manage.modle.po.StaticsBusinessPo;
+import com.visionbuilding.manage.modle.po.StaticsMouthsPo;
 import com.visionbuilding.manage.modle.query.QueryBean;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,4 +30,12 @@ public interface DmsMainProjectMapper {
     int updateMoneyById(DmsMainProject dmsMainProject);
 
     int countByBussiness(@Param("pinyin") String pinyin);
+
+    List<StaticsMouthsPo> selectOnYearData(@Param("startTime") String startTime, @Param("endTime") String endTime);
+
+    List<StaticsMouthsPo> getBusinessEchartInfo(@Param("code") String code);
+
+    int getBusinessEchartInfoPageCount(QueryBean queryBean);
+
+    List<StaticsMouthsPo> getBusinessEchartInfoPage(QueryBean queryBean);
 }

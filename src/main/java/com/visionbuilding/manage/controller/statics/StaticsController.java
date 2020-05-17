@@ -97,4 +97,17 @@ public class StaticsController extends BaseController {
             e.printStackTrace();
         }
     }
+
+    @RequestMapping("/department.html")
+    public String department(HttpServletRequest request, Long parentId){
+        return "statics/department";
+    }
+    @RequestMapping("/business.html")
+    public String business(HttpServletRequest request, Long parentId){
+        return "statics/business";
+    }
+    @RequestMapping("/user.html")
+    public String user(HttpServletRequest request, Long parentId){
+        return "statics/user";
+    }
 }

@@ -272,12 +272,19 @@
 
         // 把单价和面积都*100,总价除以100
         var salesArea = $("#salesArea").val();
+
+
+        var unitPrice = $("#unitPrice").val();
+        // 销售费用
+        var designSalesCost = salesArea*unitPrice
+        if(designSalesCost){
+            designSalesCost = parseInt(eval(designSalesCost).toFixed(2) * 100);
+            par += "&designSalesCost="+designSalesCost;
+        }
         if(salesArea){
             salesArea = parseInt(eval(salesArea).toFixed(2) * 100);
             par += "&salesArea="+salesArea;
         }
-
-        var unitPrice = $("#unitPrice").val();
         if(unitPrice) {
             unitPrice = parseInt(eval(unitPrice).toFixed(2) * 100);
             par += "&unitPrice="+unitPrice;

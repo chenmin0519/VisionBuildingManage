@@ -4,12 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.visionbuilding.manage.controller.BaseController;
 import com.visionbuilding.manage.dao.mapper.DmsAmountLogMapper;
 import com.visionbuilding.manage.modle.ResultBean;
+import com.visionbuilding.manage.modle.ResultPOBean;
 import com.visionbuilding.manage.modle.ResultPOListBean;
 import com.visionbuilding.manage.modle.entity.DmsAmountLog;
 import com.visionbuilding.manage.modle.entity.DmsChildProject;
 import com.visionbuilding.manage.modle.entity.DmsDepartment;
 import com.visionbuilding.manage.modle.entity.DmsMainProject;
 import com.visionbuilding.manage.modle.po.DmsMainProjectPo;
+import com.visionbuilding.manage.modle.query.DepartmentEchartQuery;
 import com.visionbuilding.manage.service.DmsMainProjectService;
 import com.visionbuilding.manage.utill.FormDataUtils;
 import org.springframework.beans.BeanUtils;
@@ -213,7 +215,43 @@ public class DmsProjectController extends BaseController {
         Map<String, Object> map = FormDataUtils.getFormDataMap(resultPOListBean.getValue(), resultPOListBean.getTotalCount());
         return JSON.toJSONString(map);
     }
+    @RequestMapping("/audit_project_list.html")
+    public String homeAudit(HttpServletRequest request,Long id){
+        return "sys/audit_project_list";
+    }
+    /**
+     * 获取今天要审核子项目个数
+     * @param dmsChildProject
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping("/counttodaySubDates")
+    public String counttodaySubDates(HttpServletRequest request)throws Exception{
+        ResultPOBean<Integer> resultPOBean = new ResultPOBean<>();
+        resultPOBean.success(dmsMainProjectService.counttodaySubDates());
+        return JSON.toJSONString(resultPOBean);
+    }
 
+    /**
+     * 获取今天要审核子项目列表
+     * @param dmsChildProject
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping("/gettodaySubDates")
+    public String gettodaySubDates(DepartmentEchartQuery dmsChildProject, HttpServletRequest request)throws Exception{
+        ResultPOListBean<DmsChildProject> resultPOListBean = new ResultPOListBean<>();
+        //获取分页参数
+        FormDataUtils.setQueryParamter(dmsChildProject, request);
+        resultPOListBean = dmsMainProjectService.gettodaySubDates(dmsChildProject);
+        //格式话参数
+        Map<String, Object> map = FormDataUtils.getFormDataMap(resultPOListBean.getValue(), resultPOListBean.getTotalCount());
+        return JSON.toJSONString(map);
+    }
 
     @RequestMapping("/subProject.html")
     public String goSubProject(){
